@@ -1,0 +1,172 @@
+/* CAREER — Forest tone (MOTION.md §1): grainy green watercolour, warm and human. Recruiting only. */
+
+.page-career {
+  /* sampled from the two career banners */
+  --c-mist: #CFD3CA;
+  --c-sage: #A0AC95;
+  --c-olive: #919C79;
+  --c-moss: #546C52;
+  --c-deep: #223C36;
+  --c-pine: #476955;
+  background: var(--forest);
+  color: rgba(255, 255, 255, 0.82);
+}
+.page-career .site-header.is-scrolled { background: rgba(34, 60, 54, 0.86); }
+.page-career .site-header.is-scrolled .main-nav a { color: var(--white); }
+.page-career .site-header.is-scrolled .main-nav a::after { background: var(--white); }
+.page-career .site-header.is-scrolled .brand img { filter: brightness(0) invert(1); }
+.page-career .label { color: var(--c-sage); }
+.page-career :focus-visible { outline-color: var(--white); }
+
+/* ---------- the two banners: a watercolour wash ---------- */
+.cr-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  isolation: isolate;
+}
+.wash {
+  position: absolute; inset: -6% -10%;
+  /* stops placed where they were sampled on the career banner, top to bottom */
+  background: linear-gradient(180deg, var(--c-mist) 6%, var(--c-sage) 18%, var(--c-olive) 31%, var(--c-moss) 44%, #2F493E 57%, var(--c-deep) 70%, #2D483F 84%, var(--c-pine) 100%);
+  z-index: -2;
+}
+.cr-hero.is-flip .wash { transform: scaleY(-1); }   /* the internship banner is the same wash, upside down */
+.wash i { position: absolute; border-radius: 50%; filter: blur(60px); will-change: transform; }
+.wash .b1 { left: -10%; top: 20%; width: 70%; height: 22%; background: rgba(145, 156, 121, 0.5); }
+.wash .b2 { right: -15%; top: 2%; width: 70%; height: 22%; background: rgba(214, 219, 212, 0.75); }
+.wash .b3 { left: 25%; top: 58%; width: 70%; height: 24%; background: rgba(34, 60, 54, 0.45); }
+.wash .b4 { right: -5%; bottom: 0; width: 45%; height: 30%; background: rgba(71, 105, 85, 0.55); }
+/* paper grain and a mottled watercolour bloom, both still: texture, not motion */
+.grain {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.2 0 0 0 0 0.15 0 0 0 0.42 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.03' numOctaves='5' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.22 0 0 0 0 0.18 0 0 0 1.1 -0.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  background-size: 260px 260px, 900px 900px;
+  mix-blend-mode: multiply;
+  opacity: 0.32;
+}
+.cr-hero-copy { position: relative; display: grid; justify-items: center; gap: clamp(28px, 4vh, 48px); padding: 0 var(--gutter); }
+.cr-title {
+  margin: 0;
+  font: 600 clamp(44px, 5.6vw, 104px) / 1.05 "Jost", "Noto Sans TC", sans-serif;   /* MOTION.md §2: Career headline */
+  letter-spacing: 0.01em;
+  color: var(--white);
+  text-shadow: 0 2px 30px rgba(34, 60, 54, 0.35);
+}
+html[lang="zh-Hant"] .cr-title { font-family: "Noto Sans TC", sans-serif; font-weight: 700; letter-spacing: 0.08em; }
+.cr-title .line { display: block; overflow: hidden; padding-bottom: 0.1em; }
+.cr-title .line-inner { display: block; }
+.cr-wordmark { position: static; translate: none; color: var(--white); font-size: clamp(22px, 2.2vw, 40px); font-weight: 400; }
+.cr-sub { max-width: 34ch; color: rgba(255, 255, 255, 0.88); font-size: var(--fs-body); }
+
+/* ---------- details ---------- */
+.cr-body {
+  position: relative;
+  padding: clamp(96px, 11vw, 170px) var(--gutter);
+  background: var(--forest);
+  display: grid;
+  gap: clamp(72px, 8vw, 128px);
+}
+.cr-lead { display: grid; gap: 22px; max-width: 1100px; }
+.cr-statement { font: 600 clamp(26px, 2.8vw, 46px) / 1.3 "Jost", "Noto Sans TC", sans-serif; color: var(--white); }
+html[lang="zh-Hant"] .cr-statement { font-family: "Noto Sans TC", sans-serif; font-weight: 500; line-height: 1.6; letter-spacing: 0.03em; }
+.cr-block { display: grid; gap: 28px; border-top: 1px solid rgba(207, 211, 202, 0.22); padding-top: 32px; }
+.cr-two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 96px); }
+.cr-two > div { display: grid; gap: 24px; align-content: start; }
+
+.places { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.place {
+  position: relative; overflow: hidden;
+  display: grid; gap: 10px; align-content: start;
+  padding: clamp(24px, 3vw, 40px);
+  min-height: 240px;
+  background: rgba(34, 60, 54, 0.55);
+  border: 1px solid rgba(207, 211, 202, 0.18);
+  transition: background-color 0.6s var(--ease-out);
+}
+.place::after {
+  /* a soft wash that rises on hover */
+  content: ""; position: absolute; inset: auto -20% -60% -20%; height: 100%;
+  background: radial-gradient(closest-side, rgba(160, 172, 149, 0.35), transparent);
+  transform: translateY(30%); transition: transform 1s var(--ease-out);
+  pointer-events: none;
+}
+.place:hover::after { transform: translateY(-10%); }
+.place h3 { font: 600 clamp(26px, 2.4vw, 40px) / 1.1 "Jost", "Noto Sans TC", sans-serif; color: var(--white); }
+.place-tag { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-sage); }
+
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips li {
+  padding: 12px 16px; border: 1px solid rgba(207, 211, 202, 0.4); border-radius: 999px;
+  font: 500 15px / 1.2 var(--font-brand); color: var(--white);
+  transition: background-color 0.4s var(--ease-out), color 0.4s;
+}
+.chips li:hover { background: var(--c-mist); color: var(--c-deep); }
+.ticks, .perks { list-style: none; margin: 0; padding: 0; display: grid; }
+.ticks li, .perks li { position: relative; padding: 14px 0 14px 30px; border-bottom: 1px solid rgba(207, 211, 202, 0.16); }
+.ticks li::before, .perks li::before { content: ""; position: absolute; left: 0; top: 1.25em; width: 14px; height: 1px; background: var(--c-sage); }
+.perks { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 5vw, 96px); }
+
+.facts { margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.facts > div { display: grid; gap: 10px; padding: 24px; background: rgba(34, 60, 54, 0.55); border: 1px solid rgba(207, 211, 202, 0.18); }
+.facts dt { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-sage); }
+.facts dd { margin: 0; font: 600 clamp(20px, 1.6vw, 26px) / 1.3 "Jost", "Noto Sans TC", sans-serif; color: var(--white); }
+
+/* application steps joined by a line that draws with scroll; no step numbers (MOTION.md §8) */
+.process { position: relative; }
+.process-line { position: absolute; left: 0; right: 0; top: 8px; height: 1px; background: rgba(207, 211, 202, 0.2); }
+.process-line i { position: absolute; inset: 0; background: var(--c-mist); transform-origin: left; }
+.ap-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 48px); }
+.ap-step { position: relative; padding-top: 44px; display: grid; gap: 10px; }
+.ap-step::before { content: ""; position: absolute; left: 0; top: 0; width: 17px; height: 17px; border-radius: 50%; background: var(--forest); border: 1px solid var(--c-mist); transition: background-color 0.5s; }
+.ap-step.is-on::before { background: var(--c-mist); }
+.ap-step h4 { margin: 0; font: 600 clamp(22px, 1.9vw, 30px) / 1.2 "Jost", "Noto Sans TC", sans-serif; color: var(--white); }
+.ap-step p { max-width: 34ch; }
+.cr-note { font: 500 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-sage); }
+
+.cr-cta { display: grid; gap: 14px; justify-items: start; }
+.cr-mail {
+  font: 600 clamp(32px, 5vw, 88px) / 1 "Jost", sans-serif; color: var(--white); text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+  transition: background-size 0.8s var(--ease-out);
+  padding-bottom: 6px; word-break: break-all;
+}
+.cr-mail:hover, .cr-mail:focus-visible { background-size: 100% 2px; }
+
+/* ---------- switch between the two paths ---------- */
+.cr-switch {
+  position: fixed; left: 50%; bottom: 20px; translate: -50% 0; z-index: 25;
+  display: flex; gap: 4px; padding: 5px;
+  background: rgba(34, 60, 54, 0.78); border: 1px solid rgba(207, 211, 202, 0.3); border-radius: 999px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.cr-switch a {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px;
+  font: 500 13px / 1 var(--font-brand); letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.75); text-decoration: none;
+  transition: background-color 0.4s var(--ease-out), color 0.4s;
+}
+.cr-switch a.is-on { background: var(--c-mist); color: var(--c-deep); }
+
+/* footer in the forest */
+.page-career .site-footer { background: var(--c-deep); color: rgba(255, 255, 255, 0.78); }
+.page-career .footer-mark { color: rgba(207, 211, 202, 0.85); }
+.page-career .footer-grid > img { filter: brightness(0) invert(1); }
+.page-career .site-footer a { color: var(--white); }
+.page-career .pending { color: var(--c-sage); }
+
+@media (max-width: 900px) {
+  .cr-two, .places, .perks { grid-template-columns: 1fr; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ap-steps { grid-template-columns: 1fr; gap: 36px; }
+  .process-line { left: 8px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
+  .process-line i { transform-origin: top; }
+  .ap-step { padding: 0 0 0 40px; }
+  .cr-switch { top: 76px; bottom: auto; }   /* under the header, clear of the Tweaks button */
+  .cr-switch a { padding: 0 12px; font-size: 12px; white-space: nowrap; }
+}

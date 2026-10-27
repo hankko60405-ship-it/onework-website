@@ -1,0 +1,206 @@
+/* PROJECTS — Mist tone (MOTION.md §1): paper ground, Logo teal for the tower and the hall grid. */
+
+.page-projects { background: var(--paper); }
+.page-projects .site-header.is-scrolled { background: rgba(242, 242, 242, 0.84); }
+
+/* ---------- Visual Banner ---------- */
+.pj-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  background: var(--paper);
+  overflow: hidden;
+}
+/* the ribbon tower, vector pieces from one work.ai; placed as in the banner:
+   centre 49.1% / 53.9%, 26.8% of the height */
+.tower {
+  position: absolute;
+  left: 49.1%;
+  top: 53.9%;
+  height: 26.8%;
+  aspect-ratio: 133.17 / 288.73;
+  translate: -50% -50%;
+  z-index: 2;
+  overflow: visible;
+  pointer-events: none;
+  will-change: transform;
+}
+.pj-title { margin: 0; position: absolute; inset: 0; z-index: 1; }
+/* word centres taken from the project banner (2000×1125) */
+.pj-word {
+  position: absolute;
+  top: 57%;
+  translate: -50% -50%;
+  white-space: nowrap;
+  line-height: 1;
+  color: #111111;
+}
+.w-one { left: 14.5%; }
+.w-work { left: 49.3%; }
+.w-project { left: 84%; }
+
+/* ten typefaces; the banner runs through f1–f9 at 0.2s each and rests on f0 (Archivo 900) */
+.pj-word { --u: 1vw; }
+.pj-word .l { display: inline-block; }
+.pj-word[data-f="f0"] { font: 900 calc(3.9 * var(--u)) / 1 "Archivo", sans-serif; letter-spacing: 0.12em; }
+.pj-word[data-f="f1"] { font: 500 calc(4.6 * var(--u)) / 1 "Bodoni Moda", serif; letter-spacing: 0.01em; }
+.pj-word[data-f="f2"] { font: 400 calc(6 * var(--u)) / 1 "Ms Madi", cursive; }
+.pj-word[data-f="f3"] { font: 700 calc(4 * var(--u)) / 1 "Space Mono", monospace; letter-spacing: -0.02em; }
+.pj-word[data-f="f4"] { font: 800 calc(3.4 * var(--u)) / 1 "Unbounded", sans-serif; }
+.pj-word[data-f="f5"] { font: italic 400 calc(5.4 * var(--u)) / 1 "Instrument Serif", serif; }
+.pj-word[data-f="f6"] { font: 800 calc(4.2 * var(--u)) / 1 "Syne", sans-serif; letter-spacing: 0.04em; }
+.pj-word[data-f="f7"] { font: 400 calc(3.8 * var(--u)) / 1 "Major Mono Display", monospace; }
+.pj-word[data-f="f8"] { font: 400 calc(5.6 * var(--u)) / 1 "Bebas Neue", sans-serif; letter-spacing: 0.06em; }
+.pj-word[data-f="f9"] { font: 400 calc(3.4 * var(--u)) / 1 "Rubik Mono One", sans-serif; }
+
+.pj-tagline {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(56px, 10vh, 110px);
+  translate: -50% 0;
+  width: min(36ch, 84vw);
+  text-align: center;
+  color: var(--ink);
+  z-index: 3;
+}
+.pj-cue { position: absolute; left: 50%; bottom: 24px; translate: -50% 0; z-index: 3; }
+
+/* ---------- The hall ---------- */
+.hall { position: relative; background: var(--paper); }
+.hall-stage { position: relative; height: 100vh; overflow: hidden; }
+.hall-gl { position: absolute; inset: 0; width: 100%; height: 100%; cursor: default; }
+.hall-gl.is-hover { cursor: pointer; }
+.hall-top {
+  position: absolute;
+  top: clamp(96px, 13vh, 130px);
+  left: var(--gutter);
+  right: var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  pointer-events: none;
+}
+.hall-hint { font: 400 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.12em; color: var(--ink); opacity: 0.7; }
+
+.hall-cap {
+  position: absolute;
+  left: var(--gutter);
+  bottom: clamp(32px, 6vh, 64px);
+  max-width: min(640px, 70vw);
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+.cap-count { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.2em; color: var(--teal-900); }
+.cap-title { font: 900 clamp(28px, 3vw, 52px) / 1.05 var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
+html[lang="zh-Hant"] .cap-title { letter-spacing: 0.02em; line-height: 1.25; }
+.cap-cat { font: 500 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); }
+.cap-open, .hall-nav button {
+  font: 500 var(--fs-label) / 1 var(--font-brand);
+  letter-spacing: 0.14em;
+  color: var(--white);
+  background: var(--ink);
+  border: 0;
+  min-height: 44px;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: background-color 0.4s var(--ease-out);
+}
+.cap-open { margin-top: 10px; }
+.cap-open:hover, .hall-nav button:hover { background: var(--teal-900); }
+.hall-nav { position: absolute; right: var(--gutter); bottom: clamp(32px, 6vh, 64px); display: flex; gap: 8px; }
+.hall-nav button { width: 52px; padding: 0; font-size: 18px; }
+
+/* ---------- Index ---------- */
+.pj-index { position: relative; background: var(--paper); padding: clamp(96px, 12vw, 180px) var(--gutter); }
+.index-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(61, 61, 61, 0.2); }
+.index-list li { border-bottom: 1px solid rgba(61, 61, 61, 0.2); }
+.index-list button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: baseline;
+  padding: 22px 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+}
+.ix-no { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.2em; color: var(--teal-900); }
+.ix-title { font: 800 clamp(22px, 2.2vw, 36px) / 1.15 var(--font-display); transition: transform 0.6s var(--ease-out), color 0.4s var(--ease-out); }
+.ix-cat { font: 500 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.16em; text-transform: uppercase; text-align: right; }
+.index-list button:hover .ix-title, .index-list button:focus-visible .ix-title { transform: translateX(10px); color: var(--teal-900); }
+
+/* list preview that follows the pointer */
+.pj-peek { position: fixed; left: 0; top: 0; z-index: 30; width: 260px; pointer-events: none; }
+.pj-peek canvas { display: block; width: 100%; height: auto; }
+@media (max-width: 900px), (hover: none) { .pj-peek { display: none; } }
+
+/* ---------- Project detail ---------- */
+.pj-modal {
+  width: min(1100px, 94vw);
+  max-height: 88vh;
+  padding: 0;
+  border: 0;
+  background: var(--white);
+  color: var(--ink);
+  overflow: auto;
+}
+.pj-modal::backdrop { background: rgba(26, 26, 26, 0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.m-close {
+  position: sticky;
+  top: 16px;
+  float: right;
+  margin: 16px 16px 0 0;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--white);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+.m-body { padding: clamp(32px, 5vw, 72px); display: grid; gap: 20px; }
+.m-title { font: 900 clamp(34px, 4.4vw, 72px) / 1 var(--font-display); letter-spacing: -0.02em; max-width: 16ch; }
+html[lang="zh-Hant"] .m-title { letter-spacing: 0.02em; line-height: 1.2; }
+.m-desc { max-width: 60ch; font-size: var(--fs-body); }
+.m-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.m-tags span { font: 400 12px / 1 var(--font-brand); letter-spacing: 0.06em; padding: 8px 12px; border: 1px solid rgba(71, 134, 141, 0.45); }
+.m-link { font: 500 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.14em; color: var(--teal-900); text-underline-offset: 4px; }
+.m-shots { display: grid; gap: 16px; margin-top: 12px; }
+.ph {
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--teal-500);
+  background: rgba(175, 197, 200, 0.22);
+  font: 400 var(--fs-label) / 1.4 var(--font-brand);
+  letter-spacing: 0.08em;
+  color: var(--teal-900);
+  text-align: center;
+  padding: 12px;
+}
+.ph.wide { aspect-ratio: 16 / 9; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .pj-word { left: 50%; }
+  .w-one { top: 25%; }
+  .w-work { top: 50%; }
+  .w-project { top: 77%; }
+  .pj-word { --u: 3.2vw; }
+  .tower { left: 50%; top: 52%; height: 32%; }
+  .pj-tagline { bottom: 64px; }
+  .hall-top { flex-direction: column; gap: 6px; }
+  .hall-cap { max-width: calc(100vw - 2 * var(--gutter) - 120px); }
+  .index-list button { grid-template-columns: 1fr; gap: 8px; }
+  .ix-cat { text-align: left; }
+}
+
+/* Reduced motion: no hall, the index carries the projects */
+html.is-static .hall { display: none; }

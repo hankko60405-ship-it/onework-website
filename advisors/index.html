@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advisors &amp; Awards — ONEWORK 工一科技</title>
+  <meta name="description" content="工一科技 ONEWORK 的顧問（王康隆院士、張懋中院士、UCLA Mobility Lab）與 2019–2025 年的獲獎及里程碑。">
+  <link rel="icon" href="../assets/onework-brand/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800;900&family=Jost:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <link rel="stylesheet" href="../assets/css/advisors.css">
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+  </script>
+</head>
+<body class="page-advisors">
+  <a class="skip" href="#main" data-en="Skip to content" data-zh="跳到主要內容">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="../" aria-label="ONEWORK 工一科技 home">
+      <img src="../assets/onework-brand/onework-logo.svg" alt="ONEWORK" width="150" height="33">
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <a href="../about/" data-en="ABOUT" data-zh="關於我們">ABOUT</a>
+      <a href="../product/" data-en="SERVICES" data-zh="服務項目">SERVICES</a>
+      <a href="../projects/" data-en="PROJECTS" data-zh="專案實績">PROJECTS</a>
+      <a href="./" aria-current="page" data-en="ADVISORS&amp;AWARDS" data-zh="顧問與獲獎">ADVISORS&amp;AWARDS</a>
+      <a href="../international-career/" data-en="CAREER" data-zh="加入我們">CAREER</a>
+    </nav>
+    <button class="lang" type="button" id="langToggle" aria-label="Switch language / 切換語言">
+      <span data-lang="en">EN</span><span class="lang-sep">/</span><span data-lang="zh">中</span>
+    </button>
+  </header>
+
+  <nav class="aa-switch" aria-label="Advisors and awards">
+    <a href="#advisors" class="is-on" data-en="Advisors" data-zh="顧問">Advisors</a>
+    <a href="#awards" data-en="Awards &amp; Press" data-zh="獲獎與報導">Awards &amp; Press</a>
+  </nav>
+
+  <main id="main">
+    <!-- ADVISORS & AWARDS · Visual Banner: a blue grain wash, the 3D logo reassembling between the words -->
+    <section class="aa-hero" aria-labelledby="aaTitle">
+      <div class="aa-wash" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>
+      <div class="aa-grain" aria-hidden="true"></div>
+      <canvas class="aa-gl" id="aaGl" aria-hidden="true"></canvas>
+      <h1 class="aa-title" id="aaTitle">
+        <span class="aa-w aa-left" data-en="Awards &amp;" data-zh="獲獎與">Awards &amp;</span>
+        <span class="aa-w aa-right" data-en="Milestones" data-zh="里程碑">Milestones</span>
+      </h1>
+      <p class="wordmark aa-wordmark" aria-hidden="true"><span>O</span><span>N</span><span>E</span><span>W</span><span>O</span><span>R</span><span>K</span></p>
+    </section>
+
+    <!-- Advisors: two cards; the one under the pointer opens into a teal panel with the bio -->
+    <section class="advisors" id="advisors" aria-labelledby="advTitle">
+      <div class="adv-head">
+        <div>
+          <p class="pill" data-en="ADVISORS" data-zh="顧問">ADVISORS</p>
+          <h2 class="h-mid" id="advTitle" data-en="Guided by leaders in semiconductors, nanotech and smart mobility" data-zh="由半導體、奈米科技與智慧交通的領航者指導">Guided by leaders in semiconductors, nanotech and smart mobility</h2>
+        </div>
+      </div>
+      <ul class="adv-track" id="advTrack">
+        <li class="adv is-on" data-i="0">
+          <button class="adv-hit" type="button" aria-expanded="true" aria-controls="advPanel0">
+            <img class="adv-img" src="../assets/advisors/kang-wang.jpg" alt="" loading="lazy" style="object-position:50% 18%">
+            <span class="adv-cap"><span class="adv-name" data-en="Dr. Kang L. Wang" data-zh="王康隆 院士">Dr. Kang L. Wang</span><span class="adv-role" data-en="Academician, Academia Sinica · MIT, UCLA" data-zh="中央研究院院士 · 曾任教 MIT、UCLA">Academician, Academia Sinica · MIT, UCLA</span></span>
+          </button>
+          <div class="adv-panel" id="advPanel0">
+            <p class="adv-name" data-en="Dr. Kang L. Wang" data-zh="王康隆 院士">Dr. Kang L. Wang</p>
+            <p class="adv-role" data-en="Academician, Academia Sinica · MIT, UCLA" data-zh="中央研究院院士 · 曾任教 MIT、UCLA">Academician, Academia Sinica · MIT, UCLA</p>
+            <p class="adv-bio" data-en="Five decades leading nanotechnology, semiconductor and interdisciplinary research, including institutes in green nanotechnology and quantum science. He guides the R&amp;D vision and high-tech systems integration behind our building management products." data-zh="五十多年來引領奈米科技、半導體與跨領域研究，並主持綠色奈米與量子科學相關研究機構。他指導工一建築管理產品的研發方向與高科技系統整合。">Five decades leading nanotechnology, semiconductor and interdisciplinary research, including institutes in green nanotechnology and quantum science. He guides the R&amp;D vision and high-tech systems integration behind our building management products.</p>
+          </div>
+        </li>
+        <li class="adv" data-i="1">
+          <button class="adv-hit" type="button" aria-expanded="false" aria-controls="advPanel1">
+            <span class="adv-img adv-ph" data-en="[ Photo to be provided ]" data-zh="[ 照片待提供 ]">[ Photo to be provided ]</span>
+            <span class="adv-cap"><span class="adv-name" data-en="Dr. Mau-Chung Frank Chang" data-zh="張懋中 院士">Dr. Mau-Chung Frank Chang</span><span class="adv-role" data-en="Wintek Chair Professor of Electrical Engineering, UCLA" data-zh="UCLA 電機工程 Wintek 講座教授">Wintek Chair Professor of Electrical Engineering, UCLA</span></span>
+          </button>
+          <div class="adv-panel" id="advPanel1">
+            <p class="adv-name" data-en="Dr. Mau-Chung Frank Chang" data-zh="張懋中 院士">Dr. Mau-Chung Frank Chang</p>
+            <p class="adv-role" data-en="Wintek Chair Professor of Electrical Engineering, UCLA" data-zh="UCLA 電機工程 Wintek 講座教授">Wintek Chair Professor of Electrical Engineering, UCLA</p>
+            <p class="adv-bio" data-en="A leader in high-speed, high-frequency semiconductor systems, from GaAs HBT/BiFET technology to reconfigurable mm-wave SoCs. Member of the U.S. National Academy of Engineering and Academia Sinica, and IEEE David Sarnoff Award recipient. He advises on smart sensor hardware, power-efficient communication modules and scalable building management." data-zh="高速、高頻半導體系統的領航者，從 GaAs HBT/BiFET 技術到可重構毫米波系統晶片。美國國家工程院院士、中央研究院院士，獲 IEEE David Sarnoff 獎。他指導工一在智慧感測硬體、低功耗通訊模組與可擴充建築管理上的研發。">A leader in high-speed, high-frequency semiconductor systems, from GaAs HBT/BiFET technology to reconfigurable mm-wave SoCs. Member of the U.S. National Academy of Engineering and Academia Sinica, and IEEE David Sarnoff Award recipient. He advises on smart sensor hardware, power-efficient communication modules and scalable building management.</p>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Research partner: UCLA Mobility Lab, in a block of its own -->
+      <article class="lab" aria-labelledby="labName">
+        <figure class="lab-media"><img src="../assets/advisors/ucla-mobility-lab.jpg" alt="UCLA Mobility Lab building" loading="lazy"></figure>
+        <div class="lab-text">
+          <p class="pill" data-en="RESEARCH PARTNER" data-zh="研究合作夥伴">RESEARCH PARTNER</p>
+          <h3 class="lab-name" id="labName" data-en="UCLA Mobility Lab" data-zh="UCLA Mobility Lab">UCLA Mobility Lab</h3>
+          <p class="lab-role" data-en="UCLA Institute of Transportation Studies · led by Assoc. Prof. Jiaqi Ma" data-zh="UCLA 交通研究所 · 主持人 Jiaqi Ma 副教授">UCLA Institute of Transportation Studies · led by Assoc. Prof. Jiaqi Ma</p>
+          <p class="lab-bio" data-en="AI, robotics, control theory and urban analytics for intelligent mobility and smart-city infrastructure, from sensor-rich Smart Intersections to the LA Sim agent-based simulator. We apply the same principles to buildings: distributed sensing, adaptive HVAC and lighting, and simulation." data-zh="以 AI、機器人、控制理論與都市分析研究智慧交通與智慧城市基礎設施，從多感測器的 Smart Intersections 到大型代理人模擬 LA Sim。工一把同樣的原則用在建築：分散式感測、自適應空調與照明，以及模擬。">AI, robotics, control theory and urban analytics for intelligent mobility and smart-city infrastructure, from sensor-rich Smart Intersections to the LA Sim agent-based simulator. We apply the same principles to buildings: distributed sensing, adaptive HVAC and lighting, and simulation.</p>
+          <ul class="lab-tags"><li>AI</li><li>Robotics</li><li data-en="Control theory" data-zh="控制理論">Control theory</li><li data-en="Urban analytics" data-zh="都市分析">Urban analytics</li><li>Smart Intersections</li><li>LA Sim</li></ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- Awards & press: a holographic die, or a list -->
+    <section class="awards is-cube" id="awards" aria-labelledby="awTitle">
+      <div class="aw-head">
+        <div>
+          <p class="pill" data-en="AWARDS &amp; PRESS" data-zh="獲獎與報導">AWARDS &amp; PRESS</p>
+          <h2 class="h-mid" id="awTitle" data-en="Recognition along the way" data-zh="一路走來的肯定">Recognition along the way</h2>
+        </div>
+        <div class="aw-view" role="group" aria-label="View">
+          <button type="button" data-view="cube" aria-pressed="true"><span class="ic ic-cube" aria-hidden="true"></span>3D</button>
+          <button type="button" data-view="list" aria-pressed="false"><span class="ic ic-list" aria-hidden="true"></span>LIST</button>
+        </div>
+      </div>
+      <!-- 3D view: a holographic die; each face is one award, and it rolls to the next -->
+      <div class="aw-cube" id="awCube">
+        <div class="cube-cap" aria-live="polite">
+          <p class="cube-year" id="cubeYear"></p>
+          <div class="cube-text" id="cubeText"></div>
+        </div>
+        <div class="cube-stage">
+          <canvas class="cube-gl" id="cubeGl" role="button" tabindex="0" aria-label="Roll the die to the next award"></canvas>
+          <p class="cube-hint" data-en="Click to roll · drag to turn" data-zh="點一下翻面 · 拖曳可轉動">Click to roll · drag to turn</p>
+        </div>
+      </div>
+      <ol class="aw-grid" id="awGrid" data-view="cube">
+        <li class="aw">
+          <div class="aw-art tone-a" aria-hidden="true"><span class="aw-year">2025</span><span class="aw-word">PLATINUM</span></div>
+          <div class="aw-text">
+            <h3 class="aw-title" data-en="APIGBA Awards — Platinum" data-zh="APIGBA 鉑金獎">APIGBA Awards — Platinum</h3>
+            <p class="aw-desc" data-en="For the BES Engineering Cloud Universe project (中工雲宇宙): smart building and AI, working as one." data-zh="參與專案「中工雲宇宙」榮獲鉑金獎，展現智慧建築＋AI 整合的實力。">For the BES Engineering Cloud Universe project (中工雲宇宙): smart building and AI, working as one.</p>
+            <p class="aw-meta"><span data-en="Award" data-zh="獎項">Award</span><span data-en="APIGBA" data-zh="APIGBA">APIGBA</span><span>(2025)</span></p>
+            <a class="aw-link" href="https://tw.stock.yahoo.com/news/%E4%B8%AD%E5%B7%A5%E9%9B%B2%E5%AE%87%E5%AE%99-%E6%91%98apigba-awards%E9%89%91%E9%87%91%E7%8D%8E-ai%E6%99%BA%E6%85%A7%E5%BB%BA%E7%AF%89%E9%A0%98%E8%88%AA%E9%9B%B2%E5%AE%87%E5%AE%99%E6%99%82%E4%BB%A3-032652848.html" target="_blank" rel="noopener" data-en="Read more ↗" data-zh="閱讀報導 ↗">Read more ↗</a>
+          </div>
+        </li>
+        <li class="aw">
+          <div class="aw-art tone-d" aria-hidden="true"><span class="aw-year">2025</span><span class="aw-word">GOLD</span></div>
+          <div class="aw-text">
+            <h3 class="aw-title" data-en="APIGBA Awards — Gold" data-zh="APIGBA 金獎">APIGBA Awards — Gold</h3>
+            <p class="aw-desc" data-en="For Primax’s Zhubei headquarters, the Taiwan Innovation Center: smart technology meets green building." data-zh="參與專案「致伸科技竹北總部大樓（台灣創新中心）」榮獲金獎，整合科技智慧與綠建築。">For Primax’s Zhubei headquarters, the Taiwan Innovation Center: smart technology meets green building.</p>
+            <p class="aw-meta"><span data-en="Award" data-zh="獎項">Award</span><span data-en="APIGBA" data-zh="APIGBA">APIGBA</span><span>(2025)</span></p>
+            <a class="aw-link" href="https://www.fetnet.net/content/cbu/tw/lifecircle/Charity/2025/10/FET_APIGBA.html" target="_blank" rel="noopener" data-en="Read more ↗" data-zh="閱讀報導 ↗">Read more ↗</a>
+          </div>
+        </li>
+        <li class="aw">
+          <div class="aw-art tone-b" aria-hidden="true"><span class="aw-year">2024</span><span class="aw-word">AI DC</span></div>
+          <div class="aw-text">
+            <h3 class="aw-title" data-en="AI Data-centre Smart Factory Simulation" data-zh="國際 AI 數據中心智慧工廠模擬">AI Data-centre Smart Factory Simulation</h3>
+            <p class="aw-desc" data-en="Joined an international simulation project for an AI data centre and smart factory." data-zh="參與國際 AI 數據中心智慧工廠模擬專案，強化在 AI／數據中心與智慧製造場域的佈局。">Joined an international simulation project for an AI data centre and smart factory.</p>
+            <p class="aw-meta"><span data-en="Project" data-zh="專案">Project</span><span data-en="International" data-zh="國際">International</span><span>(2024)</span></p>
+            
+          </div>
+        </li>
+        <li class="aw">
+          <div class="aw-art tone-c" aria-hidden="true"><span class="aw-year">2024</span><span class="aw-word">PRESS</span></div>
+          <div class="aw-text">
+            <h3 class="aw-title" data-en="Meet Startup Interview" data-zh="創業小聚專訪">Meet Startup Interview</h3>
+            <p class="aw-desc" data-en="Featured by Meet Startup on our place in Taiwan’s startup ecosystem." data-zh="創業小聚專訪，分享工一在新創生態中的實踐與影響力。">Featured by Meet Startup on our place in Taiwan’s startup ecosystem.</p>
+            <p class="aw-meta"><span data-en="Press" data-zh="媒體">Press</span><span data-en="Meet Startup" data-zh="創業小聚">Meet Startup</span><span>(2024)</span></p>
+            
+          </div>
+        </li>
+        <li class="aw">
+          <div class="aw-art tone-a" aria-hidden="true"><span class="aw-year">2023</span><span class="aw-word">TWIN</span></div>
+          <div class="aw-text">
+            <h3 class="aw-title" data-en="Reality-capture Digital Twins" data-zh="實景擷取數位孿生">Reality-capture Digital Twins</h3>
+            <p class="aw-desc" data-en="Drones, 360° cameras and point-cloud Gaussian splatting, combined to generate digital twins of buildings and factories." data-zh="開始整合無人機、全景攝影機與點雲高斯潑濺三維技術，生成建築與製造場域的數位孿生。">Drones, 360° cameras and point-cloud Gaussian splatting, combined to generate digital twins of buildings and factories.</p>
+            <p class="aw-meta"><span data-en="Milestone" data-zh="里程碑">Milestone</span><span data-en="ONEWORK" data-zh="工一科技">ONEWORK</span><span>(2023)</span></p>
+            
+          </div>
+        </li>
+        <li class="aw">
+          <div class="aw-art tone-d" aria-hidden="true"><span class="aw-year">2022</span><span class="aw-word">FET</span></div>
+          <div class="aw-text">
+            <h3 class="aw-title" data-en="FET Startup Accelerator, Cohort 1" data-zh="遠傳新創加速器 第一期">FET Startup Accelerator, Cohort 1</h3>
+            <p class="aw-desc" data-en="Selected as a smart-manufacturing startup team in FET’s first accelerator cohort." data-zh="榮獲第一期遠傳新創加速器「智慧製造新創團隊」資格。">Selected as a smart-manufacturing startup team in FET’s first accelerator cohort.</p>
+            <p class="aw-meta"><span data-en="Programme" data-zh="計畫">Programme</span><span data-en="FET" data-zh="遠傳電信">FET</span><span>(2022 · NOV)</span></p>
+            
+          </div>
+        </li>
+        <li class="aw">
+          <div class="aw-art tone-b" aria-hidden="true"><span class="aw-year">2022</span><span class="aw-word">5G</span></div>
+          <div class="aw-text">
+            <h3 class="aw-title" data-en="5G Ambulance System Goes Live" data-zh="5G 救護車系統上線">5G Ambulance System Goes Live</h3>
+            <p class="aw-desc" data-en="With Chunghwa Telecom, Taoyuan City Government and Taoyuan General Hospital, winning time in emergency rescue." data-zh="與中華電信、桃園市政府、部立桃園醫院合作，搶進黃金救援時間。">With Chunghwa Telecom, Taoyuan City Government and Taoyuan General Hospital, winning time in emergency rescue.</p>
+            <p class="aw-meta"><span data-en="Project" data-zh="專案">Project</span><span data-en="Chunghwa Telecom · Taoyuan" data-zh="中華電信 · 桃園市政府">Chunghwa Telecom · Taoyuan</span><span>(2022 · SEP)</span></p>
+            <a class="aw-link" href="https://tw.stock.yahoo.com/news/%E9%80%9A%E4%BF%A1%E7%B6%B2%E8%B7%AF-%E9%81%A0%E5%82%B3%E6%94%9C%E5%8C%97%E5%B8%82%E6%B6%88%E9%98%B2%E5%B1%80-5g%E6%80%A5%E6%95%91%E9%86%AB%E7%99%82%E8%81%AF%E9%98%B2%E6%95%91%E8%AD%B7%E8%BB%8A-%E4%B8%8A%E7%B7%9A-074114603.html" target="_blank" rel="noopener" data-en="Read more ↗" data-zh="閱讀報導 ↗">Read more ↗</a>
+          </div>
+        </li>
+        <li class="aw">
+          <div class="aw-art tone-c" aria-hidden="true"><span class="aw-year">2020</span><span class="aw-word">3RD</span></div>
+          <div class="aw-text">
+            <h3 class="aw-title" data-en="TAIRA Science Park Competition — Third Place" data-zh="TAIRA 南科競賽 季軍">TAIRA Science Park Competition — Third Place</h3>
+            <p class="aw-desc" data-en="Third place at the TAIRA competition in the Southern Taiwan Science Park." data-zh="於 TAIRA 南科競賽獲得季軍。">Third place at the TAIRA competition in the Southern Taiwan Science Park.</p>
+            <p class="aw-meta"><span data-en="Award" data-zh="獎項">Award</span><span data-en="TAIRA" data-zh="TAIRA">TAIRA</span><span>(2020 · FEB)</span></p>
+            
+          </div>
+        </li>
+        <li class="aw">
+          <div class="aw-art tone-a" aria-hidden="true"><span class="aw-year">2019</span><span class="aw-word">1ST</span></div>
+          <div class="aw-text">
+            <h3 class="aw-title" data-en="BEAMP Built Environment Innovation Award — First Prize" data-zh="BEAMP 建築環境創新獎 首獎">BEAMP Built Environment Innovation Award — First Prize</h3>
+            <p class="aw-desc" data-en="First prize in Singapore: our first international award for innovation in the built environment." data-zh="於新加坡取得 BEAMP 建築環境創新獎首獎，打響國際名號。">First prize in Singapore: our first international award for innovation in the built environment.</p>
+            <p class="aw-meta"><span data-en="Award" data-zh="獎項">Award</span><span data-en="BEAMP · Singapore" data-zh="BEAMP · 新加坡">BEAMP · Singapore</span><span>(2019 · SEP)</span></p>
+            <a class="aw-link" href="https://www.beamp.sg/" target="_blank" rel="noopener" data-en="Read more ↗" data-zh="閱讀報導 ↗">Read more ↗</a>
+          </div>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <p class="footer-mark" aria-hidden="true">ONEWORK</p>
+    <div class="footer-grid">
+      <img src="../assets/onework-brand/onework-logo.svg" alt="ONEWORK" width="180" height="39">
+      <div>
+        <p class="label" data-en="CONTACT" data-zh="聯絡我們">CONTACT</p>
+        <p class="pending" data-en="Contact person and email to be confirmed." data-zh="聯絡窗口與信箱：待確認">Contact person and email to be confirmed.</p>
+      </div>
+      <div>
+        <p class="label" data-en="OFFICE" data-zh="營業地址">OFFICE</p>
+        <p data-en="8F, No. 16, Beiping E. Rd., Taipei, Taiwan" data-zh="台北市北平東路 16 號 8 樓">8F, No. 16, Beiping E. Rd., Taipei, Taiwan</p>
+        <p data-en="Tax ID 42858716" data-zh="統一編號 42858716">Tax ID 42858716</p>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Onework 工一科技. All rights reserved.</p>
+  </footer>
+
+  <button class="tweaks-toggle" id="tweaksToggle" type="button" aria-expanded="false" aria-controls="tweaks">Tweaks</button>
+  <div class="tweaks" id="tweaks" hidden>
+    <p class="tweaks-title">Tweaks</p>
+    <fieldset>
+      <legend>Motion</legend>
+      <label><input type="radio" name="tw-motion" value="full" checked> Full</label>
+      <label><input type="radio" name="tw-motion" value="calm"> Calm</label>
+    </fieldset>
+    <fieldset>
+      <legend>Headline font</legend>
+      <label><input type="radio" name="tw-font" value="archivo" checked> Archivo</label>
+      <label><input type="radio" name="tw-font" value="jost"> Jost</label>
+    </fieldset>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="../assets/js/advisors.js"></script>
+  <script>
+    // Animations use ES modules, which browsers block on file://. Tell the reviewer how to open it.
+    if (location.protocol === 'file:') {
+      var n = document.createElement('p');
+      n.setAttribute('role', 'alert');
+      n.style.cssText = 'position:fixed;inset:0 0 auto 0;z-index:99;margin:0;padding:14px 16px;background:#1A1A1A;color:#fff;font:500 14px/1.5 "Noto Sans TC",sans-serif;text-align:center';
+      n.textContent = '動畫無法在直接開檔（file://）時執行，請改用 http://127.0.0.1:5174/ 開啟。Animations need a local server: open http://127.0.0.1:5174/';
+      document.body.prepend(n);
+    }
+  </script>
+</body>
+</html>

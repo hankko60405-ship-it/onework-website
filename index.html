@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ONEWORK 工一科技 — Digital Twin Specialist</title>
+  <meta name="description" content="Onework 工一科技：以 BIM、GIS、AIoT 與 AI 分析，為建築與城市打造數位孿生。Connecting the Future, Building Smarter Cities with Innovative Technology.">
+  <link rel="icon" href="assets/onework-brand/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800;900&family=Jost:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main" data-en="Skip to content" data-zh="跳到主要內容">Skip to content</a>
+
+  <!-- 3D layer: logo + digital-twin building, shared by hero and positioning -->
+  <canvas id="gl" aria-hidden="true"></canvas>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="./" aria-label="ONEWORK 工一科技 home">
+      <img src="assets/onework-brand/onework-logo.svg" alt="ONEWORK" width="150" height="33">
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <a href="about/" data-en="ABOUT" data-zh="關於我們">ABOUT</a>
+      <a href="product/" data-en="SERVICES" data-zh="服務項目">SERVICES</a>
+      <a href="projects/" data-en="PROJECTS" data-zh="專案實績">PROJECTS</a>
+      <a href="advisors/" data-en="ADVISORS&amp;AWARDS" data-zh="顧問與獲獎">ADVISORS&amp;AWARDS</a>
+      <a href="international-career/" data-en="CAREER" data-zh="加入我們">CAREER</a>
+    </nav>
+    <button class="lang" type="button" id="langToggle" aria-label="Switch language / 切換語言">
+      <span data-lang="en">EN</span><span class="lang-sep">/</span><span data-lang="zh">中</span>
+    </button>
+  </header>
+
+  <main id="main">
+    <!-- HOME · Visual Banner -->
+    <section class="hero" id="hero" aria-labelledby="heroTitle">
+      <canvas class="hero-pattern" id="pattern" aria-hidden="true"></canvas>
+      <span class="hairline hairline-r" aria-hidden="true"></span>
+
+      <p class="wordmark" aria-hidden="true"><span>O</span><span>N</span><span>E</span><span>W</span><span>O</span><span>R</span><span>K</span></p>
+
+      <div class="hero-copy">
+        <h1 class="hero-title" id="heroTitle">
+          <span class="line"><span class="line-inner" data-en="EXPERTS IN INTEGRATING" data-zh="整合模型與數據">EXPERTS IN INTEGRATING</span></span>
+          <span class="line"><span class="line-inner" data-en="MODELS AND DATA" data-zh="的數位孿生專家">MODELS AND DATA</span></span>
+        </h1>
+        <p class="hero-tagline" data-en="Connecting the Future, Building Smarter Cities with Innovative Technology." data-zh="連結未來，以創新科技打造更智慧的城市。">Connecting the Future, Building Smarter Cities with Innovative Technology.</p>
+      </div>
+
+    </section>
+
+    <!-- HOME · 合作夥伴及客戶 Logo 牆 -->
+    <section class="partners panel" aria-labelledby="partnersTitle">
+      <div class="section-head">
+        <p class="label" data-en="PARTNERS &amp; CLIENTS" data-zh="合作夥伴及客戶">PARTNERS &amp; CLIENTS</p>
+        <h2 class="h-mid" id="partnersTitle" data-en="Trusted by airports, developers and public agencies." data-zh="機場、開發商與政府單位的長期夥伴。">Trusted by airports, developers and public agencies.</h2>
+      </div>
+      <div class="marquee">
+        <ul class="marquee-track" id="partnerTrack">
+          <li class="partner"><img src="assets/partners/tsmc.png" alt="TSMC 台積電" width="520" height="410" loading="lazy"></li>
+          <li class="partner"><img src="assets/partners/intel.png" alt="Intel" width="520" height="208" loading="lazy"></li>
+          <li class="partner"><img src="assets/partners/arup.png" alt="ARUP" width="520" height="161" loading="lazy"></li>
+          <li class="partner"><img src="assets/partners/chunghwa-telecom.png" alt="Chunghwa Telecom 中華電信" width="520" height="503" loading="lazy"></li>
+          <li class="partner"><img src="assets/partners/fareastone.png" alt="FarEasTone 遠傳電信" width="520" height="163" loading="lazy"></li>
+          <li class="partner"><img src="assets/partners/taipei-city-government.png" alt="Taipei City Government 臺北市政府" width="520" height="208" loading="lazy"></li>
+          <li class="partner"><img src="assets/partners/cathay-life.png" alt="Cathay Life Insurance 國泰人壽" width="520" height="119" loading="lazy"></li>
+          <li class="partner"><img src="assets/partners/bes-engineering.png" alt="BES Engineering 中華工程" width="520" height="95" loading="lazy"></li>
+          <li class="partner"><img src="assets/partners/ucla-mobility-lab.png" alt="UCLA Mobility Lab" width="520" height="87" loading="lazy"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- HOME · 公司定位：From Model to Twin -->
+    <section class="twin" id="twin" aria-labelledby="twinTitle">
+      <div class="twin-stage">
+        <div class="twin-copy">
+          <p class="label" data-en="POSITIONING" data-zh="公司定位">POSITIONING</p>
+          <h2 class="h-big twin-title" id="twinTitle"><span data-en="From Model" data-zh="從模型">From Model</span><br><span data-en="to Twin." data-zh="到孿生。">to Twin.</span></h2>
+
+          <ol class="steps">
+            <li class="step is-active" data-step="0">
+              <p class="step-label">MODEL</p>
+              <h3 class="step-title" data-en="Proprietary BIM Model Engine" data-zh="自研 BIM 模型引擎">Proprietary BIM Model Engine</h3>
+              <p class="step-body" data-en="Reduce 95% BIM size with 100% model fidelity — light enough to run on mobile and the web, so every stakeholder works on the same model in real time." data-zh="BIM 模型縮小 95%、維持 100% 精度，手機與網頁都跑得動，所有參與者即時在同一個模型上協作。">Reduce 95% BIM size with 100% model fidelity — light enough to run on mobile and the web, so every stakeholder works on the same model in real time.</p>
+            </li>
+            <li class="step" data-step="1">
+              <p class="step-label">INTEGRATE</p>
+              <h3 class="step-title" data-en="BIM + GIS + AIoT in one platform" data-zh="BIM、GIS、AIoT 整合在同一平台">BIM + GIS + AIoT in one platform</h3>
+              <p class="step-body" data-en="Data from power, water, HVAC, lighting and safety systems flows into a single spatial model of the building and the city." data-zh="電力、水、空調、照明與安全系統的數據，匯入同一個建築與城市的空間模型。">Data from power, water, HVAC, lighting and safety systems flows into a single spatial model of the building and the city.</p>
+            </li>
+            <li class="step" data-step="2">
+              <p class="step-label">TWIN</p>
+              <h3 class="step-title" data-en="A real-time twin that learns" data-zh="會學習的即時數位孿生">A real-time twin that learns</h3>
+              <p class="step-body" data-en="Predictive maintenance, energy-efficiency strategies and automated risk alerts — clear, actionable intelligence for decision-makers." data-zh="預測性維護、節能策略與自動風險警示，讓決策者看得懂、立刻能行動。">Predictive maintenance, energy-efficiency strategies and automated risk alerts — clear, actionable intelligence for decision-makers.</p>
+            </li>
+          </ol>
+          <div class="progress" aria-hidden="true"><i id="twinProgress"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOME · 數據指標 -->
+    <section class="metrics panel" aria-labelledby="metricsTitle">
+      <div class="section-head">
+        <p class="label" data-en="BY THE NUMBERS" data-zh="數據指標">BY THE NUMBERS</p>
+        <h2 class="h-mid" id="metricsTitle" data-en="Built on our own engine, proven on real assets." data-zh="自研引擎，在真實案場上驗證。">Built on our own engine, proven on real assets.</h2>
+      </div>
+
+      <div class="compress">
+        <div class="compress-head">
+          <p class="h-big"><span class="count" data-target="95">95</span>%</p>
+          <p class="compress-caption" data-en="BIM model size reduction, with 100% model fidelity." data-zh="BIM 模型壓縮率，同時保持 100% 模型精度。">BIM model size reduction, with 100% model fidelity.</p>
+        </div>
+        <div class="compress-bars" aria-hidden="true">
+          <div class="bar-row"><span class="bar-label" data-en="Original BIM" data-zh="原始 BIM">Original BIM</span><span class="bar"><i class="bar-fill full"></i></span></div>
+          <div class="bar-row"><span class="bar-label">ONEWORK Engine</span><span class="bar"><i class="bar-fill engine"></i></span></div>
+        </div>
+      </div>
+
+      <ul class="stats">
+        <li><p class="stat-num"><span class="count" data-target="25">25</span></p><p class="stat-label" data-en="Internationally renowned flagship clients &amp; partners" data-zh="指標性合作對象">Internationally renowned flagship clients &amp; partners</p></li>
+        <li><p class="stat-num"><span class="count" data-target="50">50</span>+</p><p class="stat-label" data-en="Proprietary patents in our active portfolio" data-zh="專利技術">Proprietary patents in our active portfolio</p></li>
+        <li><p class="stat-num"><span class="count" data-target="15">15</span></p><p class="stat-label" data-en="Clients served continuously for over 3 years" data-zh="服務超過 3 年的客戶">Clients served continuously for over 3 years</p></li>
+        <li class="is-pending"><p class="stat-num">—</p><p class="stat-label" data-en="Projects delivered — figure to be confirmed" data-zh="專案數量：待確認">Projects delivered — figure to be confirmed</p></li>
+      </ul>
+    </section>
+
+    <!-- HOME · 服務項目 -->
+    <section class="services panel" aria-labelledby="servicesTitle">
+      <div class="section-head">
+        <p class="label" data-en="PRODUCTS &amp; SERVICES" data-zh="產品與服務">PRODUCTS &amp; SERVICES</p>
+        <h2 class="h-mid" id="servicesTitle" data-en="One twin, four platforms." data-zh="一個數位孿生，四個平台。">One twin, four platforms.</h2>
+      </div>
+
+      <ol class="svc-list">
+        <li class="svc">
+          <a href="product/#airhub">
+            <span class="svc-name">Airhub<small>BIM + PLM Platform</small></span>
+            <span class="svc-desc" data-en="From early design and vendor contracts to construction and facility operations — every stakeholder collaborates on one platform." data-zh="從設計初期、廠商合約、施工到設施營運，所有參與者在同一平台協作。">From early design and vendor contracts to construction and facility operations — every stakeholder collaborates on one platform.</span>
+            <span class="svc-media" aria-hidden="true">[ 16:9 Airhub screenshot ]</span>
+          </a>
+        </li>
+        <li class="svc">
+          <a href="product/#fm">
+            <span class="svc-name">FM<small data-en="Facility Management Platform" data-zh="設施管理平台">Facility Management Platform</small></span>
+            <span class="svc-desc" data-en="A 3D dashboard on top of SCADA — Siemens, Schneider, Honeywell — so managers spot issues fast and streamline inspections." data-zh="整合 Siemens、Schneider、Honeywell 等 SCADA 系統的 3D 儀表板，快速找出問題、簡化巡檢。">A 3D dashboard on top of SCADA — Siemens, Schneider, Honeywell — so managers spot issues fast and streamline inspections.</span>
+            <span class="svc-media" aria-hidden="true">[ 16:9 FM dashboard ]</span>
+          </a>
+        </li>
+        <li class="svc">
+          <a href="product/#ems">
+            <span class="svc-name">EMS<small data-en="Energy EMS &amp; iEMS Platform" data-zh="能源管理 iEMS 平台">Energy EMS &amp; iEMS Platform</small></span>
+            <span class="svc-desc" data-en="Monitor and analyse energy use; the AI engine turns meter data into predictive usage and monthly reports." data-zh="監測與分析能源使用，AI 引擎把電表數據變成用電預測與月報。">Monitor and analyse energy use; the AI engine turns meter data into predictive usage and monthly reports.</span>
+            <span class="svc-media" aria-hidden="true">[ 16:9 EMS report ]</span>
+          </a>
+        </li>
+        <li class="svc">
+          <a href="product/#cim">
+            <span class="svc-name">CIM<small data-en="Smart City IoT Platform" data-zh="智慧城市基礎建設平台">Smart City IoT Platform</small></span>
+            <span class="svc-desc" data-en="A command centre for airports and city-scale assets — BIM, GIS and AIoT with high availability and ISO 19650-2 support." data-zh="機場與城市級資產的戰情室，結合 BIM、GIS 與 AIoT，高可用並協助取得 ISO 19650-2 認證。">A command centre for airports and city-scale assets — BIM, GIS and AIoT with high availability and ISO 19650-2 support.</span>
+            <span class="svc-media" aria-hidden="true">[ 16:9 CIM command centre ]</span>
+          </a>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <p class="footer-mark" aria-hidden="true">ONEWORK</p>
+    <div class="footer-grid">
+      <img src="assets/onework-brand/onework-logo.svg" alt="ONEWORK" width="180" height="39">
+      <div>
+        <p class="label" data-en="CONTACT" data-zh="聯絡我們">CONTACT</p>
+        <p class="pending" data-en="Contact person and email to be confirmed." data-zh="聯絡窗口與信箱：待確認">Contact person and email to be confirmed.</p>
+      </div>
+      <div>
+        <p class="label" data-en="OFFICE" data-zh="營業地址">OFFICE</p>
+        <p data-en="8F, No. 16, Beiping E. Rd., Taipei, Taiwan" data-zh="台北市北平東路 16 號 8 樓">8F, No. 16, Beiping E. Rd., Taipei, Taiwan</p>
+        <p data-en="Tax ID 42858716" data-zh="統一編號 42858716">Tax ID 42858716</p>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Onework 工一科技. All rights reserved.</p>
+  </footer>
+
+  <!-- Tweaks (design review only) -->
+  <button class="tweaks-toggle" id="tweaksToggle" type="button" aria-expanded="false" aria-controls="tweaks">Tweaks</button>
+  <div class="tweaks" id="tweaks" hidden>
+    <p class="tweaks-title">Tweaks</p>
+    <fieldset>
+      <legend>Motion</legend>
+      <label><input type="radio" name="tw-motion" value="full" checked> Full</label>
+      <label><input type="radio" name="tw-motion" value="calm"> Calm</label>
+    </fieldset>
+    <fieldset>
+      <legend>Headline font</legend>
+      <label><input type="radio" name="tw-font" value="archivo" checked> Archivo</label>
+      <label><input type="radio" name="tw-font" value="jost"> Jost</label>
+    </fieldset>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="assets/js/home.js"></script>
+  <script>
+    // Animations use ES modules, which browsers block on file://. Tell the reviewer how to open it.
+    if (location.protocol === 'file:') {
+      var n = document.createElement('p');
+      n.setAttribute('role', 'alert');
+      n.style.cssText = 'position:fixed;inset:0 0 auto 0;z-index:99;margin:0;padding:14px 16px;background:#1A1A1A;color:#fff;font:500 14px/1.5 "Noto Sans TC",sans-serif;text-align:center';
+      n.textContent = '動畫無法在直接開檔（file://）時執行，請改用 http://127.0.0.1:5174/ 開啟。Animations need a local server: open http://127.0.0.1:5174/';
+      document.body.prepend(n);
+    }
+  </script>
+</body>
+</html>

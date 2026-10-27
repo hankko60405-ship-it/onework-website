@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Services — ONEWORK 工一科技</title>
+  <meta name="description" content="工一科技 ONEWORK 服務項目：Airhub BIM + PLM、FM 設施管理、EMS 能源管理、CIM 智慧城市 GIS 平台。">
+  <link rel="icon" href="../assets/onework-brand/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800;900&family=Jost:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <link rel="stylesheet" href="../assets/css/service.css">
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+  </script>
+</head>
+<body class="page-service">
+  <a class="skip" href="#main" data-en="Skip to content" data-zh="跳到主要內容">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="../" aria-label="ONEWORK 工一科技 home">
+      <img src="../assets/onework-brand/onework-logo.svg" alt="ONEWORK" width="150" height="33">
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <a href="../about/" data-en="ABOUT" data-zh="關於我們">ABOUT</a>
+      <a href="./" aria-current="page" data-en="SERVICES" data-zh="服務項目">SERVICES</a>
+      <a href="../projects/" data-en="PROJECTS" data-zh="專案實績">PROJECTS</a>
+      <a href="../advisors/" data-en="ADVISORS&amp;AWARDS" data-zh="顧問與獲獎">ADVISORS&amp;AWARDS</a>
+      <a href="../international-career/" data-en="CAREER" data-zh="加入我們">CAREER</a>
+    </nav>
+    <button class="lang" type="button" id="langToggle" aria-label="Switch language / 切換語言">
+      <span data-lang="en">EN</span><span class="lang-sep">/</span><span data-lang="zh">中</span>
+    </button>
+  </header>
+
+  <main id="main">
+    <!-- SERVICE · Visual Banner -->
+    <section class="svc-hero" aria-labelledby="svcTitle">
+      <div class="frames" aria-hidden="true">
+        <span class="frame f1" data-depth="0.6"><i></i></span>
+        <span class="frame f2" data-depth="1"><i></i></span>
+        <span class="frame f3" data-depth="0.4"><i></i></span>
+        <span class="frame f4" data-depth="0.8"><i></i></span>
+      </div>
+
+      <h1 class="focus-title" id="svcTitle">
+        <span class="sr-only" data-en="ONEWORK Service Offerings" data-zh="工一科技 服務項目">ONEWORK Service Offerings</span>
+        <span class="ft-lines" aria-hidden="true" id="focusLines"></span>
+      </h1>
+
+      <div class="svc-sign" aria-hidden="true">
+        <img class="svc-mark" src="../assets/onework-brand/onework-mark.svg" alt="" width="96" height="96">
+        <p class="wordmark svc-wordmark"><span>O</span><span>N</span><span>E</span><span>W</span><span>O</span><span>R</span><span>K</span></p>
+      </div>
+
+      <p class="svc-intro" data-en="Built on engineering: advanced BIM plus years of project management, in one platform across design, construction and operations." data-zh="以工程為根基，結合先進 BIM 技術與多年專案管理經驗，用一個平台串起設計、施工到營運。">Built on engineering: advanced BIM plus years of project management, in one platform across design, construction and operations.</p>
+    </section>
+
+    <!-- From one building site to a city: exploded 3D layers that turn on their own and can be dragged -->
+    <section class="t3" id="t3" aria-labelledby="t3Label">
+      <div class="t3-stage">
+        <canvas class="t3-gl" id="t3Gl" aria-hidden="true"></canvas>
+        <div class="t3-copy">
+          <p class="label" id="t3Label" data-en="BUILDING LIFECYCLE" data-zh="建築全生命週期">BUILDING LIFECYCLE</p>
+          <article class="t3-step" data-i="0" data-scene="build">
+            <h3 class="t3-title" data-en="Construction Management" data-zh="施工管理系統">Construction Management</h3>
+            <p class="t3-desc" data-en="Progress, drawings, approvals and site records sit on one BIM model, so owners and contractors see the same building while it rises." data-zh="施工進度、圖說、簽核與現場紀錄都放在同一個 BIM 模型上，業主與營造廠在大樓長高的同時看到同一棟建築。">Progress, drawings, approvals and site records sit on one BIM model, so owners and contractors see the same building while it rises.</p>
+            <ul class="t3-cards"><li data-en="4D schedule on the model" data-zh="模型上的 4D 進度">4D schedule on the model</li><li data-en="Drawings and approvals" data-zh="圖說與簽核流程">Drawings and approvals</li><li data-en="Quality and safety records" data-zh="品質與安全紀錄">Quality and safety records</li></ul>
+          </article>
+          <article class="t3-step" data-i="1" data-scene="new">
+            <h3 class="t3-title" data-en="O&M-ready Design for New Buildings" data-zh="新建築維運系統導入設計">O&M-ready Design for New Buildings</h3>
+            <p class="t3-desc" data-en="Plan BIM models, equipment data, system interfaces and O&M needs early, on one data standard, so nothing is remodelled or re-entered after handover and every system connects." data-zh="提前規劃 BIM 模型、設備資料、系統介接及維運需求，建立一致的資料標準，避免完工後重新建模、重新整理資料或系統無法銜接。">Plan BIM models, equipment data, system interfaces and O&M needs early, on one data standard, so nothing is remodelled or re-entered after handover and every system connects.</p>
+            <ul class="t3-cards"><li data-en="BIM and equipment data" data-zh="建立 BIM 與設備資料">BIM and equipment data</li><li data-en="BA, IoT and O&M interfaces" data-zh="規劃 BA、IoT 及維運系統介接">BA, IoT and O&M interfaces</li><li data-en="Data and O&M platform" data-zh="資料與維運平台整合">Data and O&M platform</li></ul>
+          </article>
+          <article class="t3-step" data-i="2" data-scene="campus">
+            <h3 class="t3-title" data-en="Operations Management" data-zh="營運管理">Operations Management</h3>
+            <p class="t3-desc" data-en="Existing buildings and whole campuses: SCADA, meters and sensors flow into one 3D twin, managed together instead of building by building." data-zh="既有建築與整個群樓：SCADA、電表與感測器匯入同一個 3D 孿生，一起管理，不必一棟一棟分開看。">Existing buildings and whole campuses: SCADA, meters and sensors flow into one 3D twin, managed together instead of building by building.</p>
+            <ul class="t3-cards"><li data-en="Equipment and alarms" data-zh="設備與告警整合">Equipment and alarms</li><li data-en="Energy and forecasts" data-zh="能源管理與預測">Energy and forecasts</li><li data-en="Inspection and maintenance" data-zh="巡檢與維護排程">Inspection and maintenance</li></ul>
+          </article>
+          <article class="t3-step" data-i="3" data-scene="city">
+            <h3 class="t3-title" data-en="Intuitive Command Center" data-zh="直覺式戰情平台">Intuitive Command Center</h3>
+            <p class="t3-desc" data-en="GIS, BIM, IoT and AI layered at city scale: one screen for every building, network and sensor across the city." data-zh="GIS、BIM、IoT 與 AI 疊成城市尺度：一個畫面看整座城市的每棟建築、每條管網與每顆感測器。">GIS, BIM, IoT and AI layered at city scale: one screen for every building, network and sensor across the city.</p>
+            <ul class="t3-cards"><li data-en="GIS + BIM city model" data-zh="GIS＋BIM 城市模型">GIS + BIM city model</li><li data-en="Live IoT monitoring" data-zh="IoT 即時監控">Live IoT monitoring</li><li data-en="AI forecasts for decisions" data-zh="AI 預測輔助決策">AI forecasts for decisions</li></ul>
+          </article>
+        </div>
+        <nav class="t3-nav" aria-label="Lifecycle stages"><ol><li><button type="button" data-i="0" data-en="Construction Management" data-zh="施工管理系統">Construction Management</button></li><li><button type="button" data-i="1" data-en="O&M-ready Design for New Buildings" data-zh="新建築維運系統導入設計">O&M-ready Design for New Buildings</button></li><li><button type="button" data-i="2" data-en="Operations Management" data-zh="營運管理">Operations Management</button></li><li><button type="button" data-i="3" data-en="Intuitive Command Center" data-zh="直覺式戰情平台">Intuitive Command Center</button></li></ol></nav>
+        <p class="t3-hint" data-en="Drag to turn the model" data-zh="拖曳可旋轉模型">Drag to turn the model</p>
+      </div>
+    </section>
+
+    <!-- Four platforms (focus rack) -->
+    <section class="platforms" aria-labelledby="platTitle">
+      <div class="section-head">
+        <p class="label" data-en="PLATFORMS" data-zh="產品平台">PLATFORMS</p>
+        <h2 class="h-mid" id="platTitle" data-en="Four platforms. One twin of your asset." data-zh="四個平台，串成同一個數位孿生。">Four platforms. One twin of your asset.</h2>
+      </div>
+
+      <div class="rack">
+        <ol class="rack-index" aria-label="Platforms">
+          <li><a href="#airhub" data-i="0">Airhub</a></li>
+          <li><a href="#fm" data-i="1">FM</a></li>
+          <li><a href="#ems" data-i="2">EMS</a></li>
+          <li><a href="#cim" data-i="3">CIM</a></li>
+        </ol>
+
+        <div class="rack-body">
+          <article class="plat" id="airhub">
+            <header class="plat-head">
+              <h3 class="plat-name">Airhub</h3>
+              <p class="plat-kind" data-en="BIM + PLM · Building Lifecycle SaaS" data-zh="BIM + PLM · 建築全生命週期 SaaS">BIM + PLM · Building Lifecycle SaaS</p>
+            </header>
+            <figure class="shot" aria-hidden="true"><span>[ Airhub screenshot ]</span></figure>
+            <p class="plat-lede" data-en="One platform where owners, designers and contractors exchange documents, drawings and design decisions — from feasibility to handover." data-zh="業主、設計與營造廠在同一平台交換文件、圖說與設計決策，從可行性評估一路到交屋。">One platform where owners, designers and contractors exchange documents, drawings and design decisions — from feasibility to handover.</p>
+            <ul class="caps">
+              <li data-en="Early-stage feasibility simulation, e.g. large generators" data-zh="前期可行性模擬，例如大型發電機配置">Early-stage feasibility simulation, e.g. large generators</li>
+              <li data-en="Design-phase information exchange" data-zh="設計階段資訊交換">Design-phase information exchange</li>
+              <li data-en="Contractor data, documents, drawings and approval workflows" data-zh="營造廠資料、文件、圖說與簽核流程">Contractor data, documents, drawings and approval workflows</li>
+              <li data-en="Vendor contracts, construction and facility operations in one record" data-zh="廠商合約、施工到設施營運，同一份紀錄">Vendor contracts, construction and facility operations in one record</li>
+              <li data-en="Links to 3D building simulation software" data-zh="串接 3D 建築模擬軟體">Links to 3D building simulation software</li>
+            </ul>
+            <p class="chips" aria-label="Controls"><span data-en="Schedule" data-zh="進度">Schedule</span><span data-en="Quality" data-zh="品質">Quality</span><span data-en="Safety" data-zh="安全">Safety</span><span data-en="Cost" data-zh="成本">Cost</span><span data-en="Documents" data-zh="文件">Documents</span></p>
+          </article>
+
+          <article class="plat" id="fm">
+            <header class="plat-head">
+              <h3 class="plat-name">FM</h3>
+              <p class="plat-kind" data-en="Facility Management · BA + FM Digital Twin" data-zh="設施管理 · BA + FM 數位孿生">Facility Management · BA + FM Digital Twin</p>
+            </header>
+            <figure class="shot" aria-hidden="true"><span>[ FM 3D dashboard ]</span></figure>
+            <p class="plat-lede" data-en="Your SCADA and central monitoring, lifted into a custom 3D dashboard — so managers find the fault in the model, not in a spreadsheet." data-zh="把 SCADA 與中央監控系統搬進客製化 3D 儀表板，讓管理者在模型裡直接找到問題，而不是在報表裡。">Your SCADA and central monitoring, lifted into a custom 3D dashboard — so managers find the fault in the model, not in a spreadsheet.</p>
+            <ul class="caps">
+              <li data-en="Works with Siemens, Schneider and Honeywell SCADA" data-zh="支援 Siemens、Schneider、Honeywell SCADA">Works with Siemens, Schneider and Honeywell SCADA</li>
+              <li data-en="SCADA and PLC over Modbus, TCP and MQTT" data-zh="透過 Modbus、TCP、MQTT 串接 SCADA 與 PLC">SCADA and PLC over Modbus, TCP and MQTT</li>
+              <li data-en="A complete digital-twin building automation and FM system" data-zh="完整的數位孿生建築自動化與設施管理系統">A complete digital-twin building automation and FM system</li>
+            </ul>
+            <p class="chips" aria-label="BIM formats"><span>IFC</span><span>RVT</span><span>DWG</span><span>DGN</span><span>NWD</span><span>SKP</span></p>
+          </article>
+
+          <article class="plat" id="ems">
+            <header class="plat-head">
+              <h3 class="plat-name">EMS</h3>
+              <p class="plat-kind" data-en="Energy Management · EMS / iEMS + ESS" data-zh="能源管理 · EMS / iEMS + 儲能">Energy Management · EMS / iEMS + ESS</p>
+            </header>
+            <figure class="shot" aria-hidden="true"><span>[ EMS report ]</span></figure>
+            <p class="plat-lede" data-en="Read every meter, every battery site. An AI backend turns raw power data into forecasts and monthly reports." data-zh="讀取每一顆電表、每一座儲能站，AI 後台把原始用電數據變成預測與月報。">Read every meter, every battery site. An AI backend turns raw power data into forecasts and monthly reports.</p>
+            <ul class="caps">
+              <li data-en="Power data from SCADA or Modbus smart meters" data-zh="從 SCADA 或 Modbus 智慧電表讀取電力數據">Power data from SCADA or Modbus smart meters</li>
+              <li data-en="Predictive usage and monthly detail reports" data-zh="用電預測與每月明細報告">Predictive usage and monthly detail reports</li>
+              <li data-en="ESS battery stations: daily status and maintenance schedule" data-zh="ESS 儲能站：每日運轉狀態與維護排程">ESS battery stations: daily status and maintenance schedule</li>
+              <li data-en="Power cost, revenue and ROI compared across sites" data-zh="跨站點比較電費、收益與 ROI">Power cost, revenue and ROI compared across sites</li>
+            </ul>
+            <p class="chips"><span>SCADA</span><span>Modbus</span><span>ESS</span><span>AI</span></p>
+          </article>
+
+          <article class="plat" id="cim">
+            <header class="plat-head">
+              <h3 class="plat-name">CIM</h3>
+              <p class="plat-kind" data-en="Smart City · GIS + BIM 3D + IoT + AI" data-zh="智慧城市 · GIS + BIM 3D + IoT + AI">Smart City · GIS + BIM 3D + IoT + AI</p>
+            </header>
+            <figure class="shot" aria-hidden="true"><span>[ GIS city dashboard ]</span></figure>
+            <p class="plat-lede" data-en="The core of our airport work: drone footage becomes a 3D city, and every pipe, bridge, tunnel and sensor reports into one operations dashboard." data-zh="我們機場專案的核心技術：空拍影像轉成 3D 城市，管線、橋梁、隧道與每顆感測器，都回報到同一個營運儀表板。">The core of our airport work: drone footage becomes a 3D city, and every pipe, bridge, tunnel and sensor reports into one operations dashboard.</p>
+            <ul class="caps">
+              <li data-en="Drone and 3D scan to model; IoT, power equipment and sensors in one view" data-zh="空拍與 3D 掃描轉模型；IoT、電力設備與感測器一次看">Drone and 3D scan to model; IoT, power equipment and sensors in one view</li>
+              <li data-en="Site analysis on 1:1 scanned terrain: runway siting, flight paths, distance to homes, slope, earthwork" data-zh="1:1 掃描地形做基地分析：跑道選址、起降航線、與住宅距離、坡度、土方量">Site analysis on 1:1 scanned terrain: runway siting, flight paths, distance to homes, slope, earthwork</li>
+              <li data-en="Planning tools: markup, measuring, layers, contours, route simulation" data-zh="規劃工具：標註、量測、圖層、等高線、路線模擬">Planning tools: markup, measuring, layers, contours, route simulation</li>
+            </ul>
+            <p class="chips"><span>GIS</span><span>BIM 3D</span><span>IoT</span><span>AI Engine</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Works with: the systems we plug into -->
+    <section class="works" aria-labelledby="worksTitle">
+      <p class="label works-label" id="worksTitle" data-en="WORKS WITH" data-zh="支援系統與格式">WORKS WITH</p>
+      <div class="ticker" data-dir="-1" aria-hidden="true">
+        <p class="ticker-row"><span>Siemens</span><span>Schneider</span><span>Honeywell</span><span>Modbus</span><span>TCP</span><span>MQTT</span><span>SCADA</span><span>PLC</span></p>
+      </div>
+      <div class="ticker" data-dir="1" aria-hidden="true">
+        <p class="ticker-row"><span>IFC</span><span>RVT</span><span>DWG</span><span>DGN</span><span>NWD</span><span>SKP</span><span>GIS</span><span>Cesium</span><span>Drone 3D</span></p>
+      </div>
+      <p class="sr-only">Siemens, Schneider, Honeywell, Modbus, TCP, MQTT, SCADA, PLC, IFC, RVT, DWG, DGN, NWD, SKP, GIS, Cesium, Drone 3D</p>
+    </section>
+
+    <!-- Core technology: four terms converge into the twin -->
+    <section class="stack" id="stack" aria-labelledby="stackTitle">
+      <div class="stack-stage">
+      <div class="section-head">
+        <p class="label" data-en="CORE TECHNOLOGY" data-zh="核心技術">CORE TECHNOLOGY</p>
+        <h2 class="h-mid" id="stackTitle" data-en="Four engines, added up." data-zh="四種引擎，加在一起。">Four engines, added up.</h2>
+      </div>
+      <ol class="sum" id="sum">
+        <li class="term"><b>GIS</b><span data-en="City-scale terrain and maps" data-zh="城市尺度的地形與地圖">City-scale terrain and maps</span></li>
+        <li class="op" aria-hidden="true">+</li>
+        <li class="term"><b>BIM 3D</b><span data-en="Every building, every asset" data-zh="每一棟建築、每一項設備">Every building, every asset</span></li>
+        <li class="op" aria-hidden="true">+</li>
+        <li class="term"><b>IoT</b><span data-en="Live sensors and SCADA" data-zh="即時感測器與 SCADA">Live sensors and SCADA</span></li>
+        <li class="op" aria-hidden="true">+</li>
+        <li class="term"><b>AI</b><span data-en="Forecasts and reports" data-zh="預測與報告">Forecasts and reports</span></li>
+        <li class="op" aria-hidden="true">=</li>
+        <li class="term result"><b data-en="Twin" data-zh="孿生">Twin</b><span data-en="One 3D web app for the whole asset" data-zh="整個資產，一個 3D 網頁應用">One 3D web app for the whole asset</span></li>
+      </ol>
+      </div>
+    </section>
+
+    <!-- Lifecycle -->
+    <section class="life" aria-labelledby="lifeTitle">
+      <div class="section-head">
+        <p class="label" data-en="LIFECYCLE" data-zh="全生命週期">LIFECYCLE</p>
+        <h2 class="h-mid" id="lifeTitle" data-en="From the first sketch to year ten of operations." data-zh="從第一張草圖，到營運第十年。">From the first sketch to year ten of operations.</h2>
+      </div>
+      <div class="life-track" id="lifeTrack">
+        <span class="life-line" aria-hidden="true"><i id="lifeFill"></i></span>
+        <ol class="life-stages">
+          <li><h3 data-en="Feasibility" data-zh="可行性評估">Feasibility</h3><p class="life-plat">Airhub · CIM</p><p class="life-desc" data-en="Site selection on 1:1 scanned terrain; simulate large equipment before anything is drawn." data-zh="在 1:1 掃描地形上選址，動工前先模擬大型設備配置。">Site selection on 1:1 scanned terrain; simulate large equipment before anything is drawn.</p></li>
+          <li><h3 data-en="Design" data-zh="設計">Design</h3><p class="life-plat">Airhub</p><p class="life-desc" data-en="Designers and owners exchange models and decisions on one record." data-zh="設計方與業主在同一份紀錄上交換模型與決策。">Designers and owners exchange models and decisions on one record.</p></li>
+          <li><h3 data-en="Construction" data-zh="施工">Construction</h3><p class="life-plat">Airhub</p><p class="life-desc" data-en="Contractor documents, drawings and approvals tracked against schedule, quality, safety and cost." data-zh="營造廠文件、圖說與簽核，對照進度、品質、安全與成本追蹤。">Contractor documents, drawings and approvals tracked against schedule, quality, safety and cost.</p></li>
+          <li><h3 data-en="Operations" data-zh="營運維護">Operations</h3><p class="life-plat">FM · EMS · CIM</p><p class="life-desc" data-en="SCADA, meters and sensors live in the 3D twin; AI forecasts energy and maintenance." data-zh="SCADA、電表與感測器即時進入 3D 孿生，AI 預測用電與維護。">SCADA, meters and sensors live in the 3D twin; AI forecasts energy and maintenance.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="svc-cta" aria-labelledby="ctaTitle">
+      <h2 class="cta-title" id="ctaTitle" data-en="Bring your asset into focus." data-zh="讓你的資產，清楚對焦。">Bring your asset into focus.</h2>
+      <p class="pending" data-en="Contact person and email to be confirmed." data-zh="聯絡窗口與信箱：待確認">Contact person and email to be confirmed.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <p class="footer-mark" aria-hidden="true">ONEWORK</p>
+    <div class="footer-grid">
+      <img src="../assets/onework-brand/onework-logo.svg" alt="ONEWORK" width="180" height="39">
+      <div>
+        <p class="label" data-en="CONTACT" data-zh="聯絡我們">CONTACT</p>
+        <p class="pending" data-en="Contact person and email to be confirmed." data-zh="聯絡窗口與信箱：待確認">Contact person and email to be confirmed.</p>
+      </div>
+      <div>
+        <p class="label" data-en="OFFICE" data-zh="營業地址">OFFICE</p>
+        <p data-en="8F, No. 16, Beiping E. Rd., Taipei, Taiwan" data-zh="台北市北平東路 16 號 8 樓">8F, No. 16, Beiping E. Rd., Taipei, Taiwan</p>
+        <p data-en="Tax ID 42858716" data-zh="統一編號 42858716">Tax ID 42858716</p>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Onework 工一科技. All rights reserved.</p>
+  </footer>
+
+  <button class="tweaks-toggle" id="tweaksToggle" type="button" aria-expanded="false" aria-controls="tweaks">Tweaks</button>
+  <div class="tweaks" id="tweaks" hidden>
+    <p class="tweaks-title">Tweaks</p>
+    <fieldset>
+      <legend>Motion</legend>
+      <label><input type="radio" name="tw-motion" value="full" checked> Full</label>
+      <label><input type="radio" name="tw-motion" value="calm"> Calm</label>
+    </fieldset>
+    <fieldset>
+      <legend>Headline font</legend>
+      <label><input type="radio" name="tw-font" value="archivo" checked> Archivo</label>
+      <label><input type="radio" name="tw-font" value="jost"> Jost</label>
+    </fieldset>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="../assets/js/service.js"></script>
+  <script>
+    // Animations use ES modules, which browsers block on file://. Tell the reviewer how to open it.
+    if (location.protocol === 'file:') {
+      var n = document.createElement('p');
+      n.setAttribute('role', 'alert');
+      n.style.cssText = 'position:fixed;inset:0 0 auto 0;z-index:99;margin:0;padding:14px 16px;background:#1A1A1A;color:#fff;font:500 14px/1.5 "Noto Sans TC",sans-serif;text-align:center';
+      n.textContent = '動畫無法在直接開檔（file://）時執行，請改用 http://127.0.0.1:5174/ 開啟。Animations need a local server: open http://127.0.0.1:5174/';
+      document.body.prepend(n);
+    }
+  </script>
+</body>
+</html>
