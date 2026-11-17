@@ -2,7 +2,7 @@
 // They gather into the mark, turn slowly, now and then drift apart a little and lock back together,
 // and spread out as the banner scrolls away. Pointer tilt max 6° (MOTION.md §4).
 import * as THREE from 'three';
-import { gsap, ScrollTrigger, motion, STATIC, isSmall } from './site.js';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall } from './site.js?v=20261117';
 
 export function initAaHero() {
   const canvas = document.getElementById('aaGl');

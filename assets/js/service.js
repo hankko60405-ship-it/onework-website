@@ -1,5 +1,5 @@
 // ONEWORK — Service page. Mono tone. The banner's idea is focus: type goes from blurred to sharp (MOTION.md §4).
-import { gsap, ScrollTrigger, motion, STATIC, isSmall, root, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall, root, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js?v=20261117';
 import './service-twin.js';   // the 3D lifecycle sits right after the banner, so its pin is created first
 
 const animated = () => !STATIC && !motion.calm;

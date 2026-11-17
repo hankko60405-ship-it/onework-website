@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800;900&family=Jost:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css">
-  <link rel="stylesheet" href="../assets/css/career.css">
+  <link rel="stylesheet" href="../assets/css/site.css?v=20261117">
+  <link rel="stylesheet" href="../assets/css/career.css?v=20261117">
 </head>
 <body class="page-career">
   <a class="skip" href="#main" data-en="Skip to content" data-zh="跳到主要內容">Skip to content</a>
@@ -38,7 +38,8 @@
 
   <main id="main">
     <!-- CAREER · International Career: Visual Banner, a green watercolour wash -->
-    <section class="cr-hero" id="career" aria-labelledby="careerTitle">
+    <section class="cr-hero has-wash" id="career" aria-labelledby="careerTitle">
+      <img class="cr-bg" src="../assets/career/wash-career.jpg" alt="" width="2560" height="1440" fetchpriority="high" decoding="async">
       <div class="wash" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>
       <div class="grain" aria-hidden="true"></div>
       <div class="cr-hero-copy">
@@ -52,6 +53,14 @@
       <div class="cr-lead">
         <p class="label" data-en="WHY ONEWORK" data-zh="為什麼是工一">WHY ONEWORK</p>
         <p class="cr-statement" data-en="We are opening our branch in Penang, Malaysia, and looking for engineers who want a long-term career in smart cities and digital twins." data-zh="工一科技將於馬來西亞檳城成立分公司，正在尋找想在智慧城市與數位孿生領域長期發展的工程師。">We are opening our branch in Penang, Malaysia, and looking for engineers who want a long-term career in smart cities and digital twins.</p>
+      </div>
+
+      <div class="cr-block">
+        <p class="label" data-en="LIFE AT ONEWORK" data-zh="工一的日常">LIFE AT ONEWORK</p>
+        <div class="cr-photos is-pair">
+          <figure class="cr-photo"><img src="../assets/career/team-taipei.jpg" alt="The ONEWORK team together in Taipei" width="1600" height="1151" loading="lazy" decoding="async"></figure>
+          <figure class="cr-photo"><img src="../assets/career/team-london.jpg" alt="ONEWORK colleagues together in a high-rise office" width="1022" height="1118" loading="lazy" decoding="async"></figure>
+        </div>
       </div>
 
       <div class="cr-block">
@@ -91,7 +100,8 @@
     </section>
 
     <!-- CAREER · Internship Program: the same wash, turned upside down -->
-    <section class="cr-hero is-flip" id="internship" aria-labelledby="internshipTitle">
+    <section class="cr-hero is-flip has-wash" id="internship" aria-labelledby="internshipTitle">
+      <img class="cr-bg" src="../assets/career/wash-internship.jpg" alt="" width="2560" height="1440" loading="lazy" decoding="async">
       <div class="wash" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>
       <div class="grain" aria-hidden="true"></div>
       <div class="cr-hero-copy">
@@ -105,6 +115,13 @@
       <div class="cr-lead">
         <p class="label" data-en="WITH TECHSTART" data-zh="與 TECHSTART 合作">WITH TECHSTART</p>
         <p class="cr-statement" data-en="An international internship run with TechStart, a UK charity for youth and technology: real AI and smart-city work for students and recent graduates." data-zh="與英國青年科技公益組織 TechStart 合作的國際實習計畫：讓在學生與應屆畢業生參與真實的 AI 與智慧城市專案。">An international internship run with TechStart, a UK charity for youth and technology: real AI and smart-city work for students and recent graduates.</p>
+      </div>
+
+      <div class="cr-block">
+        <p class="label" data-en="LIFE AS AN INTERN" data-zh="實習生的日常">LIFE AS AN INTERN</p>
+        <div class="cr-photos">
+          <figure class="cr-photo"><img src="../assets/career/interns-dinner.jpg" alt="Interns and mentors at dinner together" width="1354" height="758" loading="lazy" decoding="async"></figure>
+        </div>
       </div>
 
       <div class="cr-block">
@@ -163,25 +180,11 @@
     <p class="copyright">© 2026 Onework 工一科技. All rights reserved.</p>
   </footer>
 
-  <button class="tweaks-toggle" id="tweaksToggle" type="button" aria-expanded="false" aria-controls="tweaks">Tweaks</button>
-  <div class="tweaks" id="tweaks" hidden>
-    <p class="tweaks-title">Tweaks</p>
-    <fieldset>
-      <legend>Motion</legend>
-      <label><input type="radio" name="tw-motion" value="full" checked> Full</label>
-      <label><input type="radio" name="tw-motion" value="calm"> Calm</label>
-    </fieldset>
-    <fieldset>
-      <legend>Headline font</legend>
-      <label><input type="radio" name="tw-font" value="archivo" checked> Archivo</label>
-      <label><input type="radio" name="tw-font" value="jost"> Jost</label>
-    </fieldset>
-  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="../assets/js/career.js"></script>
+  <script type="module" src="../assets/js/career.js?v=20261117"></script>
   <script>
     // Animations use ES modules, which browsers block on file://. Tell the reviewer how to open it.
     if (location.protocol === 'file:') {

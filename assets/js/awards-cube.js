@@ -2,7 +2,7 @@
 // Nine awards, six faces: a face is repainted while it is turned away, so the die can roll forever.
 // Mist tone (MOTION.md §1): Logo teal for the glow, no neon. Slow scan lines, never flashing (§6).
 import * as THREE from 'three';
-import { gsap, motion, isSmall, onLangChange } from './site.js';
+import { gsap, motion, isSmall, onLangChange } from './site.js?v=20261117';
 
 export function initCube() {
   const canvas = document.getElementById('cubeGl');
@@ -16,6 +16,8 @@ export function initCube() {
       tone: [...art.classList].find((c) => c.startsWith('tone-')),
       year: art.querySelector('.aw-year').textContent,
       word: art.querySelector('.aw-word').textContent,
+      photo: art.querySelector('.aw-photo')?.getAttribute('src') || null,
+      logo: art.classList.contains('has-logo'),
     };
   });
   const N = items.length;
@@ -61,20 +63,52 @@ export function initCube() {
     const cands = [[0, V], [Math.PI / 2, U], [Math.PI, V.clone().negate()], [-Math.PI / 2, U.clone().negate()]];
     return cands.reduce((b, c) => (c[1].dot(up) > b[1].dot(up) ? c : b))[0];
   }
+  // award photos, loaded once; a face showing that award repaints when its photo arrives
+  const photos = new Map();
+  function photoFor(item) {
+    let im = photos.get(item.photo);
+    if (!im) {
+      im = new Image();
+      im.decoding = 'async';
+      im.onload = () => faces.forEach((f, k) => { if (faceItem[k] === item) paint(k, item); });
+      im.src = new URL(item.photo, location.href).href;
+      photos.set(item.photo, im);
+    }
+    return im.complete && im.naturalWidth ? im : null;
+  }
   function paint(face, item, q = die.quaternion) {
     const { ctx, tex } = faces[face];
     const [c0, c1, ink] = TONES[item.tone];
     ctx.save();
     ctx.translate(T / 2, T / 2); ctx.rotate(uprightAngle(face, q)); ctx.translate(-T / 2, -T / 2);
-    const g = ctx.createLinearGradient(0, 0, T, T);
-    g.addColorStop(0, c0); g.addColorStop(1, c1);
-    ctx.fillStyle = g; ctx.fillRect(0, 0, T, T);
-    // a logo ribbon crossing the face
-    ctx.save(); ctx.translate(T / 2, T / 2); ctx.rotate(-Math.PI / 4);
-    ctx.fillStyle = 'rgba(255,255,255,0.10)'; ctx.fillRect(-T * 0.8, -T * 0.11, T * 1.6, T * 0.22);
-    ctx.restore();
-    ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 3; ctx.strokeRect(28, 28, T - 56, T - 56);
-    ctx.fillStyle = ink;
+    const pic = item.photo ? photoFor(item) : null;
+    let textInk = ink;
+    if (pic && item.logo) {
+      // a logo: white face, logo contained in the middle, dark type
+      ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, T, T);
+      const s = Math.min((T * 0.8) / pic.width, (T * 0.42) / pic.height);
+      ctx.drawImage(pic, (T - pic.width * s) / 2, T * 0.2, pic.width * s, pic.height * s);
+      textInk = '#1A1A1A';
+    } else if (pic) {
+      // a photo: cover the face, then a dark fade at top and bottom so the type reads
+      const s = Math.max(T / pic.width, T / pic.height);
+      ctx.drawImage(pic, (T - pic.width * s) / 2, (T - pic.height * s) / 2, pic.width * s, pic.height * s);
+      const f = ctx.createLinearGradient(0, 0, 0, T);
+      f.addColorStop(0, 'rgba(18,24,26,0.55)'); f.addColorStop(0.28, 'rgba(18,24,26,0)');
+      f.addColorStop(0.45, 'rgba(18,24,26,0)'); f.addColorStop(1, 'rgba(18,24,26,0.85)');
+      ctx.fillStyle = f; ctx.fillRect(0, 0, T, T);
+      textInk = '#FFFFFF';
+    } else {
+      const g = ctx.createLinearGradient(0, 0, T, T);
+      g.addColorStop(0, c0); g.addColorStop(1, c1);
+      ctx.fillStyle = g; ctx.fillRect(0, 0, T, T);
+      // a logo ribbon crossing the face
+      ctx.save(); ctx.translate(T / 2, T / 2); ctx.rotate(-Math.PI / 4);
+      ctx.fillStyle = 'rgba(255,255,255,0.10)'; ctx.fillRect(-T * 0.8, -T * 0.11, T * 1.6, T * 0.22);
+      ctx.restore();
+    }
+    ctx.strokeStyle = item.logo && pic ? 'rgba(26,26,26,0.18)' : 'rgba(255,255,255,0.35)'; ctx.lineWidth = 3; ctx.strokeRect(28, 28, T - 56, T - 56);
+    ctx.fillStyle = textInk;
     ctx.font = '500 30px Jost, sans-serif';
     ctx.fillText(item.year.split('').join(' '), 64, 104);
     // the big word, sized to fit the face

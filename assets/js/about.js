@@ -1,5 +1,5 @@
 // ONEWORK — About page. Motion values follow MOTION.md (§4: About lines draw slowly; §6: title readable within 1s).
-import { gsap, ScrollTrigger, motion, STATIC, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js';
+import { gsap, ScrollTrigger, motion, STATIC, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js?v=20261117';
 
 const animated = () => !STATIC && !motion.calm;
 
@@ -21,33 +21,192 @@ function splitWords() {
 splitWords();
 onLangChange(splitWords);
 
-/* ---------- Banner intro ---------- */
-const lines = [...document.querySelectorAll('.net-line')];
-lines.forEach((p) => { const len = p.getTotalLength(); p.style.strokeDasharray = len; p.style.strokeDashoffset = animated() ? len : 0; });
-const textPaths = document.querySelectorAll('.plane textPath');
+/* ---------- Opening film (user reference video) ----------
+   Runs once, about 9 s, fast cuts in black and white:
+   ABOUT ONEWORK → a running row of ONEWORK, a black block flips it → ONEWORK shrinks →
+   a grid of O N E W O R K letters, then inverted → the grid bends into a 3D wave and the camera flies over it →
+   a wall of O's → one O, the camera dives into its stroke → star warp → ONEWORK small → the banner.
+   Any scroll, click or key skips to the banner. */
+const intro = document.getElementById('intro');
+const cvs = document.getElementById('introCanvas');
+const ctx = cvs.getContext('2d');
+const LETTERS = 'ONEWORK';
+const cv = { mode: 'none', dark: false, ox: 0, tilt: 0, amp: 0, phase: 0, fly: 0, warp: 0 };
+let W = 0, H = 0, DPR = 1, stars = [];
 
-function intro() {
-  if (!animated()) return;
-  const tl = gsap.timeline();
-  tl.to(lines, { strokeDashoffset: 0, duration: 1.6, ease: 'power3.out', stagger: 0.15 }, 0);
-  tl.from('.orb', { opacity: 0, scale: 0.6, duration: 1.6, ease: 'expo.out', stagger: 0.2 }, 0);
-  // the manifesto is the page's main text: it starts at 0.2s so it is readable within 1s
-  tl.from('.manifesto .w', { opacity: 0, y: 14, duration: 0.7, ease: 'expo.out', stagger: { amount: 0.6 } }, 0.2);
-  tl.from('.about-mark img', { opacity: 0, scale: 0.85, rotation: -30, duration: 1.2, ease: 'expo.out' }, 0.3);
-  tl.from('.about-wordmark span', { opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.04 }, 0.5);
-  tl.from('.about-wordmark', { gap: '0.05em', duration: 0.8, ease: 'expo.out' }, 0.9);
-  tl.fromTo('.plane', { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 1.2, ease: 'expo.out' }, 0.6);
-  tl.fromTo(textPaths, { attr: { startOffset: '45%' }, opacity: 0 }, { attr: { startOffset: '0%' }, opacity: 1, duration: 1.4, ease: 'expo.out', stagger: 0.12 }, 0.9);
-  tl.from('.site-header', { opacity: 0, y: -12, duration: 0.8, ease: 'power3.out' }, 0.4);
+function sizeCanvas() {
+  const r = intro.getBoundingClientRect();
+  DPR = Math.min(devicePixelRatio || 1, 2);
+  W = r.width; H = r.height;
+  cvs.width = W * DPR; cvs.height = H * DPR;
+}
+function seedStars() {
+  stars = Array.from({ length: Math.round(Math.min(900, W * H / 1800)) }, () => ({
+    x: (Math.random() * 2 - 1) * 1.2, y: (Math.random() * 2 - 1) * 1.2, z: Math.random() * 0.95 + 0.05, pz: 0,
+  }));
+  stars.forEach((st) => { st.pz = st.z; });
 }
 
-/* Slow breathing light — small and slow, never flashing (MOTION.md §6.1) */
-let breathe = null;
-function startBreathe() {
-  if (!animated() || breathe) return;
-  breathe = gsap.to('.orb', { scale: 1.06, duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: 1.5 });
+/* the letter sheet: a flat grid facing the camera that tilts back and ripples into a wave */
+function drawSheet() {
+  const s = Math.max(64, W / 9);             // cell size
+  const cols = 30, rows = 30, D = 900;
+  const fg = cv.dark ? '#FFFFFF' : '#000000';
+  ctx.fillStyle = fg;
+  ctx.font = `400 ${s * 0.62}px Jost, sans-serif`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const cos = Math.cos(cv.tilt), sin = Math.sin(cv.tilt);
+  const P = (gx, gy) => {
+    const X = gx * s, Y0 = gy * s;
+    let Y = Y0 * cos, Z = Y0 * sin + cv.fly;
+    Z += cv.amp * Math.sin(X / (W * 0.32) + Y0 / (W * 0.45) + cv.phase) * s;
+    const z = D + Z;
+    if (z < 60) return null;
+    const k = D / z;
+    return [W / 2 + X * k, H / 2 + Y * k - cv.tilt * H * 0.35 * k, k];
+  };
+  const shift = ((cv.ox % s) + s) % s / s;
+  const first = Math.floor(cv.ox / s);
+  for (let j = -rows / 2; j < rows / 2; j++) {
+    for (let i = -cols / 2; i < cols / 2; i++) {
+      const gx = i + shift, gy = j + 0.5;
+      const p = P(gx, gy), px = P(gx + 1, gy), py = P(gx, gy + 1);
+      if (!p || !px || !py) continue;
+      if (p[0] < -s * 3 || p[0] > W + s * 3 || p[1] < -s * 3 || p[1] > H + s * 3) continue;
+      const ch = LETTERS[(((i - first + j * 3) % 7) + 7) % 7];
+      ctx.setTransform(DPR * (px[0] - p[0]) / s, DPR * (px[1] - p[1]) / s, DPR * (py[0] - p[0]) / s, DPR * (py[1] - p[1]) / s, DPR * p[0], DPR * p[1]);
+      ctx.fillText(ch, 0, 0);
+    }
+  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
-startBreathe();
+function drawOWall() {
+  const fs = H * 0.62;
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.fillStyle = '#000000';
+  ctx.font = `500 ${fs}px Jost, sans-serif`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const step = fs * 0.78;
+  for (let y = -1; y <= 1; y++) for (let x = -3; x <= 3; x++) {
+    ctx.fillText('O', W / 2 + x * step + (y % 2 ? step / 2 : 0) + cv.ox, H / 2 + y * fs * 0.8);
+  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+function drawStars(dt) {
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  const f = Math.min(W, H) * 0.9;
+  for (const st of stars) {
+    st.pz = st.z;
+    st.z -= cv.warp * dt;
+    if (st.z <= 0.02) { st.x = (Math.random() * 2 - 1) * 1.2; st.y = (Math.random() * 2 - 1) * 1.2; st.z = 1; st.pz = 1; continue; }
+    const x = W / 2 + (st.x / st.z) * f, y = H / 2 + (st.y / st.z) * f;
+    const x0 = W / 2 + (st.x / st.pz) * f, y0 = H / 2 + (st.y / st.pz) * f;
+    if (x < -50 || x > W + 50 || y < -50 || y > H + 50) continue;
+    const b = Math.min(1, (1 - st.z) * 1.4);
+    ctx.strokeStyle = `rgba(255,255,255,${0.25 + b * 0.75})`;
+    ctx.lineWidth = 0.6 + (1 - st.z) * 2.2;
+    ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x + 0.01, y + 0.01); ctx.stroke();
+  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+function render(time, dt) {
+  if (cv.mode === 'none') return;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = cv.dark ? '#000000' : '#FFFFFF';
+  ctx.fillRect(0, 0, cvs.width, cvs.height);
+  if (cv.mode === 'sheet') drawSheet();
+  else if (cv.mode === 'owall') drawOWall();
+  else if (cv.mode === 'stars') drawStars(Math.min(dt, 50) / 1000);
+}
+
+let film = null;
+function finishIntro() {
+  intro.classList.add('is-done');
+  gsap.ticker.remove(render);
+  gsap.set('.site-header', { opacity: 1 });
+}
+function playIntro() {
+  if (!animated()) { finishIntro(); return; }
+  sizeCanvas(); seedStars();
+  gsap.ticker.add(render);
+  const show = (sel, on = true) => gsap.set(sel, { visibility: on ? 'visible' : 'hidden' });
+  const mode = (m, dark) => () => { cv.mode = m; cv.dark = dark; show(cvs, m !== 'none'); };
+  const track = intro.querySelector('.i-track');
+  const block = intro.querySelector('.i-block');
+  const words = [...track.children];
+  const tl = gsap.timeline({ onComplete: finishIntro });
+  film = tl;
+
+  // 0.0  ABOUT ONEWORK, big and black in the centre (readable at once)
+  tl.from('.i-title span', { yPercent: 40, opacity: 0, duration: 0.45, ease: 'expo.out', stagger: 0.06 }, 0);
+  tl.to('.i-title', { scale: 1.06, duration: 0.8, ease: 'none' }, 0.3);
+
+  // 1.0  cut: a running row of ONEWORK; a black block slams up and flips the middle word
+  tl.add(() => { show('.i-title', false); show('.i-row'); }, 1.0);
+  tl.fromTo(track, { x: 0 }, { x: () => -words[2].offsetLeft, duration: 1.0, ease: 'power2.in' }, 1.0);
+  tl.add(() => {
+    const r = words[3].getBoundingClientRect(), o = intro.getBoundingClientRect();
+    gsap.set(block, { left: r.left - o.left, top: r.top - o.top - r.height * 0.4, width: r.width, height: r.height * 1.8 });
+  }, 1.3);
+  tl.fromTo(block, { scaleY: 0, transformOrigin: '50% 100%' }, { scaleY: 1, duration: 0.22, ease: 'expo.out' }, 1.3);
+  tl.to(block, { left: 0, width: () => W, top: () => H * 0.5, height: () => H * 0.5, duration: 0.3, ease: 'expo.inOut' }, 1.62);
+
+  // 2.0  cut: ONEWORK alone, then it snaps down small
+  tl.add(() => { show('.i-row', false); show('.i-word'); }, 2.0);
+  tl.fromTo('.i-word', { scale: 1.6 }, { scale: 0.45, duration: 0.45, ease: 'expo.out' }, 2.0);
+
+  // 2.5  cut: the letter grid, sliding; 3.0 it inverts to black
+  tl.add(() => { show('.i-word', false); Object.assign(cv, { ox: 0, tilt: 0, amp: 0, fly: 0, phase: 0 }); }, 2.5);
+  tl.add(mode('sheet', false), 2.5);
+  tl.to(cv, { ox: () => -W * 0.5, duration: 1.1, ease: 'none' }, 2.5);
+  tl.add(() => { cv.dark = true; gsap.set('.site-header', { opacity: 0 }); }, 3.0);
+
+  // 3.6  the sheet tilts back and ripples into a wave, the camera rushes over it
+  tl.to(cv, { tilt: 1.05, duration: 1.6, ease: 'power3.inOut' }, 3.4);
+  tl.to(cv, { amp: 1.5, duration: 1.4, ease: 'power2.in' }, 3.6);
+  tl.to(cv, { phase: 5, duration: 2.0, ease: 'none' }, 3.6);
+  tl.to(cv, { fly: () => -W * 0.9, duration: 1.8, ease: 'power2.in' }, 3.8);
+
+  // 5.6  cut to white: a wall of O's, then one O; the camera dives into its stroke
+  tl.add(() => { gsap.set('.site-header', { opacity: 1 }); cv.ox = 0; }, 5.6);
+  tl.add(mode('owall', false), 5.6);
+  tl.to(cv, { ox: () => -W * 0.08, duration: 0.4, ease: 'none' }, 5.6);
+  tl.add(() => { mode('none', false)(); show('.i-o'); }, 6.0);
+  tl.fromTo('.i-o', { scale: 0.5 }, { scale: 1, duration: 0.3, ease: 'expo.out' }, 6.0);
+  tl.add(() => {
+    // aim the zoom at the left side of the O's stroke so the screen fills with black
+    const o = intro.querySelector('.i-o');
+    gsap.set(o, { transformOrigin: '36% 50%' });
+    gsap.set('.site-header', { opacity: 0 });
+  }, 6.4);
+  tl.to('.i-o', { scale: 60, duration: 0.55, ease: 'expo.in' }, 6.4);
+  tl.set(intro, { backgroundColor: '#000000' }, 6.8); // whatever the zoom lands on, the dive ends in black
+
+  // 6.95  star warp in the dark
+  tl.add(() => { show('.i-o', false); seedStars(); }, 6.95);
+  tl.add(mode('stars', true), 6.95);
+  tl.fromTo(cv, { warp: 3.2 }, { warp: 0.15, duration: 1.3, ease: 'power2.out' }, 6.95);
+
+  // 8.25  cut to white: ONEWORK small, then the banner comes up
+  tl.add(() => { mode('none', false)(); show('.i-word'); gsap.set('.site-header', { opacity: 1 }); }, 8.25);
+  tl.set(intro, { backgroundColor: '#FFFFFF' }, 8.25);
+  tl.fromTo('.i-word', { scale: 0.9 }, { scale: 0.3, duration: 0.5, ease: 'expo.out' }, 8.25);
+  tl.to(intro, { opacity: 0, duration: 0.45, ease: 'power3.out' }, 8.8);
+  heroIntro(tl, 8.8);
+
+  // never make people wait: any scroll, click or key jumps to the banner
+  const skip = () => { if (tl.progress() < 1) { tl.progress(1); } };
+  ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach((ev) => addEventListener(ev, skip, { once: true, passive: true }));
+}
+function heroIntro(tl, at) {
+  tl.from('.about-mark img', { opacity: 0, scale: 0.85, rotation: -30, duration: 1.0, ease: 'expo.out' }, at);
+  tl.from('.manifesto .w', { opacity: 0, y: 8, duration: 0.6, ease: 'expo.out', stagger: { amount: 0.4 } }, at + 0.1);
+  tl.from('.about-wordmark span', { opacity: 0, duration: 0.5, ease: 'power3.out', stagger: 0.04 }, at + 0.2);
+  tl.from('.about-wordmark', { gap: '0.05em', duration: 0.8, ease: 'expo.out' }, at + 0.4);
+  tl.from('.about-marquee', { opacity: 0, yPercent: 30, duration: 1.0, ease: 'expo.out' }, at + 0.3);
+}
+addEventListener('resize', () => { if (!intro.classList.contains('is-done')) sizeCanvas(); });
+onMotionChange((calm) => { if (calm && film) film.progress(1); });
 
 /* Logo mark follows the pointer, max 6° */
 const mark = document.querySelector('.about-mark img');
@@ -59,14 +218,13 @@ addEventListener('pointermove', (e) => {
   ry(((e.clientX / innerWidth) - 0.5) * 12);
 });
 onMotionChange((calm) => {
-  if (calm) { rx(0); ry(0); breathe?.kill(); breathe = null; gsap.set('.orb', { scale: 1 }); } else startBreathe();
+  if (calm) { rx(0); ry(0); }
 });
 
 /* ---------- Scroll motion ---------- */
 const range = (p, a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
 const ease = (t) => 1 - Math.pow(1 - t, 3);
 if (!STATIC) {
-  gsap.to('.plane', { y: -60, ease: 'none', scrollTrigger: { trigger: '.about-hero', start: 'top top', end: 'bottom top', scrub: true } });
 
   // Founder: the name rises out of its mask, the photo opens like a shutter
   const fo = { trigger: '.founder', start: 'top 72%', once: true };
@@ -230,7 +388,7 @@ document.querySelectorAll('.dept-art[data-src]').forEach((box) => {
   img.src = box.dataset.src;   // no file yet: the error is silent and the drawing stays
 });
 
-fontsReady.then(intro);
+fontsReady.then(playIntro);
 ScrollTrigger.sort(); ScrollTrigger.refresh();   // the pin above was created after the triggers below it
 // images below the fold load lazily; re-measure the pinned section once each one has its real size
 document.querySelectorAll('img[loading="lazy"]').forEach((img) => { if (!img.complete) img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true }); });

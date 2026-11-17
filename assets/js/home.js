@@ -1,6 +1,6 @@
 // ONEWORK home — motion values follow MOTION.md
 import * as THREE from 'three';
-import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js?v=20261117';
 
 const C = {
   teal900: 0x47868d, teal700: 0x5b8f96, teal500: 0x759fa4, teal300: 0x8badb1, teal100: 0x9eb9bd,

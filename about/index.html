@@ -8,9 +8,9 @@
   <link rel="icon" href="../assets/onework-brand/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800;900&family=Jost:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css">
-  <link rel="stylesheet" href="../assets/css/about.css">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Jost:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css?v=20261117">
+  <link rel="stylesheet" href="../assets/css/about.css?v=20261117">
 </head>
 <body class="page-about">
   <a class="skip" href="#main" data-en="Skip to content" data-zh="跳到主要內容">Skip to content</a>
@@ -34,21 +34,14 @@
   <main id="main">
     <!-- ABOUT · Visual Banner -->
     <section class="about-hero" aria-labelledby="aboutTitle">
-      <svg class="net" viewBox="0 0 2000 1125" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <defs>
-          <radialGradient id="orb">
-            <stop offset="0" stop-color="#F2F2F2"/>
-            <stop offset="0.55" stop-color="#F2F2F2" stop-opacity="0.7"/>
-            <stop offset="1" stop-color="#F2F2F2" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <circle class="orb" cx="300" cy="560" r="150" fill="url(#orb)"/>
-        <circle class="orb" cx="1660" cy="350" r="150" fill="url(#orb)"/>
-        <path class="net-line" d="M295 0 V1125"/>
-        <path class="net-line" d="M300 560 L520 680"/>
-        <path class="net-line" d="M1912 0 V220 L1660 350"/>
-        <path class="net-line" d="M1660 350 V700"/>
-      </svg>
+      <!-- Opening film (user reference video): ABOUT ONEWORK → word row → letter grid → 3D wave → dive into the O → star warp → the banner -->
+      <div class="intro" id="intro" aria-hidden="true">
+        <canvas class="i-canvas" id="introCanvas"></canvas>
+        <p class="i-title"><span>ABOUT</span><span>ONEWORK</span></p>
+        <div class="i-row"><p class="i-track"><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span></p><div class="i-block"></div></div>
+        <p class="i-word">ONEWORK</p>
+        <p class="i-o">O</p>
+      </div>
 
       <div class="about-mark" aria-hidden="true">
         <img src="../assets/onework-brand/onework-mark.svg" alt="" width="96" height="96">
@@ -60,19 +53,9 @@
          data-en="As experts in digital twins, we leverage systems engineering, IoT technologies, data analytics, cloud computing, and augmented reality to map the entire product lifecycle (BLM) of real-world assets—such as buildings and systems—into a virtual BIM environment. By consolidating complex, multi-source data and presenting it through 3D technologies, we deliver unprecedented levels of information visibility and insight to our users."
          data-zh="身為數位孿生的專家，我們透過系統工程設計、IoT 物聯網技術、數據分析、雲端計算與擴增實境應用，將真實世界（建築、系統）的整個產品生命週期（BLM）在虛擬空間（BIM）中完成映射，洞見複雜且多方來源的數據，透過 3D 技術呈現給使用者，換取前所未有的資訊可視性。">As experts in digital twins, we leverage systems engineering, IoT technologies, data analytics, cloud computing, and augmented reality to map the entire product lifecycle (BLM) of real-world assets—such as buildings and systems—into a virtual BIM environment. By consolidating complex, multi-source data and presenting it through 3D technologies, we deliver unprecedented levels of information visibility and insight to our users.</p>
 
-      <svg class="plane" viewBox="0 0 835 325" aria-hidden="true">
-        <defs>
-          <linearGradient id="planeFill" x1="0" x2="1">
-            <stop offset="0" stop-color="#9EB9BD"/>
-            <stop offset="1" stop-color="#759FA4"/>
-          </linearGradient>
-          <path id="arcAbout" d="M250 170 Q 440 40 640 110"/>
-          <path id="arcName" d="M95 305 Q 420 135 820 245"/>
-        </defs>
-        <polygon points="0,325 375,0 648,28 833,262 833,325" fill="url(#planeFill)"/>
-        <text class="arc arc-about"><textPath href="#arcAbout" startOffset="0%">About</textPath></text>
-        <text class="arc arc-name"><textPath href="#arcName" startOffset="0%">ONEWORK</textPath></text>
-      </svg>
+      <!-- the ONEWORK row from the opening film, on its own as an endless line under the statement -->
+      <div class="about-marquee" aria-hidden="true"><p class="am-track"><span class="am-set"><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span></span><span class="am-set"><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span><span>ONEWORK</span></span></p></div>
+
     </section>
 
     <!-- ABOUT · Founder 自介 -->
@@ -176,6 +159,14 @@
         <li><img src="../assets/about/office-room.jpg" alt="Work area with long tables and a sofa" loading="lazy"></li>
         <li><img src="../assets/about/office-lobby.jpg" alt="Lobby wall with the ONEWORK name" loading="lazy"></li>
       </ul>
+
+      <div class="life">
+        <p class="label" data-en="LIFE AT ONEWORK" data-zh="工一的日常">LIFE AT ONEWORK</p>
+        <div class="life-photos">
+          <figure><img src="../assets/about/team-fet.jpg" alt="The ONEWORK team at the Far EasTone accelerator event" width="1946" height="1293" loading="lazy" decoding="async"></figure>
+          <figure><img src="../assets/about/meeting.jpg" alt="A teammate leading a whiteboard session" width="1946" height="1062" loading="lazy" decoding="async"></figure>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -196,25 +187,11 @@
     <p class="copyright">© 2026 Onework 工一科技. All rights reserved.</p>
   </footer>
 
-  <button class="tweaks-toggle" id="tweaksToggle" type="button" aria-expanded="false" aria-controls="tweaks">Tweaks</button>
-  <div class="tweaks" id="tweaks" hidden>
-    <p class="tweaks-title">Tweaks</p>
-    <fieldset>
-      <legend>Motion</legend>
-      <label><input type="radio" name="tw-motion" value="full" checked> Full</label>
-      <label><input type="radio" name="tw-motion" value="calm"> Calm</label>
-    </fieldset>
-    <fieldset>
-      <legend>Headline font</legend>
-      <label><input type="radio" name="tw-font" value="archivo" checked> Archivo</label>
-      <label><input type="radio" name="tw-font" value="jost"> Jost</label>
-    </fieldset>
-  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="../assets/js/about.js"></script>
+  <script type="module" src="../assets/js/about.js?v=20261117"></script>
   <script>
     // Animations use ES modules, which browsers block on file://. Tell the reviewer how to open it.
     if (location.protocol === 'file:') {

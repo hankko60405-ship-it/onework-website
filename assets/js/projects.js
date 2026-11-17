@@ -1,7 +1,7 @@
 // ONEWORK — Projects page. Mist tone. Banner: the ribbon tower gathers from scattered pieces (MOTION.md §4) while the
 // words keep changing type. Hall: projects on a ring of curved screens that turns with scroll.
 import * as THREE from 'three';
-import { gsap, ScrollTrigger, motion, STATIC, isSmall, root, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall, root, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js?v=20261117';
 
 const animated = () => !STATIC && !motion.calm;
 const lang = () => (root.lang === 'zh-Hant' ? 'zh' : 'en');
@@ -337,29 +337,17 @@ function pick(e) {
   const hit = ray.intersectObjects(panels)[0];
   return hit ? hit.object.userData.i : -1;
 }
-// Resting the mouse on a screen opens that project. Guards: a short dwell (a pass-over does nothing),
-// never while the ring is turning, and after closing, the pointer must leave that screen before it can open again.
-const DWELL = 450;
-let dwell = null;
-let blocked = -1;
+// Hover a screen: a preview follows the pointer (and the ring pauses). One click opens the project.
 let turnSpeed = 0;
 function setHover(i, mouse) {
-  if (i !== blocked) blocked = -1;
   if (i === hoverI) return;
   hoverI = i;
   hCanvas.classList.toggle('is-hover', i >= 0);
-  clearTimeout(dwell);
-  if (!mouse || i < 0) return;
-  dwell = setTimeout(function tryOpen() {
-    if (hoverI !== i || i === blocked || modal.open) return;
-    if (turnSpeed > 0.002) { dwell = setTimeout(tryOpen, 150); return; }   // wait for the ring to settle
-    blocked = i;
-    openProject(i);
-  }, DWELL);
+  if (mouse && i >= 0 && !modal.open) showPeek(i); else hidePeek();
 }
 hCanvas.addEventListener('pointermove', (e) => setHover(pick(e), e.pointerType === 'mouse'));
 hCanvas.addEventListener('pointerleave', () => setHover(-1, false));
-hCanvas.addEventListener('click', (e) => { const i = pick(e); if (i >= 0 && !modal.open) { clearTimeout(dwell); blocked = i; openProject(i); } });
+hCanvas.addEventListener('click', (e) => { const i = pick(e); if (i >= 0 && !modal.open) openProject(i); });
 
 /* =====================================================================
    4. Index list and project detail
@@ -386,7 +374,10 @@ peek.className = 'pj-peek';
 peek.setAttribute('aria-hidden', 'true');
 const peekCv = document.createElement('canvas');
 peekCv.width = 520; peekCv.height = Math.round(520 * TEX_H / TEX_W);
-peek.append(peekCv);
+const peekInfo = document.createElement('div');
+peekInfo.className = 'pk-info';
+peekInfo.innerHTML = '<p class="pk-cat"></p><p class="pk-title"></p><p class="pk-desc"></p><p class="pk-hint"></p>';
+peek.append(peekCv, peekInfo);
 document.body.append(peek);
 const peekX = gsap.quickTo(peek, 'x', { duration: 0.5, ease: 'power3.out' });
 const peekY = gsap.quickTo(peek, 'y', { duration: 0.5, ease: 'power3.out' });
@@ -394,6 +385,11 @@ function showPeek(i) {
   const pctx = peekCv.getContext('2d');
   pctx.clearRect(0, 0, peekCv.width, peekCv.height);
   pctx.drawImage(panels[i].userData.ctx.canvas, 0, 0, peekCv.width, peekCv.height);
+  const L = PROJECTS[i][lang()];
+  peekInfo.querySelector('.pk-cat').textContent = L.c;
+  peekInfo.querySelector('.pk-title').textContent = L.t;
+  peekInfo.querySelector('.pk-desc').textContent = L.d.length > 96 ? L.d.slice(0, 94).trimEnd() + '…' : L.d;
+  peekInfo.querySelector('.pk-hint').textContent = lang() === 'zh' ? '點擊查看專案 →' : 'Click to view project →';
   gsap.to(peek, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: 'expo.out', overwrite: 'auto' });
 }
 function hidePeek() { gsap.to(peek, { opacity: 0, scale: 0.9, duration: 0.3, ease: 'power3.out', overwrite: 'auto' }); }
@@ -414,6 +410,7 @@ function openProject(i) {
   const link = document.getElementById('mLink');
   link.href = `../product/#${p.platform}`;
   link.textContent = lang() === 'zh' ? `看 ${PLATFORM_NAME[p.platform]} 平台 →` : `See the ${PLATFORM_NAME[p.platform]} platform →`;
+  hidePeek();
   if (modal.open) modal.close();   // reopen as a true modal, never as an inline block
   modal.showModal();
   modal.scrollTop = 0;

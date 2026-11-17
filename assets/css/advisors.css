@@ -284,3 +284,16 @@ html.is-static .awards.is-cube .aw-grid { display: block; }
   .aw-grid[data-view="list"] .aw-text { grid-template-columns: 1fr; gap: 6px; }
   .aw-peek { display: none; }
 }
+
+/* award tiles with a real photo: photo behind, year and word on top over a soft dark fade */
+.aw-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 1.2s var(--ease-out); }
+.aw-art.has-photo, .aw-art.has-logo { color: var(--white); }
+.aw-art.has-photo::before, .aw-art.has-logo::before { display: none; }
+.aw-art.has-photo::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(18, 24, 26, 0.5) 0%, rgba(18, 24, 26, 0) 28%, rgba(18, 24, 26, 0) 50%, rgba(18, 24, 26, 0.75) 100%); }
+.aw-art.has-photo .aw-year, .aw-art.has-photo .aw-word { z-index: 1; text-shadow: 0 1px 18px rgba(18, 24, 26, 0.35); }
+.aw:hover .aw-art.has-photo .aw-photo { transform: scale(1.05); }
+/* a logo instead of a photo: white tile, logo centred, dark type */
+.aw-art.has-logo { background: var(--white); color: var(--charcoal); }
+.aw-art.has-logo .aw-photo { object-fit: contain; padding: 14% 10%; }
+.aw-art.has-logo .aw-year, .aw-art.has-logo .aw-word { z-index: 1; }

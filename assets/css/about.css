@@ -10,19 +10,18 @@
   position: relative;
   min-height: 100svh;
   background: var(--ice);
-  padding: clamp(120px, 14vh, 170px) var(--gutter) 0;
-  display: flex;
-  flex-direction: column;
+  padding: clamp(120px, 14vh, 170px) var(--gutter) clamp(72px, 12vh, 140px);
+  display: grid;
+  grid-template-columns: auto minmax(0, 880px) auto;
+  justify-content: space-between;
   align-items: center;
+  column-gap: clamp(32px, 5vw, 96px);
   overflow: hidden;
 }
-.net { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.net-line { fill: none; stroke: var(--teal-300); stroke-opacity: 0.7; stroke-width: 1; vector-effect: non-scaling-stroke; }
-.orb { transform-box: fill-box; transform-origin: center; }
 
 .about-mark {
   position: relative;
-  width: clamp(72px, 6vw, 104px);
+  width: clamp(64px, 5vw, 96px);
   perspective: 600px;
 }
 .about-mark img { width: 100%; transform-style: preserve-3d; will-change: transform; }
@@ -31,17 +30,20 @@
   position: relative;
   inset: auto;
   translate: none;
-  margin: clamp(48px, 10vh, 120px) 0 clamp(56px, 12vh, 140px);
-  font-size: clamp(26px, 2.3vw, 48px);
+  margin: 0;
+  order: 3;
+  font-size: clamp(22px, 2vw, 40px);
 }
 
+/* the small manifesto (user's new banner): heavy, uppercase, set small and justified */
 .manifesto {
   position: relative;
-  max-width: 1500px;
+  order: 2;
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: var(--fs-mid);
-  line-height: 1.22;
+  font-size: clamp(12px, 0.85vw, 15px);
+  line-height: 1.32;
   color: var(--ink);
   text-align: justify;
   text-align-last: left;
@@ -49,19 +51,33 @@
 }
 html[lang="en"] .manifesto { text-transform: uppercase; letter-spacing: 0.01em; }
 /* justified CJK opens big gaps around Latin words (IoT, 3D): keep Chinese ragged */
-html[lang="zh-Hant"] .manifesto { letter-spacing: 0.06em; line-height: 1.5; text-align: left; }
+html[lang="zh-Hant"] .manifesto { font-size: clamp(13px, 0.9vw, 16px); letter-spacing: 0.06em; line-height: 1.7; text-align: left; }
 .manifesto .w { display: inline-block; }
 
-.plane {
-  position: relative;
-  display: block;
-  width: min(46vw, 840px);
-  margin-top: clamp(32px, 6vh, 72px);
-  overflow: visible;
+/* ONEWORK marquee under the statement: the opening film's word row, running on its own */
+.about-marquee {
+  grid-column: 1 / -1;
+  order: 4;
+  margin: clamp(40px, 7vh, 88px) calc(-1 * var(--gutter)) 0;
+  overflow: hidden;
+  min-width: 0;
+  contain: inline-size;   /* the long row must not widen the banner grid */
+  color: #000000;
 }
-.arc { font-family: "Archivo", sans-serif; font-weight: 900; fill: var(--white); }
-.arc-about { font-size: 96px; letter-spacing: 0.06em; }
-.arc-name { font-size: 104px; letter-spacing: 0.02em; }
+.am-track {
+  display: flex; width: max-content; margin: 0; white-space: nowrap;
+  font: 500 clamp(56px, 10vw, 190px) / 1 "Jost", sans-serif;
+  letter-spacing: -0.02em;
+  animation: am-run 40s linear infinite;
+  will-change: transform;
+}
+.am-set { display: flex; }
+.am-set span { padding-right: 0.08em; }
+@keyframes am-run { to { transform: translate3d(-50%, 0, 0); } }
+.about-marquee:hover .am-track { animation-play-state: paused; }
+html.is-calm .am-track { animation: none; }
+@media (prefers-reduced-motion: reduce) { .am-track { animation: none; } }
+
 
 /* ---------- below the banner: the redesigned About (paper ground, light Jost headlines) ---------- */
 .founder, .team, .story, .office { position: relative; background: var(--ice); color: #1F1F1F; padding: clamp(96px, 11vw, 170px) var(--gutter); }
@@ -159,9 +175,9 @@ html[lang="zh-Hant"] .office-desc { text-align: left; line-height: 1.9; max-widt
 
 /* Responsive */
 @media (max-width: 900px) {
-  .about-wordmark { margin: 32px 0 40px; font-size: 22px; }
-  .manifesto { font-size: var(--fs-body); }
-  .plane { width: 86vw; }
+  .about-hero { grid-template-columns: 1fr; justify-items: center; align-content: center; row-gap: 32px; }
+  .about-wordmark { order: 2; font-size: 22px; }
+  .manifesto { order: 3; font-size: 13px; text-align: left; }
   .founder-grid, .story-grid, .work { grid-template-columns: 1fr; }
   .portrait { order: -1; }
   .story-year { position: static; }
@@ -172,3 +188,49 @@ html[lang="zh-Hant"] .office-desc { text-align: left; line-height: 1.9; max-widt
   .office-grid { grid-template-columns: 1fr; }
   .office-grid li, .office-grid li:first-child { aspect-ratio: 4 / 3; }
 }
+
+/* ---------- Opening film (user reference video, black and white, fast cuts) ---------- */
+.intro {
+  position: absolute; inset: 0; z-index: 5;
+  background: #FFFFFF; color: #000000;
+  overflow: hidden;
+  pointer-events: none;
+}
+.intro.is-done { display: none; }
+.i-canvas { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; }
+.i-title, .i-row, .i-word, .i-o { position: absolute; margin: 0; visibility: hidden; }
+.i-title {
+  inset: 0; display: grid; place-content: center; text-align: center;
+  font: 900 clamp(64px, 11vw, 200px) / 0.86 "Archivo", sans-serif;
+  font-stretch: 78%;
+  letter-spacing: -0.01em;
+  visibility: visible;
+}
+.i-title span { display: block; }
+.i-row { inset: 0; display: grid; align-content: center; }
+.i-track {
+  margin: 0; white-space: nowrap;
+  font: 500 clamp(56px, 10vw, 190px) / 1 "Jost", sans-serif;
+  letter-spacing: -0.02em;
+}
+.i-track span { display: inline-block; padding-right: 0.08em; }
+/* a white block in difference mode reads as black and turns the letters under it white */
+.i-block { position: absolute; background: #FFFFFF; mix-blend-mode: difference; left: 0; top: 0; width: 0; height: 0; }
+.i-word {
+  inset: 0; display: grid; place-content: center;
+  font: 500 clamp(48px, 7vw, 132px) / 1 "Jost", sans-serif;
+  letter-spacing: -0.01em;
+}
+.i-o {
+  inset: 0; display: grid; place-content: center;
+  font: 500 clamp(220px, 34vw, 640px) / 1 "Jost", sans-serif;
+}
+.i-o, .i-word { will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .intro { display: none; } }
+
+/* Life at ONEWORK: two real team photos */
+.life { margin-top: clamp(64px, 8vw, 120px); display: grid; gap: 28px; }
+.life-photos { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(12px, 1.4vw, 20px); align-items: stretch; }
+.life-photos figure { margin: 0; overflow: hidden; }
+.life-photos img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 900px) { .life-photos { grid-template-columns: 1fr; } .life-photos img { height: auto; } }

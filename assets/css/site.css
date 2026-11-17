@@ -400,35 +400,6 @@ html[lang="zh-Hant"] .hero-title { letter-spacing: 0.04em; }
 .footer-grid p { font-size: 15px; }
 .copyright { margin-top: 64px; font: 400 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.08em; }
 
-/* Tweaks */
-.tweaks-toggle {
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-  z-index: 40;
-  font: 500 var(--fs-label) / 1 var(--font-brand);
-  letter-spacing: 0.12em;
-  background: var(--charcoal);
-  color: var(--white);
-  border: 0;
-  padding: 12px 16px;
-  min-height: 44px;
-  cursor: pointer;
-}
-.tweaks {
-  position: fixed;
-  right: 16px;
-  bottom: 68px;
-  z-index: 40;
-  width: 220px;
-  background: var(--white);
-  border: 1px solid var(--ink);
-  padding: 16px;
-  font: 400 14px / 1.4 var(--font-brand);
-}
-.tweaks-title { font-weight: 600; margin-bottom: 8px; }
-.tweaks fieldset { border: 0; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 4px 14px; }
-.tweaks legend { width: 100%; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-900); margin-bottom: 4px; }
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -460,3 +431,51 @@ html.is-static .steps { gap: 40px; }
 html.is-static .step { grid-area: auto; opacity: 1; transform: none; }
 html.is-static .progress { display: none; }
 html.is-static .marquee-track { animation: none; }
+
+/* service screenshots in the media slots */
+.svc-media:has(img) { border: 0; background: none; padding: 0; display: block; }
+.svc-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Important notice: a small fixed button, bottom right, that opens the statement */
+.notice {
+  position: fixed; z-index: 60;
+  right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  display: grid; justify-items: end; gap: 12px; max-width: calc(100vw - 32px);
+}
+.notice-btn {
+  min-height: 44px; padding: 0 20px; cursor: pointer;
+  background: var(--charcoal); color: var(--white); border: 0; border-radius: 0;
+  font: 500 13px/1 var(--font-brand); letter-spacing: 0.14em;
+}
+.notice-btn:hover, .notice-btn:focus-visible { background: var(--teal-900); }
+.notice-panel {
+  width: min(400px, calc(100vw - 32px)); max-height: calc(100svh - 110px); overflow: auto;
+  padding: 26px 26px 22px; background: var(--white); color: var(--ink);
+  box-shadow: 0 24px 70px rgba(26, 31, 34, 0.24);
+  animation: notice-in 0.5s var(--ease-out);
+}
+.notice-panel[hidden] { display: none; }
+.notice-title { font: 900 22px/1.2 var(--font-display); color: var(--charcoal); margin-bottom: 16px; }
+.notice-panel p { font-size: 15px; line-height: 1.75; }
+.notice-panel p + p { margin-top: 10px; }
+.notice-panel .notice-strong { font-weight: 700; color: var(--charcoal); }
+.notice-panel .notice-sign { margin-top: 18px; text-align: right; font-weight: 500; color: var(--charcoal); }
+.notice-close {
+  margin-top: 18px; padding: 8px 0; cursor: pointer; background: none; border: 0;
+  font: 500 12px/1 var(--font-brand); letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal-900);
+}
+@keyframes notice-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .notice-panel { animation: none; } }
+
+/* Products & Services: real Onework FM screens, two by two, no frames */
+.svc-gallery { margin-top: clamp(64px, 8vw, 112px); display: grid; gap: 28px; }
+/* all four screens fit in one window: the grid's width follows the window height (2 rows of 16:9 + captions) */
+.svc-shots { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3vh, 40px) clamp(16px, 2vw, 32px);
+  width: min(100%, calc((100svh - 300px) * 1.78)); }
+.svc-shots figure { margin: 0; display: grid; gap: 14px; }
+.svc-shots img { display: block; width: 100%; height: auto; box-shadow: 0 18px 50px rgba(26, 31, 34, 0.12); transition: transform 0.8s var(--ease-out); }
+.svc-shots li:hover img { transform: translateY(-6px); }
+.svc-shots figcaption { font-size: 14px; line-height: 1.5; color: var(--ink); max-width: 46ch; }
+@media (max-width: 900px) { .svc-shots { grid-template-columns: 1fr; width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .svc-shots img { transition: none; } }

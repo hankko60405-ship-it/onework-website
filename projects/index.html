@@ -11,8 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800;900&family=Jost:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <!-- banner typefaces, subset to the letters of ONE WORK PROJECT -->
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500&family=Ms+Madi&family=Space+Mono:wght@700&family=Unbounded:wght@800&family=Instrument+Serif:ital@1&family=Syne:wght@800&family=Major+Mono+Display&family=Bebas+Neue&family=Rubik+Mono+One&text=ONEWRKPJCT&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css">
-  <link rel="stylesheet" href="../assets/css/projects.css">
+  <link rel="stylesheet" href="../assets/css/site.css?v=20261117">
+  <link rel="stylesheet" href="../assets/css/projects.css?v=20261117">
   <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
   </script>
@@ -121,25 +121,11 @@
     <p class="copyright">© 2026 Onework 工一科技. All rights reserved.</p>
   </footer>
 
-  <button class="tweaks-toggle" id="tweaksToggle" type="button" aria-expanded="false" aria-controls="tweaks">Tweaks</button>
-  <div class="tweaks" id="tweaks" hidden>
-    <p class="tweaks-title">Tweaks</p>
-    <fieldset>
-      <legend>Motion</legend>
-      <label><input type="radio" name="tw-motion" value="full" checked> Full</label>
-      <label><input type="radio" name="tw-motion" value="calm"> Calm</label>
-    </fieldset>
-    <fieldset>
-      <legend>Headline font</legend>
-      <label><input type="radio" name="tw-font" value="archivo" checked> Archivo</label>
-      <label><input type="radio" name="tw-font" value="jost"> Jost</label>
-    </fieldset>
-  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="../assets/js/projects.js"></script>
+  <script type="module" src="../assets/js/projects.js?v=20261117"></script>
   <script>
     // Animations use ES modules, which browsers block on file://. Tell the reviewer how to open it.
     if (location.protocol === 'file:') {

@@ -1,5 +1,5 @@
 // ONEWORK — Career. Forest tone: a slow watercolour wash, nothing hurried (MOTION.md §1, §4).
-import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js?v=20261117';
 
 const animated = () => !STATIC && !motion.calm;
 const heroes = gsap.utils.toArray('.cr-hero');
@@ -26,7 +26,7 @@ function intro() {
   if (!animated()) return;
   const h = heroes[0];
   const tl = gsap.timeline();
-  tl.from(h.querySelector('.wash'), { opacity: 0, scale: 1.08, duration: 1.6, ease: 'expo.out' }, 0);
+  tl.from(h.querySelectorAll('.wash, .cr-bg'), { opacity: 0, scale: 1.08, duration: 1.6, ease: 'expo.out' }, 0);
   tl.from(h.querySelector('.line-inner'), { yPercent: 105, duration: 0.9, ease: 'expo.out' }, 0.2);
   tl.from('.site-header', { opacity: 0, y: -12, duration: 0.8, ease: 'power3.out' }, 0.4);
   tl.from(h.querySelectorAll('.cr-wordmark span'), { opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.04 }, 0.7);
@@ -40,6 +40,8 @@ if (!STATIC) {
   heroes.forEach((h, k) => {
     // the wash slides slower than the page; the copy lifts away
     gsap.to(h.querySelector('.wash'), { yPercent: 12, ease: 'none', scrollTrigger: { trigger: h, start: 'top top', end: 'bottom top', scrub: true } });
+    const bg = h.querySelector('.cr-bg');
+    if (bg) gsap.to(bg, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: h, start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to(h.querySelector('.cr-hero-copy'), { yPercent: -30, opacity: 0, ease: 'none', scrollTrigger: { trigger: h, start: 'top top', end: 'bottom top', scrub: true } });
     if (k > 0) {
       // the second banner's title rises as it arrives

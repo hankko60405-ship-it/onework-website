@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800;900&family=Jost:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css">
-  <link rel="stylesheet" href="../assets/css/service.css">
+  <link rel="stylesheet" href="../assets/css/site.css?v=20261117">
+  <link rel="stylesheet" href="../assets/css/service.css?v=20261117">
   <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
   </script>
@@ -110,7 +110,7 @@
               <h3 class="plat-name">Airhub</h3>
               <p class="plat-kind" data-en="BIM + PLM · Building Lifecycle SaaS" data-zh="BIM + PLM · 建築全生命週期 SaaS">BIM + PLM · Building Lifecycle SaaS</p>
             </header>
-            <figure class="shot" aria-hidden="true"><span>[ Airhub screenshot ]</span></figure>
+            <figure class="shot"><img src="../assets/service/airhub.jpg" alt="Airhub: 3D building model, asset list and 2D asset management" width="1869" height="1119" loading="lazy" decoding="async"></figure>
             <p class="plat-lede" data-en="One platform where owners, designers and contractors exchange documents, drawings and design decisions — from feasibility to handover." data-zh="業主、設計與營造廠在同一平台交換文件、圖說與設計決策，從可行性評估一路到交屋。">One platform where owners, designers and contractors exchange documents, drawings and design decisions — from feasibility to handover.</p>
             <ul class="caps">
               <li data-en="Early-stage feasibility simulation, e.g. large generators" data-zh="前期可行性模擬，例如大型發電機配置">Early-stage feasibility simulation, e.g. large generators</li>
@@ -127,7 +127,7 @@
               <h3 class="plat-name">FM</h3>
               <p class="plat-kind" data-en="Facility Management · BA + FM Digital Twin" data-zh="設施管理 · BA + FM 數位孿生">Facility Management · BA + FM Digital Twin</p>
             </header>
-            <figure class="shot" aria-hidden="true"><span>[ FM 3D dashboard ]</span></figure>
+            <figure class="shot"><img src="../assets/service/fm.jpg" alt="FM: BIM facility dashboard with energy charts, alarms and a plant-room view" width="1869" height="1119" loading="lazy" decoding="async"></figure>
             <p class="plat-lede" data-en="Your SCADA and central monitoring, lifted into a custom 3D dashboard — so managers find the fault in the model, not in a spreadsheet." data-zh="把 SCADA 與中央監控系統搬進客製化 3D 儀表板，讓管理者在模型裡直接找到問題，而不是在報表裡。">Your SCADA and central monitoring, lifted into a custom 3D dashboard — so managers find the fault in the model, not in a spreadsheet.</p>
             <ul class="caps">
               <li data-en="Works with Siemens, Schneider and Honeywell SCADA" data-zh="支援 Siemens、Schneider、Honeywell SCADA">Works with Siemens, Schneider and Honeywell SCADA</li>
@@ -142,7 +142,7 @@
               <h3 class="plat-name">EMS</h3>
               <p class="plat-kind" data-en="Energy Management · EMS / iEMS + ESS" data-zh="能源管理 · EMS / iEMS + 儲能">Energy Management · EMS / iEMS + ESS</p>
             </header>
-            <figure class="shot" aria-hidden="true"><span>[ EMS report ]</span></figure>
+            <figure class="shot"><img src="../assets/service/ems.jpg" alt="EMS: energy analysis with comparison charts by system" width="1869" height="1119" loading="lazy" decoding="async"></figure>
             <p class="plat-lede" data-en="Read every meter, every battery site. An AI backend turns raw power data into forecasts and monthly reports." data-zh="讀取每一顆電表、每一座儲能站，AI 後台把原始用電數據變成預測與月報。">Read every meter, every battery site. An AI backend turns raw power data into forecasts and monthly reports.</p>
             <ul class="caps">
               <li data-en="Power data from SCADA or Modbus smart meters" data-zh="從 SCADA 或 Modbus 智慧電表讀取電力數據">Power data from SCADA or Modbus smart meters</li>
@@ -158,7 +158,7 @@
               <h3 class="plat-name">CIM</h3>
               <p class="plat-kind" data-en="Smart City · GIS + BIM 3D + IoT + AI" data-zh="智慧城市 · GIS + BIM 3D + IoT + AI">Smart City · GIS + BIM 3D + IoT + AI</p>
             </header>
-            <figure class="shot" aria-hidden="true"><span>[ GIS city dashboard ]</span></figure>
+            <figure class="shot"><img src="../assets/service/cim.jpg" alt="CIM: GIS city map with carbon console and energy dashboard" width="1869" height="1119" loading="lazy" decoding="async"></figure>
             <p class="plat-lede" data-en="The core of our airport work: drone footage becomes a 3D city, and every pipe, bridge, tunnel and sensor reports into one operations dashboard." data-zh="我們機場專案的核心技術：空拍影像轉成 3D 城市，管線、橋梁、隧道與每顆感測器，都回報到同一個營運儀表板。">The core of our airport work: drone footage becomes a 3D city, and every pipe, bridge, tunnel and sensor reports into one operations dashboard.</p>
             <ul class="caps">
               <li data-en="Drone and 3D scan to model; IoT, power equipment and sensors in one view" data-zh="空拍與 3D 掃描轉模型；IoT、電力設備與感測器一次看">Drone and 3D scan to model; IoT, power equipment and sensors in one view</li>
@@ -245,25 +245,11 @@
     <p class="copyright">© 2026 Onework 工一科技. All rights reserved.</p>
   </footer>
 
-  <button class="tweaks-toggle" id="tweaksToggle" type="button" aria-expanded="false" aria-controls="tweaks">Tweaks</button>
-  <div class="tweaks" id="tweaks" hidden>
-    <p class="tweaks-title">Tweaks</p>
-    <fieldset>
-      <legend>Motion</legend>
-      <label><input type="radio" name="tw-motion" value="full" checked> Full</label>
-      <label><input type="radio" name="tw-motion" value="calm"> Calm</label>
-    </fieldset>
-    <fieldset>
-      <legend>Headline font</legend>
-      <label><input type="radio" name="tw-font" value="archivo" checked> Archivo</label>
-      <label><input type="radio" name="tw-font" value="jost"> Jost</label>
-    </fieldset>
-  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="../assets/js/service.js"></script>
+  <script type="module" src="../assets/js/service.js?v=20261117"></script>
   <script>
     // Animations use ES modules, which browsers block on file://. Tell the reviewer how to open it.
     if (location.protocol === 'file:') {
