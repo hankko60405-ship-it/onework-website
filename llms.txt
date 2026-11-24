@@ -1,0 +1,32 @@
+# ONEWORK 工一科技
+
+> ONEWORK (工一科技股份有限公司) is a Taipei-based digital twin company, working with the AEC industry since 2016. It integrates BIM, GIS, AIoT and AI analytics into one platform for buildings, factories, data centres, airports and cities. Its proprietary BIM engine reduces model size by 95% with 100% model fidelity, so models run on the web and on mobile.
+
+Key facts:
+- Headquarters: 8F, No. 16, Beiping E. Rd., Taipei, Taiwan. Branch in Penang, Malaysia (2025).
+- Founder / Tech-Lead: Carl Yu (MIT, Master's in Design and Computation, 2009; formerly ARUP and ATG).
+- Advisors: Academician Dr. Kang L. Wang (王康隆), Academician Dr. Mau-Chung Frank Chang (張懋中), UCLA Mobility Lab.
+- 25 internationally renowned flagship clients and partners, including TSMC, Intel, ARUP, Chunghwa Telecom, FarEasTone, Taipei City Government, Cathay Life Insurance and BES Engineering.
+- 50+ proprietary patents in the active portfolio; 15 clients served continuously for over 3 years.
+- Awards: APIGBA Awards Platinum and Gold (2025), TAIRA Science Park Competition Third Place (2020), BEAMP Built Environment Innovation Award First Prize, Singapore (2019).
+- Contact: see the contact section at https://onework.io/#contact
+- The website is bilingual: English at https://onework.io/ and Traditional Chinese (繁體中文) at https://onework.io/zh/ (same paths, e.g. /zh/about/).
+
+## Platforms
+
+- [Building Digital Twin Command Center](https://onework.io/product/#twin): equipment locations, operating data and alarms in a 3D building context (HVAC, lighting, temperature, server-room UPS).
+- [Energy Management EMS / iEMS + ESS](https://onework.io/product/#ems): energy-flow dashboards for generation, storage and loads; integrates Siemens, Schneider and Honeywell SCADA and PLCs over Modbus, TCP/IP and MQTT; AI turns meter data into usage forecasts and monthly reports.
+- [Construction PMIS](https://onework.io/product/#pmis): construction logs, reports, documents and official correspondence, with e-signatures and review workflows for owners, supervisors and contractors.
+- [Facility Management (FM)](https://onework.io/product/#fm): asset register, NFC/QR smart inspections, maintenance plans and work orders, with a 3D dashboard on top of SCADA.
+- [GIS and Smart City (CIM)](https://onework.io/product/#gis): Cesium 3D geospatial visualisation, GIS layers and IoT sensor data for water, energy, green assets and public infrastructure.
+- [BIM Data and Web Model Viewing](https://onework.io/product/#bim): optimised BIM in the browser and an IFC federation QA workspace.
+- [Drone and AI Spatial Reconstruction](https://onework.io/product/#spatial): drone imagery, 3D Gaussian Splatting and AI processing for 3D scenes in GIS and NVIDIA Omniverse.
+
+## Pages
+
+- [Home](https://onework.io/): positioning ("From Model to Twin"), clients and key numbers.
+- [About](https://onework.io/about/): founder, team (BIM 3D Processing; IoT & Software Engineering; Project Management) and how they work together.
+- [Services](https://onework.io/product/): the seven platforms in detail.
+- [Projects](https://onework.io/projects/): selected projects, including energy management, digital twin command centers, BERSn building energy ratings, PMIS, property management, GIS, BIM web apps, drone AI reconstruction and DCIM.
+- [Advisors & Awards](https://onework.io/advisors/): advisors, and awards and milestones from 2019 to 2025.
+- [Career](https://onework.io/international-career/): roles in Taipei and Penang (IoT & embedded, frontend/backend, DevOps & cloud) and a 2–6 month international internship with TechStart.

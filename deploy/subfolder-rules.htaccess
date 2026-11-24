@@ -1,0 +1,5 @@
+  # onework.io: this folder is public_html/onework-web/, reached through the root .htaccess.
+  # Opened directly as /onework-web/... -> redirect to the clean address.
+  RewriteCond %{THE_REQUEST} \s/onework-web/([^\s?]*) [NC]
+  RewriteRule ^ /%1 [L,R=301,NE]
+

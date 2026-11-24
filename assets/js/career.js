@@ -1,5 +1,5 @@
 // ONEWORK — Career. Forest tone: a slow watercolour wash, nothing hurried (MOTION.md §1, §4).
-import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js?v=20261117';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js?v=20261124m';
 
 const animated = () => !STATIC && !motion.calm;
 const heroes = gsap.utils.toArray('.cr-hero');

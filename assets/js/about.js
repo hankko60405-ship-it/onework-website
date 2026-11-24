@@ -1,5 +1,5 @@
 // ONEWORK — About page. Motion values follow MOTION.md (§4: About lines draw slowly; §6: title readable within 1s).
-import { gsap, ScrollTrigger, motion, STATIC, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js?v=20261117';
+import { gsap, ScrollTrigger, motion, STATIC, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js?v=20261124m';
 
 const animated = () => !STATIC && !motion.calm;
 

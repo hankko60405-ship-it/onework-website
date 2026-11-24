@@ -37,6 +37,10 @@
 /* white frames holding black voids — positions taken from the service banner (2000×1125) */
 .frame { position: absolute; background: var(--paper); will-change: transform; transform-style: preserve-3d; }
 .frame i { position: absolute; background: var(--void); transform: translateZ(8px); } /* the void sits in front: the frame reads as a slab when it turns */
+/* project images inside the voids, in black and white and pressed dark so they melt into the mono banner */
+.frame i { overflow: hidden; }
+.frame i img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.62) contrast(1.15); }
+.frame i img.is-light { filter: grayscale(1) invert(1) brightness(0.8) contrast(1.2); }   /* light-ground images turned to night so they sink into the black */
 .f1 { left: 0;      top: 12.9%; width: 10.6%; height: 23.4%; }
 .f1 i { left: 16%; top: 4.5%; right: 7.5%; bottom: 4.5%; }
 .f2 { left: 2.85%;  top: 69.2%; width: 10.1%; height: 7.8%; }
@@ -132,7 +136,7 @@ html[lang="zh-Hant"] .ch { letter-spacing: calc(0.08em + var(--out) * 0.03em); l
   align-items: baseline;
   gap: 20px;
   text-decoration: none;
-  font: 900 clamp(48px, 6vw, 104px) / 1 var(--font-display);
+  font: 900 clamp(40px, 4.4vw, 80px) / 1 var(--font-display);
   letter-spacing: -0.02em;
   color: var(--white);
   opacity: 0.28;
@@ -169,8 +173,10 @@ html[lang="zh-Hant"] .ch { letter-spacing: calc(0.08em + var(--out) * 0.03em); l
 }
 .plat:nth-child(even) .shot { padding: 12px clamp(24px, 3vw, 44px) 12px 12px; }
 
-.plat-lede { font: 800 clamp(22px, 1.9vw, 30px) / 1.3 var(--font-display); color: var(--white); max-width: 32ch; }
+.plat-lede { font: 800 var(--fs-h3) / 1.3 var(--font-display); color: var(--white); max-width: 32ch; }
 html[lang="zh-Hant"] .plat-lede { line-height: 1.55; max-width: 24em; }
+.plat-body { font-size: var(--fs-body); line-height: 1.75; color: rgba(255, 255, 255, 0.78); max-width: 62ch; }
+html[lang="zh-Hant"] .plat-body { line-height: 1.9; max-width: 38em; }
 .caps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .caps li { padding: 14px 0 14px 28px; border-bottom: 1px solid var(--line); position: relative; }
 .caps li::before { content: ""; position: absolute; left: 0; top: 1.15em; width: 12px; height: 1px; background: var(--teal-300); }
@@ -224,7 +230,7 @@ html[lang="zh-Hant"] .plat-lede { line-height: 1.55; max-width: 24em; }
   filter: blur(calc(var(--b) * 1px));
 }
 .term span { font-size: 15px; max-width: 18ch; }
-.op { font: 300 clamp(32px, 3.6vw, 64px) / 1 var(--font-brand); color: var(--teal-300); }
+.op { font: 400 clamp(32px, 3.6vw, 64px) / 1 var(--font-display); color: var(--teal-300); }
 .result b { color: var(--white); }
 .result b { transform-origin: left center; display: inline-block; }
 .result { padding-left: clamp(8px, 1vw, 16px); border-left: 1px solid var(--line); }
@@ -241,8 +247,8 @@ html[lang="zh-Hant"] .plat-lede { line-height: 1.55; max-width: 24em; }
 }
 .life-stages li.is-on::before { background: var(--white); box-shadow: 0 0 12px rgba(255, 255, 255, 0.6); }
 .life-stages b { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.2em; color: var(--teal-300); }
-.life-stages h3 { font: 900 clamp(26px, 2.4vw, 40px) / 1.1 var(--font-display); color: var(--white); }
-.life-plat { font: 400 15px / 1.4 var(--font-brand); letter-spacing: 0.06em; color: var(--teal-300); }
+.life-stages h3 { font: 800 var(--fs-h3) / 1.15 var(--font-display); color: var(--white); }
+.life-plat { font: 500 15px / 1.4 var(--font-display); color: var(--teal-300); }
 .life-desc { font-size: 15px; line-height: 1.6; max-width: 30ch; }
 .life-stages h3, .life-desc { transition: filter 0.8s var(--ease-out), opacity 0.8s var(--ease-out); }
 .life-stages li:not(.is-on) h3, .life-stages li:not(.is-on) .life-desc { filter: blur(6px); opacity: 0.3; }
@@ -378,3 +384,5 @@ html.is-static .t3-step { position: static; opacity: 1; visibility: visible; mar
 
 html.is-static .ch, html.is-static .term b, html.is-static .cta-title,
 html.is-static .life-stages li h3, html.is-static .life-desc { filter: none; opacity: 1; }
+/* the wordmark is an SVG now: text-shadow does not reach it, so the glow moves to a filter */
+.svc-wordmark .wordmark-svg, .page-service .footer-mark .wordmark-svg { filter: drop-shadow(0 0 9px rgba(255, 255, 255, 0.4)); }

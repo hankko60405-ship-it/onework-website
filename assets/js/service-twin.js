@@ -3,7 +3,7 @@
 // Mono tone (MOTION.md §1): white lines and translucent planes, Logo teal only for sensors and data.
 // The model turns slowly on its own and can be dragged; scrolling changes the stage.
 import * as THREE from 'three';
-import { gsap, ScrollTrigger, motion, STATIC, isSmall } from './site.js?v=20261117';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall } from './site.js?v=20261124m';
 
 const section = document.getElementById('t3');
 if (section && !STATIC) init();

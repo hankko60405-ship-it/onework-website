@@ -1,0 +1,70 @@
+# ONEWORK — .htaccess for the web ROOT (public_html/), replacing the old WordPress one.
+# The site's files live in public_html/onework-web/. Visitors keep clean URLs (onework.io/about/):
+# each request is passed into that folder behind the scenes, the same way /main was used for WordPress.
+
+Options -Indexes
+
+# Keep hidden files such as this one from being downloaded
+<FilesMatch "^\.ht">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Force HTTPS: uncomment once the domain has an SSL certificate.
+# RewriteCond %{HTTPS} !=on
+# RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Old WordPress page addresses -> new pages (301, so search engines move their links over)
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^main/?$                        / [L,R=301]
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^main/about/?$                  /about/ [L,R=301]
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^main/product/?$                /product/ [L,R=301]
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^main/products/?$               /projects/ [L,R=301]
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^main/2023project/?$            /projects/ [L,R=301]
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^main/advisors/?$               /advisors/ [L,R=301]
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^main/.*award-press/?$          /advisors/ [L,R=301]
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^main/international-career/?$   /international-career/ [L,R=301]
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^main/c/?$                      /international-career/#internship [L,R=301,NE]
+
+# Pages are folders (about/, product/ ...): add the missing slash here, so Apache
+# never adds it itself and shows /onework-web/ in the address bar.
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteCond %{DOCUMENT_ROOT}/onework-web/$1 -d
+RewriteRule ^(.*[^/])$ /$1/ [L,R=301]
+
+# Home page -> onework-web/
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteRule ^$ /onework-web/ [L]
+
+# Everything else -> onework-web/, unless it is a real file or folder in the root
+# (keeps .well-known for SSL renewals, cgi-bin, and the old /main WordPress admin reachable).
+RewriteCond %{HTTP_HOST} ^(www\.)?onework\.io$ [NC]
+RewriteCond %{REQUEST_URI} !^/onework-web/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /onework-web/$1 [L]
+</IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php70” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php70 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

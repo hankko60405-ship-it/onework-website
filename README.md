@@ -22,11 +22,60 @@
 動畫用到 JavaScript 模組，**不能直接雙擊 `index.html` 開啟**，要用本機伺服器。
 在這個資料夾裡打開終端機，執行：
 
+開發時建議用 npm（或 yarn），存檔後瀏覽器會自動重新整理：
+
+```bash
+npm install      # 第一次才需要（或 yarn）
+npm run dev      # 或 yarn dev
+```
+
+不想裝 Node 的話，也可以用：
+
 ```bash
 python3 -m http.server 8000
 ```
 
 然後用瀏覽器打開 http://localhost:8000/
+
+## 中文頁面（zh/）與 SEO
+
+每一頁都有英文版（`/about/`）和中文版（`/zh/about/`），讓搜尋引擎與 AI 搜尋都讀得到中文內容。
+
+- **`zh/` 是自動產生的，不要直接改。** 中文文字寫在英文頁面元素的 `data-zh` 裡，改完後執行 `npm run zh` 重新產生。`npm run dev` 和 `./build.sh` 也會自動先跑一次。
+- 標題、描述、canonical、hreflang 與結構化資料（JSON-LD）：英文版在 `tools/seo_heads.py`，中文版在 `tools/build_zh.py` 的 `ZH_META`。改完執行 `npm run seo`。
+- 右上角 EN / 中 會切換到另一個網址並記住選擇；第一次來、瀏覽器是中文的訪客會自動進入中文版。
+- `robots.txt`、`sitemap.xml`、`llms.txt` 放在網站根目錄，新增頁面時記得一起更新。
+
+## 部署到 onework.io（FTP／Apache）
+
+```bash
+npm run build      # 或 ./build.sh：先重新產生中文頁 zh/，再輸出到 ../dist/
+```
+
+產出（不會產生 zip）：
+- `../dist/onework-web-upload/`：**上傳用**，結構和主機的 `public_html/` 一模一樣：
+  ```
+  onework-web-upload/        → 把「裡面的內容」上傳到 public_html/
+  ├── .htaccess              → public_html/.htaccess（來自 deploy/root.htaccess）
+  └── onework-web/           → public_html/onework-web/（整個網站）
+      └── .htaccess          → public_html/onework-web/.htaccess
+  ```
+- `../dist/onework-website/`：單純網站，可放在任何主機根目錄或子資料夾。
+
+上傳步驟：
+1. 先備份主機上原本的 `public_html/.htaccess`。
+2. FTP／檔案管理員打開「顯示隱藏檔」，兩個 `.htaccess` 開頭是點，容易漏掉。
+3. 把 `../dist/onework-web-upload/` **裡面的內容**上傳到 `public_html/`，結果是 `public_html/.htaccess` ＋ `public_html/onework-web/`。
+4. `public_html/` 根目錄如果還有舊的 `robots.txt`、`sitemap.xml`（WordPress 留下的），要刪掉或改名：根目錄有實體檔案時，會優先回傳它，而不是 `onework-web/` 裡的新檔。
+5. 上線後檢查：`https://onework.io/`、`https://onework.io/zh/`、`https://onework.io/robots.txt`（開頭是 `# ONEWORK 工一科技`）、`https://onework.io/main/about/` 會轉到 `/about/`。
+6. 到 Google Search Console 提交 `https://onework.io/sitemap.xml`。
+
+兩個 `.htaccess` 的作用：
+- 根目錄 `.htaccess`：把所有請求轉進 `onework-web/`（取代舊 WordPress 轉進 `/main/` 的做法），網址維持 `onework.io/about/`、`onework.io/zh/about/`；舊網址 `/main/...` 以 301 轉到新頁面；`.well-known`（SSL 續約）與 `/main/wp-admin` 不受影響。
+- `onework-web/.htaccess`：JS 模組 MIME、gzip、快取、安全標頭；直接打開 `/onework-web/...` 時轉回乾淨網址。
+
+主機有 SSL 憑證後，把兩個 `.htaccess` 裡「Force HTTPS」三行取消註解。
+每次改 CSS／JS 後，記得更新 HTML 裡的 `?v=日期` 版本號，瀏覽器才會抓新檔。
 
 ## 放上 GitHub Pages
 

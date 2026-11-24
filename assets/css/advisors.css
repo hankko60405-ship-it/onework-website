@@ -32,7 +32,7 @@
 .aa-title { margin: 0; position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .aa-w {
   position: absolute; top: 48.5%; translate: -50% -50%; white-space: nowrap;
-  font: 600 clamp(32px, 3.9vw, 78px) / 1 "Jost", "Noto Sans TC", sans-serif;
+  font: 800 clamp(32px, 3.9vw, 78px) / 1 var(--font-display);
   letter-spacing: 0.16em; color: var(--white);
   text-shadow: 0 2px 24px rgba(40, 83, 137, 0.25);
 }
@@ -97,8 +97,8 @@ html[lang="zh-Hant"] .aa-w { font-family: "Noto Sans TC", sans-serif; font-weigh
   background: linear-gradient(to top, rgba(26, 26, 26, 0.85), rgba(26, 26, 26, 0));
   color: var(--white);
 }
-.adv-cap .adv-name { font: 600 clamp(17px, 1.3vw, 21px) / 1.25 var(--font-display); }
-.adv-cap .adv-role { font: 400 13px / 1.4 var(--font-brand); letter-spacing: 0.04em; opacity: 0.8; }
+.adv-cap .adv-name { font: 800 var(--fs-h4) / 1.25 var(--font-display); }
+.adv-cap .adv-role { font: 400 13px / 1.4 var(--font-display); opacity: 0.8; }
 
 /* the open card: a teal panel with the full bio */
 .adv-panel {
@@ -112,8 +112,8 @@ html[lang="zh-Hant"] .aa-w { font-family: "Noto Sans TC", sans-serif; font-weigh
   transition: clip-path 0.8s var(--ease-out), visibility 0s 0.8s;
 }
 .adv.is-on .adv-panel { clip-path: inset(0 0 0 0); visibility: visible; transition: clip-path 0.9s var(--ease-out) 0.15s, visibility 0s; }
-.adv-panel .adv-name { font: 800 clamp(22px, 1.9vw, 30px) / 1.15 var(--font-display); }
-.adv-panel .adv-role { font: 500 14px / 1.45 var(--font-brand); letter-spacing: 0.04em; color: var(--teal-100); }
+.adv-panel .adv-name { font: 800 var(--fs-h3) / 1.15 var(--font-display); }
+.adv-panel .adv-role { font: 500 14px / 1.45 var(--font-display); color: var(--teal-100); }
 .adv-panel .adv-bio { margin-top: auto; font-size: clamp(15px, 1.05vw, 17px); line-height: 1.65; color: rgba(255, 255, 255, 0.88); max-width: 46ch; }
 html[lang="zh-Hant"] .adv-panel .adv-bio { line-height: 1.85; }
 
@@ -132,8 +132,8 @@ html[lang="zh-Hant"] .adv-panel .adv-bio { line-height: 1.85; }
 .lab-media img { width: 100%; height: 115%; object-fit: cover; object-position: 30% 50%; }
 .lab-text { display: grid; gap: 14px; justify-items: start; }
 .lab-text .pill { margin-bottom: 6px; }
-.lab-name { font: 900 clamp(32px, 3.2vw, 52px) / 1.05 var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
-.lab-role { font: 500 14px / 1.5 var(--font-brand); letter-spacing: 0.06em; color: var(--teal-900); }
+.lab-name { font: 800 var(--fs-mid) / 1.1 var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
+.lab-role { font: 500 14px / 1.5 var(--font-display); color: var(--teal-900); }
 .lab-bio { font-size: var(--fs-body); line-height: 1.75; max-width: 46ch; }
 html[lang="zh-Hant"] .lab-bio { line-height: 1.9; max-width: 30em; }
 .lab-tags { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
@@ -188,7 +188,7 @@ html[lang="zh-Hant"] .lab-bio { line-height: 1.9; max-width: 30em; }
 .aw-word { position: relative; font: 900 clamp(34px, 4.1vw, 76px) / 0.9 "Archivo", sans-serif; letter-spacing: -0.03em; }
 
 .aw-text { display: grid; gap: 10px; margin-top: 16px; }
-.aw-title { font: 600 clamp(17px, 1.3vw, 21px) / 1.3 var(--font-display); color: var(--ink); }
+.aw-title { font: 800 var(--fs-h4) / 1.3 var(--font-display); color: var(--ink); }
 .aw-desc { padding-left: 2.2em; font-size: 15px; line-height: 1.6; max-width: 34ch; }
 html[lang="zh-Hant"] .aw-desc { max-width: 22em; }
 .aw-meta { padding-left: 2.2em; display: flex; flex-direction: column; font: 500 12px / 1.6 var(--font-brand); letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-900); }
@@ -228,7 +228,7 @@ html[lang="zh-Hant"] .aw-desc { max-width: 22em; }
 .cube-cap { display: grid; gap: 18px; align-content: center; min-height: 360px; }
 .cube-year { font: 900 clamp(64px, 8vw, 128px) / 0.9 "Archivo", sans-serif; letter-spacing: -0.03em; color: var(--teal-900); }
 .cube-text { display: grid; gap: 12px; }
-.cube-text .aw-title { font: 800 clamp(24px, 2.2vw, 36px) / 1.2 var(--font-display); }
+.cube-text .aw-title { font: 800 var(--fs-h3) / 1.2 var(--font-display); }
 .cube-text .aw-desc, .cube-text .aw-meta, .cube-text .aw-link { padding-left: 0; }
 .cube-text .aw-desc { font-size: var(--fs-body); max-width: 40ch; }
 .cube-text .aw-meta { flex-direction: row; flex-wrap: wrap; gap: 4px 16px; }

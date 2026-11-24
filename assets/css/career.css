@@ -54,7 +54,7 @@
 .cr-hero-copy { position: relative; display: grid; justify-items: center; gap: clamp(28px, 4vh, 48px); padding: 0 var(--gutter); }
 .cr-title {
   margin: 0;
-  font: 600 clamp(44px, 5.6vw, 104px) / 1.05 "Jost", "Noto Sans TC", sans-serif;   /* MOTION.md §2: Career headline */
+  font: 900 clamp(44px, 5.6vw, 104px) / 1.02 var(--font-display); letter-spacing: -0.01em;   /* shared Archivo headings (MOTION.md §2) */
   letter-spacing: 0.01em;
   color: var(--white);
   text-shadow: 0 2px 30px rgba(34, 60, 54, 0.35);
@@ -74,7 +74,7 @@ html[lang="zh-Hant"] .cr-title { font-family: "Noto Sans TC", sans-serif; font-w
   gap: clamp(72px, 8vw, 128px);
 }
 .cr-lead { display: grid; gap: 22px; max-width: 1100px; }
-.cr-statement { font: 600 clamp(26px, 2.8vw, 46px) / 1.3 "Jost", "Noto Sans TC", sans-serif; color: var(--white); }
+.cr-statement { font: 800 var(--fs-mid) / 1.25 var(--font-display); color: var(--white); }
 html[lang="zh-Hant"] .cr-statement { font-family: "Noto Sans TC", sans-serif; font-weight: 500; line-height: 1.6; letter-spacing: 0.03em; }
 .cr-block { display: grid; gap: 28px; border-top: 1px solid rgba(207, 211, 202, 0.22); padding-top: 32px; }
 .cr-two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 96px); }
@@ -98,13 +98,13 @@ html[lang="zh-Hant"] .cr-statement { font-family: "Noto Sans TC", sans-serif; fo
   pointer-events: none;
 }
 .place:hover::after { transform: translateY(-10%); }
-.place h3 { font: 600 clamp(26px, 2.4vw, 40px) / 1.1 "Jost", "Noto Sans TC", sans-serif; color: var(--white); }
+.place h3 { font: 800 var(--fs-h3) / 1.15 var(--font-display); color: var(--white); }
 .place-tag { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-sage); }
 
 .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .chips li {
   padding: 12px 16px; border: 1px solid rgba(207, 211, 202, 0.4); border-radius: 999px;
-  font: 500 15px / 1.2 var(--font-brand); color: var(--white);
+  font: 500 15px / 1.25 var(--font-display); color: var(--white);
   transition: background-color 0.4s var(--ease-out), color 0.4s;
 }
 .chips li:hover { background: var(--c-mist); color: var(--c-deep); }
@@ -116,7 +116,7 @@ html[lang="zh-Hant"] .cr-statement { font-family: "Noto Sans TC", sans-serif; fo
 .facts { margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .facts > div { display: grid; gap: 10px; padding: 24px; background: rgba(34, 60, 54, 0.55); border: 1px solid rgba(207, 211, 202, 0.18); }
 .facts dt { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-sage); }
-.facts dd { margin: 0; font: 600 clamp(20px, 1.6vw, 26px) / 1.3 "Jost", "Noto Sans TC", sans-serif; color: var(--white); }
+.facts dd { margin: 0; font: 800 var(--fs-h4) / 1.3 var(--font-display); color: var(--white); }
 
 /* application steps joined by a line that draws with scroll; no step numbers (MOTION.md §8) */
 .process { position: relative; }
@@ -126,13 +126,13 @@ html[lang="zh-Hant"] .cr-statement { font-family: "Noto Sans TC", sans-serif; fo
 .ap-step { position: relative; padding-top: 44px; display: grid; gap: 10px; }
 .ap-step::before { content: ""; position: absolute; left: 0; top: 0; width: 17px; height: 17px; border-radius: 50%; background: var(--forest); border: 1px solid var(--c-mist); transition: background-color 0.5s; }
 .ap-step.is-on::before { background: var(--c-mist); }
-.ap-step h4 { margin: 0; font: 600 clamp(22px, 1.9vw, 30px) / 1.2 "Jost", "Noto Sans TC", sans-serif; color: var(--white); }
+.ap-step h4 { margin: 0; font: 800 var(--fs-h3) / 1.2 var(--font-display); color: var(--white); }
 .ap-step p { max-width: 34ch; }
 .cr-note { font: 500 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-sage); }
 
 .cr-cta { display: grid; gap: 14px; justify-items: start; }
 .cr-mail {
-  font: 600 clamp(32px, 5vw, 88px) / 1 "Jost", sans-serif; color: var(--white); text-decoration: none;
+  font: 800 clamp(32px, 5vw, 88px) / 1 var(--font-display); letter-spacing: -0.01em; color: var(--white); text-decoration: none;
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
   transition: background-size 0.8s var(--ease-out);
   padding-bottom: 6px; word-break: break-all;
@@ -192,3 +192,31 @@ html[lang="zh-Hant"] .cr-statement { font-family: "Noto Sans TC", sans-serif; fo
   mix-blend-mode: soft-light;
   opacity: 0.55;
 }
+/* phone menu button: dark like the logo above the light top of the banner */
+/* (menu button colour now follows the photo banner rules below) */
+.menu-open .cr-switch { display: none; }
+
+/* banners on real photos: a dark shade keeps the white title and the menu readable, and fades into the forest body */
+.cr-hero.has-photo .wash { display: none; }
+.cr-hero.has-photo .grain {
+  background: linear-gradient(180deg, rgba(18, 28, 25, 0.62) 0%, rgba(18, 28, 25, 0.38) 34%, rgba(18, 28, 25, 0.5) 70%, var(--forest) 100%);
+  mix-blend-mode: normal; opacity: 1;
+}
+.cr-hero.has-photo .cr-title, .cr-hero.has-photo .cr-sub, .cr-hero.has-photo .cr-wordmark { text-shadow: 0 2px 28px rgba(12, 20, 18, 0.45); }
+.page-career .site-header:not(.is-scrolled) .main-nav a { color: var(--white); }
+.page-career .site-header:not(.is-scrolled) .main-nav a::after { background: var(--white); }
+.page-career .site-header:not(.is-scrolled) .brand img { filter: brightness(0) invert(1); }
+.page-career .site-header:not(.is-scrolled) .menu-btn { color: var(--white); }
+.menu-open .page-career .site-header .brand img, .page-career.menu-open .site-header .brand img { filter: none; }
+
+/* workplace: the real Taipei office beside its description */
+.cr-split { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: center; column-gap: clamp(28px, 4vw, 72px); }
+.cr-split-media { margin: 0; overflow: hidden; }
+.cr-split-media img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.cr-split-text { display: grid; gap: 16px; align-content: center; }
+.cr-split-title { margin: 0; font: 800 var(--fs-h3) / 1.25 var(--font-display); color: var(--white); }
+.cr-split-text p { max-width: 46ch; }
+html[lang="zh-Hant"] .cr-split-text p { max-width: 28em; line-height: 1.9; }
+.cr-split-meta { font: 500 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.14em; color: var(--c-sage); }
+@media (max-width: 900px) { .cr-split { grid-template-columns: 1fr; row-gap: 24px; } }
+.cr-hero.has-photo .cr-wordmark .wordmark-svg { filter: drop-shadow(0 2px 14px rgba(12, 20, 18, 0.5)); }

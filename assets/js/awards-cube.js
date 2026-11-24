@@ -2,7 +2,7 @@
 // Nine awards, six faces: a face is repainted while it is turned away, so the die can roll forever.
 // Mist tone (MOTION.md §1): Logo teal for the glow, no neon. Slow scan lines, never flashing (§6).
 import * as THREE from 'three';
-import { gsap, motion, isSmall, onLangChange } from './site.js?v=20261117';
+import { gsap, motion, isSmall, onLangChange } from './site.js?v=20261124m';
 
 export function initCube() {
   const canvas = document.getElementById('cubeGl');

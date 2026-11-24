@@ -1,5 +1,5 @@
 // ONEWORK — Service page. Mono tone. The banner's idea is focus: type goes from blurred to sharp (MOTION.md §4).
-import { gsap, ScrollTrigger, motion, STATIC, isSmall, root, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js?v=20261117';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall, root, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js?v=20261124m';
 import './service-twin.js';   // the 3D lifecycle sits right after the banner, so its pin is created first
 
 const animated = () => !STATIC && !motion.calm;
@@ -134,7 +134,7 @@ if (!STATIC) {
     gsap.fromTo(s.querySelector('span'), { filter: 'blur(10px)' }, { filter: 'blur(0px)', ease: 'none', scrollTrigger: { trigger: s, start: 'top 80%', end: 'top 45%', scrub: true } });
   });
   gsap.utils.toArray('.plat').forEach((p) => {
-    gsap.from(p.querySelectorAll('.plat-lede, .caps li, .chips'), { opacity: 0, y: 20, filter: 'blur(6px)', duration: 0.9, ease: 'expo.out', stagger: 0.06, scrollTrigger: { trigger: p.querySelector('.plat-lede'), start: 'top 85%', once: true } });
+    gsap.from(p.querySelectorAll('.plat-lede, .plat-body, .caps li, .chips'), { opacity: 0, y: 20, filter: 'blur(6px)', duration: 0.9, ease: 'expo.out', stagger: 0.06, scrollTrigger: { trigger: p.querySelector('.plat-lede'), start: 'top 85%', once: true } });
   });
 }
 

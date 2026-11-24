@@ -93,7 +93,7 @@
   justify-items: start;
 }
 .cap-count { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.2em; color: var(--teal-900); }
-.cap-title { font: 900 clamp(28px, 3vw, 52px) / 1.05 var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
+.cap-title { font: 800 var(--fs-mid) / 1.1 var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
 html[lang="zh-Hant"] .cap-title { letter-spacing: 0.02em; line-height: 1.25; }
 .cap-cat { font: 500 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); }
 .cap-open, .hall-nav button {
@@ -131,7 +131,7 @@ html[lang="zh-Hant"] .cap-title { letter-spacing: 0.02em; line-height: 1.25; }
   font: inherit;
 }
 .ix-no { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.2em; color: var(--teal-900); }
-.ix-title { font: 800 clamp(22px, 2.2vw, 36px) / 1.15 var(--font-display); transition: transform 0.6s var(--ease-out), color 0.4s var(--ease-out); }
+.ix-title { font: 800 var(--fs-h3) / 1.2 var(--font-display); transition: transform 0.6s var(--ease-out), color 0.4s var(--ease-out); }
 .ix-cat { font: 500 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.16em; text-transform: uppercase; text-align: right; }
 .index-list button:hover .ix-title, .index-list button:focus-visible .ix-title { transform: translateX(10px); color: var(--teal-900); }
 
@@ -171,6 +171,15 @@ html[lang="zh-Hant"] .cap-title { letter-spacing: 0.02em; line-height: 1.25; }
   cursor: pointer;
   z-index: 2;
 }
+/* feature image across the top of the window; the close button floats over it */
+.m-hero { margin: 0; }
+.m-hero[hidden] { display: none; }
+.m-hero img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.m-hero:not([hidden]) + .m-body { padding-top: clamp(28px, 4vw, 56px); }
+.pj-modal:has(.m-hero:not([hidden])) .m-close { margin-bottom: -60px; }   /* overlap the image instead of pushing it down */
+.m-hero img { position: relative; z-index: 1; }
+.m-hero ~ .m-body, .m-close { position: relative; }
+.m-close { position: sticky; }
 .m-body { padding: clamp(32px, 5vw, 72px); display: grid; gap: 20px; }
 .m-title { font: 900 clamp(34px, 4.4vw, 72px) / 1 var(--font-display); letter-spacing: -0.02em; max-width: 16ch; }
 html[lang="zh-Hant"] .m-title { letter-spacing: 0.02em; line-height: 1.2; }
@@ -178,7 +187,18 @@ html[lang="zh-Hant"] .m-title { letter-spacing: 0.02em; line-height: 1.2; }
 .m-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .m-tags span { font: 400 12px / 1 var(--font-brand); letter-spacing: 0.06em; padding: 8px 12px; border: 1px solid rgba(71, 134, 141, 0.45); }
 .m-link { font: 500 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.14em; color: var(--teal-900); text-underline-offset: 4px; }
-.m-shots { display: grid; gap: 16px; margin-top: 12px; }
+.m-detail { display: grid; gap: 14px; max-width: 68ch; padding-top: 8px; border-top: 1px solid rgba(71, 134, 141, 0.3); }
+.m-detail[hidden] { display: none; }
+.m-head { font: 800 var(--fs-h3) / 1.3 var(--font-display); color: var(--teal-900); margin-top: 12px; }
+.m-detail p { font-size: var(--fs-body); line-height: 1.75; }
+.m-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; margin-top: 12px; }
+.m-shots .ph { grid-column: 1 / -1; }
+.m-shot { margin: 0; display: grid; gap: 8px; align-content: start; }
+.m-shot:first-child { grid-column: 1 / -1; }   /* the lead image runs full width */
+.m-shot img { display: block; width: 100%; height: auto; border: 1px solid rgba(61, 61, 61, 0.15); background: var(--white); }
+.m-shot.tall img { width: auto; max-width: 100%; max-height: 520px; justify-self: start; }
+.m-shot figcaption { font: 400 var(--fs-label) / 1.4 var(--font-brand); letter-spacing: 0.06em; color: var(--teal-900); }
+@media (max-width: 700px) { .m-shots { grid-template-columns: 1fr; } }
 .ph {
   display: grid;
   place-items: center;
@@ -209,3 +229,8 @@ html[lang="zh-Hant"] .m-title { letter-spacing: 0.02em; line-height: 1.2; }
 
 /* Reduced motion: no hall, the index carries the projects */
 html.is-static .hall { display: none; }
+
+/* opening reel over the banner; its last frame is the banner itself, so it fades out onto the live one */
+.pj-reel { position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; object-fit: cover; background: var(--paper); pointer-events: none; }
+.pj-reel.is-done { opacity: 0; transition: opacity 0.7s var(--ease-out); }
+@media (max-width: 900px), (max-aspect-ratio: 1/1), (prefers-reduced-motion: reduce) { .pj-reel { display: none; } }

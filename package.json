@@ -1,0 +1,17 @@
+{
+  "name": "onework-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ONEWORK 工一科技 official website (static HTML/CSS/JS)",
+  "scripts": {
+    "zh": "python3 tools/build_zh.py",
+    "seo": "python3 tools/seo_heads.py && python3 tools/build_zh.py",
+    "predev": "python3 tools/build_zh.py",
+    "dev": "browser-sync start --server --port 8000 --no-open --no-notify --no-ui --files \"**/*.html\" \"assets/**/*\" \"!node_modules/**\"",
+    "start": "npm run dev",
+    "build": "./build.sh"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3"
+  }
+}

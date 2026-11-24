@@ -1,6 +1,6 @@
 // ONEWORK home — motion values follow MOTION.md
 import * as THREE from 'three';
-import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js?v=20261117';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js?v=20261124m';
 
 const C = {
   teal900: 0x47868d, teal700: 0x5b8f96, teal500: 0x759fa4, teal300: 0x8badb1, teal100: 0x9eb9bd,
@@ -10,6 +10,30 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const range = (p, a, b) => clamp01((p - a) / (b - a));
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
+/* ---------------- Hero video (Taipei drone shot) ----------------
+   The opening plays once, then the loop keeps circling. Paused while the hero is off screen
+   (MOTION.md §6.3); reduced motion: a still of the city and no video downloads (§6.5); Calm pauses.
+   The 3D logo and the pattern stay hidden in the hero: Taipei 101 stands where the logo was. */
+const heroEl = document.getElementById('hero');
+const HERO_VIDEO = heroEl.classList.contains('is-video');
+if (HERO_VIDEO && !STATIC) {
+  const vIntro = document.getElementById('heroIntro');
+  const vLoop = document.getElementById('heroLoop');
+  let onLoop = false, onScreen = true;
+  const current = () => (onLoop ? vLoop : vIntro);
+  const pauseAll = () => { vIntro.pause(); vLoop.pause(); };
+  const play = () => { if (onScreen && !motion.calm) current().play().catch(() => { /* autoplay refused: the still stays */ }); };
+  vIntro.src = vIntro.dataset.src;
+  vIntro.addEventListener('playing', () => { vLoop.src = vLoop.dataset.src; vLoop.preload = 'auto'; vLoop.load(); }, { once: true });
+  vIntro.addEventListener('ended', () => {
+    onLoop = true;
+    vLoop.classList.remove('is-hidden');
+    vIntro.classList.add('is-hidden');
+    play();
+  });
+  new IntersectionObserver(([en]) => { onScreen = en.isIntersecting; if (onScreen) play(); else pauseAll(); }).observe(heroEl);
+  onMotionChange((calm) => { if (calm) pauseAll(); else play(); });
+}
 
 /* ---------------- Hero pattern (2D, drawn once + slow drifting dashes) ---------------- */
 const pattern = document.getElementById('pattern');
@@ -91,6 +115,7 @@ const PIECES = [
 const LOGO_C = [36.76, 35.22], LOGO_S = 0.07;
 const logo = new THREE.Group();
 scene.add(logo);
+logo.visible = !HERO_VIDEO; // Taipei 101 in the video stands where the logo is
 const pieces = PIECES.map((p, i) => {
   const v = p.pts.map(([x, y]) => new THREE.Vector2((x - LOGO_C[0]) * LOGO_S, -(y - LOGO_C[1]) * LOGO_S));
   const cx = v.reduce((a, b) => a + b.x, 0) / v.length, cy = v.reduce((a, b) => a + b.y, 0) / v.length;
@@ -210,7 +235,7 @@ function layout() {
   // small screens: tower sits in the top ~40%, above the copy panel
   building.position.set(small ? 0 : viewW * 0.2, small ? viewH * 0.24 : 0.15, 0);
   building.scale.setScalar(((small ? 0.34 : 0.62) * viewH) / towerH);
-  drawPatternTile(); drawPattern();
+  if (!HERO_VIDEO) { drawPatternTile(); drawPattern(); }
 }
 addEventListener('resize', () => { layout(); ScrollTrigger.refresh(); });
 layout();
@@ -288,22 +313,32 @@ function applyTwin(p, time) {
 let introRunning = false;
 const wordLetters = document.querySelectorAll('.wordmark span');
 const lines = document.querySelectorAll('.hero-title .line-inner');
+// the 8 ribbon pieces fly in and fold into the logo (MOTION.md §7 step 3)
+function logoIn(tl, at) {
+  pieces.forEach((m, i) => {
+    const from = new THREE.Vector3((Math.random() - 0.5) * 12, (Math.random() - 0.5) * 8, 4 + Math.random() * 4);
+    m.position.copy(from);
+    m.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3);
+    tl.to(m.position, { x: m.userData.home.x, y: m.userData.home.y, z: 0, duration: 1.2, ease: 'expo.out' }, at + i * 0.04);
+    tl.to(m.rotation, { x: 0, y: 0, z: 0, duration: 1.2, ease: 'expo.out' }, at + i * 0.04);
+  });
+}
+
 function intro() {
   if (STATIC || motion.calm) return;
   introRunning = true;
   const tl = gsap.timeline({ onComplete: () => { introRunning = false; } });
   tl.from(pattern, { opacity: 0, duration: 0.8, ease: 'power2.out' }, 0);
-  pieces.forEach((m, i) => {
-    const from = new THREE.Vector3((Math.random() - 0.5) * 12, (Math.random() - 0.5) * 8, 4 + Math.random() * 4);
-    m.position.copy(from);
-    m.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3);
-    tl.to(m.position, { x: m.userData.home.x, y: m.userData.home.y, z: 0, duration: 1.2, ease: 'expo.out' }, 0.3 + i * 0.04);
-    tl.to(m.rotation, { x: 0, y: 0, z: 0, duration: 1.2, ease: 'expo.out' }, 0.3 + i * 0.04);
-  });
+  if (!HERO_VIDEO) logoIn(tl, 0.3);
   tl.from(lines, { yPercent: 105, duration: 0.8, ease: 'expo.out', stagger: 0.08 }, 0.2);
   tl.from('.hero-tagline', { opacity: 0, y: 12, duration: 0.8, ease: 'power3.out' }, 0.6);
-  tl.from(wordLetters, { opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.04 }, 0.8);
-  tl.from('.wordmark', { gap: '0.05em', duration: 0.8, ease: 'expo.out' }, 1.2);
+  if (wordLetters.length) {
+    tl.from(wordLetters, { opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.04 }, 0.8);
+    tl.from('.wordmark', { gap: '0.05em', duration: 0.8, ease: 'expo.out' }, 1.2);
+  } else {
+    // logo-lettering wordmark (one SVG): fade up after the headline
+    tl.from('.wordmark-svg', { opacity: 0, y: 10, duration: 0.8, ease: 'expo.out' }, 0.8);
+  }
   tl.from('.site-header', { opacity: 0, y: -12, duration: 0.8, ease: 'power3.out' }, 0.4);
 }
 
@@ -319,7 +354,7 @@ io.observe(document.getElementById('twin'));
 const clock = new THREE.Clock();
 function frame() {
   const time = clock.getElapsedTime();
-  if (visible.hero && !motion.calm) drawPattern();
+  if (visible.hero && !motion.calm && !HERO_VIDEO) drawPattern();
   if (visible.hero || visible.twin) {
     const k = motion.calm ? 1 : 0.08;
     tilt.x += (tilt.tx - tilt.x) * k; tilt.y += (tilt.ty - tilt.y) * k;

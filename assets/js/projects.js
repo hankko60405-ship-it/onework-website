@@ -1,16 +1,20 @@
 // ONEWORK — Projects page. Mist tone. Banner: the ribbon tower gathers from scattered pieces (MOTION.md §4) while the
 // words keep changing type. Hall: projects on a ring of curved screens that turns with scroll.
 import * as THREE from 'three';
-import { gsap, ScrollTrigger, motion, STATIC, isSmall, root, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js?v=20261117';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall, root, setupReveals, onLangChange, onMotionChange, fontsReady } from './site.js?v=20261124m';
 
 const animated = () => !STATIC && !motion.calm;
+// Image paths are worked out from this script's address, so they work on /projects/ and /zh/projects/ alike.
+const ASSETS = new URL('../', import.meta.url).href;
 const lang = () => (root.lang === 'zh-Hant' ? 'zh' : 'en');
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const C = { teal900: 0x47868d, teal700: 0x5b8f96, teal500: 0x759fa4, teal300: 0x8badb1, teal100: 0x9eb9bd, paper: 0xf2f2f2 };
 
 /* ---------- Projects (from onework.io/projects; images to be provided) ---------- */
-// To add a real image later: set img to a path such as '../assets/projects/fm.jpg'.
-const PROJECTS = [
+// img: the feature image, shown on the ring, in the hover preview and at the top of the project window.
+// shots: screenshots shown below the copy inside the window, in the suggested order.
+// ALL_PROJECTS keeps every project; only those with a real feature image are shown for now.
+const ALL_PROJECTS = [
   { key: 'fm', tone: '#47868D', img: null, platform: 'fm',
     en: { t: '3D Facility Management', c: 'FM · Facility Management', d: 'Building data from SCADA and gateway systems, managed inside one 3D model.' },
     zh: { t: '3D 設施管理', c: 'FM · 設施管理', d: '把 SCADA 與閘道器系統的建築數據，放進同一個 3D 模型管理。' },
@@ -27,7 +31,7 @@ const PROJECTS = [
     en: { t: 'Post-disaster 3D Reconstruction', c: 'Reality Capture', d: 'AI 3D scanning applied to rebuilding damaged sites as accurate models.' },
     zh: { t: '災後 3D 重建', c: '實景擷取', d: '以 AI 3D 掃描，把受損現場重建成精確模型。' },
     tags: ['Drone', '3D Scan', 'AI'] },
-  { key: 'lifecycle', tone: '#5B8F96', img: null, platform: 'airhub',
+  { key: 'lifecycle', tone: '#5B8F96', img: null, platform: 'pmis',
     en: { t: 'Construction Lifecycle', c: 'Airhub · BIM + PLM', d: 'Airhub SaaS lets every party of a construction project co-work online.' },
     zh: { t: '營建全生命週期', c: 'Airhub · BIM + PLM', d: 'Airhub SaaS 讓營建專案的所有參與者在線上協作。' },
     tags: ['Airhub', 'BIM', 'PLM'] },
@@ -35,10 +39,204 @@ const PROJECTS = [
     en: { t: 'GIS Terrain Analysis', c: 'CIM · Airport', d: 'A GIS web tool for airport terrain analysis and measurement.' },
     zh: { t: 'GIS 地形分析', c: 'CIM · 機場', d: '機場地形分析與量測的 GIS 網頁工具。' },
     tags: ['GIS', 'Terrain', 'Airport'] },
-  { key: 'ems', tone: '#759FA4', img: null, platform: 'ems',
-    en: { t: 'EMS Energy Management', c: 'EMS · Energy', d: 'Power data from SCADA and smart meters, with AI forecasts and monthly reports.' },
-    zh: { t: 'EMS 能源管理', c: 'EMS · 能源', d: '讀取 SCADA 與智慧電表的電力數據，AI 產出用電預測與月報。' },
+  { key: 'ems', tone: '#759FA4', img: ASSETS + 'projects/ems/00-feature.jpg', platform: 'ems',
+    en: { t: 'EMS Energy Management', c: 'EMS · Energy', d: 'Power data from SCADA and smart meters, with AI forecasts and monthly reports.',
+      h: 'Understand site operations from energy flows to event tracking',
+      p: ['The Energy Management System presents the relationships between solar generation, battery storage, generators and electrical loads through an energy flow dashboard. Generation, load power, battery state of charge (SOC) and equipment status help operators understand supply and demand and storage charging and discharging without repeatedly switching between equipment interfaces.',
+        'A single-line diagram (SLD) visualizes the electrical architecture, while generation, load and revenue trends support performance comparisons across periods. An alarm and maintenance log brings event and handling information together for follow-up. Where project integration maps spaces, equipment and measurement points to a building digital twin, operators can examine energy data in its asset and location context.'] },
+    zh: { t: 'EMS 能源管理', c: 'EMS · 能源', d: '讀取 SCADA 與智慧電表的電力數據，AI 產出用電預測與月報。',
+      h: '從能源流向到事件追蹤，掌握場域運轉狀態',
+      p: ['能源管理系統以能源流向儀表板（Energy Flow Dashboard）呈現太陽光電、儲能系統、發電機與用電負載之間的關係。管理人員可透過發電量、負載功率、儲能荷電狀態（State of Charge, SOC）及設備運轉狀態，掌握供需與儲能充放電情形，降低在多個設備介面間交叉比對的負擔。',
+        '電力單線圖（Single-Line Diagram, SLD）提供電力架構的視覺化檢視；發電、負載與收益趨勢圖則有助於比較不同期間的能源表現。告警與維護紀錄（Alarm and Maintenance Log）集中呈現事件及處理資訊，協助營運人員追蹤異常。若與建築數位分身的空間、設備及量測點建立對應關係，可進一步在設備與位置脈絡中檢視能源資料；串接範圍須依專案確認。'] },
+    shots: [
+      { src: ASSETS + 'projects/ems/01-FEATURE-energy-flow-dashboard.png', en: 'Energy flow and live operations dashboard', zh: '能源流向與即時運轉儀表板' },
+      { src: ASSETS + 'projects/ems/02-electrical-single-line-diagram.png', en: 'Electrical single-line diagram', zh: '電力單線圖' },
+      { src: ASSETS + 'projects/ems/03-generation-sales-overview.png', en: 'Generation and revenue trends', zh: '發電與收益趨勢分析' },
+      { src: ASSETS + 'projects/ems/04-mine-load-analysis.png', en: 'Load analysis', zh: '負載趨勢分析' },
+      { src: ASSETS + 'projects/ems/05-alarm-maintenance-log.png', en: 'Alarm and maintenance log', zh: '告警與維護紀錄' },
+    ],
     tags: ['SCADA', 'Modbus', 'AI'] },
+  { key: 'command-center', tone: '#47868D', img: ASSETS + 'projects/command-center/00-feature.jpg', platform: 'twin',
+    en: { t: 'Building Digital Twin Command Center', c: 'Digital Twin · Command Center', d: 'Equipment status, alarms and site indicators shown on a 3D building model.',
+      h: 'Bring equipment status and alarms together in a spatial model',
+      p: ['A building digital twin command center brings spatial context to equipment status and alarms through a 3D building model. Operators can move from the site overview to views of HVAC, lighting, temperature, elevators, EV charging and solar generation, and review equipment information by location; the server room view presents UPS status through equipment racks and measurements.',
+        'Alarm markers on the building model, together with an alarm list and associated imagery, help operators locate and investigate events. Connected equipment, update frequency, alarm workflows and control capabilities depend on the equipment and integration scope of each project.'] },
+    zh: { t: 'Digital Twin 戰情室', c: 'Digital Twin · 戰情室', d: '以三維建築模型呈現設備狀態、告警與場域指標。',
+      h: '以空間模型整合設備狀態與告警資訊',
+      p: ['Digital Twin 戰情室以三維建築模型為操作脈絡，呈現設備位置、系統狀態與場域指標。管理人員可由場域總覽切換至空調、照明、溫度、電梯、充電樁及太陽光電等視圖，依空間位置檢視設備相關資訊；機房 UPS 畫面則以設備機櫃與量測資訊呈現機房運轉狀態。',
+        '告警視圖將事件標示於建築模型，並搭配告警清單及影像畫面，協助維運人員辨識事件位置與檢視相關資訊。實際接入設備、資料更新頻率、告警流程及控制功能，須依專案設備與整合範圍確認。'] },
+    shots: [
+      { src: ASSETS + 'projects/command-center/01-FEATURE-building-overview.jpg', en: 'Building model and cross-system overview', zh: '建築模型與跨系統總覽' },
+      { src: ASSETS + 'projects/command-center/02-spatial-alarms.jpg', en: 'Spatial alarms and events', zh: '空間告警與事件畫面' },
+      { src: ASSETS + 'projects/command-center/03-operations-dashboard.jpg', en: 'Site operations dashboard', zh: '場域營運指標總覽' },
+      { src: ASSETS + 'projects/command-center/04-temperature-heatmap.jpg', en: 'Floor temperature distribution', zh: '樓層溫度分布' },
+      { src: ASSETS + 'projects/command-center/05-hvac-monitoring.jpg', en: 'HVAC equipment status', zh: '空調設備狀態' },
+      { src: ASSETS + 'projects/command-center/06-ups-monitoring.jpg', en: 'Server room racks and UPS status', zh: '機櫃與 UPS 狀態' },
+      { src: ASSETS + 'projects/command-center/07-lighting-monitoring.jpg', en: 'Floor lighting view', zh: '樓層照明視圖' },
+      { src: ASSETS + 'projects/command-center/08-solar-monitoring.jpg', en: 'Solar equipment view', zh: '光電設備視圖' },
+      { src: ASSETS + 'projects/command-center/09-ev-charging.jpg', en: 'EV charging view', zh: '充電設備視圖' },
+      { src: ASSETS + 'projects/command-center/10-elevator-monitoring.jpg', en: 'Elevator view', zh: '電梯空間視圖' },
+    ],
+    tags: ['3D Model', 'Alarms', 'HVAC', 'UPS'] },
+  { key: 'energy-analytics', tone: '#5B8F96', img: ASSETS + 'projects/energy-analytics/00-feature.jpg', platform: null,
+    en: { t: 'Energy and Carbon Analytics', c: 'EMS · Energy & Carbon', d: 'Energy data from multiple EMS platforms and sites, with Scope 1, 2 and 3 carbon analysis, KPI tracking and inventory reports.',
+      h: 'Bring energy and carbon data together for efficiency and decarbonization',
+      p: ['Integrate data from multiple energy management systems (EMS) and site sources to manage electricity, water and other resource use across buildings, campuses, ports and other large sites. Cross-area and time-period analysis helps managers identify high-consumption areas and peak loads, plan efficiency measures, manage energy costs and track results over time. Available views include energy trends, demand, time-of-use and area comparisons.',
+        'Carbon analysis totals greenhouse gas emissions in tCO₂e by Scope 1, 2 and 3, by year, month, week, day or a custom period, with a selectable GWP basis such as IPCC AR5 or AR6. KPI tracking compares the base year, reduction target and annualized estimate to show whether the target is on track, while scope shares, the top five emission sources and monthly trends against the same period last year point to where emissions come from.',
+        'Purchased electricity and water can sync automatically; other sources are recorded by hand with supporting documents, and items such as waste removal can link to property management. The greenhouse gas inventory moves through four steps (completeness check, emissions confirmation, quality assessment and export), records how each source is measured (continuous, periodic or financial records, or self-assessed), notes the inventory basis such as ISO 14064-1 and the GHG Protocol, and exports to ODS, Excel and PDF.',
+        'Results depend on metering, data quality, emission factors, GWP settings and tariff configuration, and are confirmed for each project; the platform does not replace third-party verification. Example platforms that can be assessed for integration include Siemens Building X Energy Manager, Schneider Electric EcoStruxure Power Monitoring Expert and Honeywell Forge Sustainability+ for Buildings (Carbon & Energy Management); these are examples for assessment, not claims of completed integrations.'] },
+    zh: { t: '能源與碳排分析', c: 'EMS · 能源與碳排', d: '整合多家 EMS 與場域能源資料，並以範疇一、二、三分析碳排放、追蹤減碳 KPI 及產出盤查清冊。',
+      h: '整合能源與碳排資訊，支援節能改善與減碳管理',
+      p: ['整合多家能源管理系統（EMS）與場域能源資料，集中蒐集及管理用電、用水等資訊，適用於建築、園區、港區及其他大範圍場域。透過跨區域及跨期間分析，協助管理人員掌握用能分布、辨識高耗能區域與尖峰負載，作為擬定節能措施、管理能源成本及追蹤改善成效的依據；系統畫面提供用電趨勢、需量、尖離峰、區域及時間對比等分析視角。',
+        '碳排分析依範疇一、二、三彙整溫室氣體排放量（tCO₂e），可依年、月、週、日或自訂期間檢視，並選擇 IPCC AR5、AR6 等 GWP 版本。KPI 追蹤比對基準年排放量、減碳目標與年化推估，判斷是否可望達標；範疇占比、排放源 Top 5 及月度趨勢（含去年同期比較）協助找出主要排放來源。',
+        '外購電力與自來水等資料可自動同步，其他排放源以手填登記並附佐證，廢棄物清運等項目可與物業管理連動。盤查清冊依完整性檢查、排放量確認、品質評估及匯出清冊四個步驟進行，標示各排放源的量測頻率（連續量測、定期量測／財務單據、自行評估），可記錄 ISO 14064-1、GHG Protocol 等盤查依據，並匯出 ODS、Excel 與 PDF。',
+        '分析結果取決於計量配置、資料品質、排放係數、GWP 設定及費率條件，依專案確認，並不取代第三方查證。可評估整合之公開系統範例包括 Siemens Building X Energy Manager、Schneider Electric EcoStruxure Power Monitoring Expert 及 Honeywell Forge Sustainability+ for Buildings（Carbon & Energy Management）；上述為公開產品範例，並非已完成整合之聲明。'] },
+    shots: [
+      { src: ASSETS + 'projects/energy-analytics/01-FEATURE-energy-dashboard.jpg', en: 'Energy indicators and daily load profile', zh: '能源指標與日負載曲線' },
+      { src: ASSETS + 'projects/energy-analytics/02-demand-analysis.jpg', en: 'Demand curve and contract capacity', zh: '需量曲線與契約容量' },
+      { src: ASSETS + 'projects/energy-analytics/03-time-of-use-analysis.jpg', en: 'Time-of-use consumption', zh: '分時用電結構' },
+      { src: ASSETS + 'projects/energy-analytics/04-energy-consumption-analysis.jpg', en: 'Consumption composition and distribution', zh: '用電組成與分布' },
+      { src: ASSETS + 'projects/energy-analytics/05-area-energy-analysis.jpg', en: 'Area trends and comparison', zh: '區域趨勢與比較' },
+      { src: ASSETS + 'projects/energy-analytics/06-period-comparison.jpg', en: 'Period comparison', zh: '不同期間用電差異' },
+      { src: ASSETS + 'projects/energy-analytics/07-area-comparison.jpg', en: 'Share of consumption by building', zh: '建築間能耗占比' },
+      { src: ASSETS + 'projects/energy-analytics/08-meter-hierarchy.jpg', en: 'Meter hierarchy settings', zh: '計量設備層級設定' },
+      { src: ASSETS + 'projects/energy-analytics/09-renewable-generation.jpg', en: 'Renewable generation trends', zh: '再生能源發電趨勢與統計' },
+      { src: ASSETS + 'projects/energy-analytics/11-carbon-analysis-report.jpg', en: 'Carbon analysis report: Scope 1–3, KPI tracking and monthly trends', zh: '碳排分析報表：範疇一至三、KPI 追蹤與月度趨勢' },
+      { src: ASSETS + 'projects/energy-analytics/10-carbon-inventory-emissions.jpg', en: 'Inventory step 2: emissions by source and measurement method', zh: '盤查清冊：排放量計算確認' },
+      { src: ASSETS + 'projects/energy-analytics/12-carbon-data-entry.jpg', en: 'Data entry: automatic sync and manual records', zh: '數據登記：自動同步與手填項目' },
+    ],
+    tags: ['Multi-EMS', 'Multi-site', 'Demand', 'Carbon', 'Scope 1–3', 'ISO 14064-1'] },
+  { key: 'bersn', tone: '#759FA4', img: ASSETS + 'projects/bersn/00-feature.jpg', platform: null,
+    en: { t: 'BERSn-Pro Building Energy Assessment', c: 'BERSn-Pro · Energy Assessment', d: 'Simplified 3D massing, IFC data checks and energy calculations in one web workflow for building design.',
+      h: 'Bring energy assessment into building design decisions',
+      p: ['BERSn-Pro combines simplified 3D massing, IFC data checks, envelope and equipment inputs, and energy calculations in a web workflow. EEI, efficiency grades, energy savings and energy- and carbon-related indicators help owners and design teams review the effects of their design assumptions.',
+        'Scenario and estimated cost comparisons support discussions, while reports and review workflows help organize project information. Inputs require professional verification; estimates are not quotations and calculated results are not official certification.'] },
+    zh: { t: 'BERSn-Pro 建築能效評估平台', c: 'BERSn-Pro · 建築能效評估', d: '將簡化 3D 建築量體、IFC 模型資料檢查與能效計算，整合於同一個網頁工作流程。',
+      h: '讓建築能效評估，成為設計決策的依據',
+      p: ['BERSn-Pro 將簡化 3D 建築量體、IFC 模型資料檢查、外殼與設備參數，以及能效計算整合於網頁工作流程。設計團隊可依建築用途與設計條件填寫資料，檢視 EEI、能效等級、節能率及耗能、碳排相關指標，協助業主理解設計選擇對評估結果的影響。',
+        '方案比較結合預估成本及能效變化，提供改善方向的討論基礎；報告與案件審查流程協助團隊整理資料及追蹤狀態。模型與設備資料仍須依設計文件及專業判斷核對，成本估算不是正式報價，計算結果亦不等同官方認證。住宅案件適用性須依平台版本及個案確認。'] },
+    shots: [
+      { src: ASSETS + 'projects/bersn/01-FEATURE-3d-building-model.jpg', en: '3D massing and floor management', zh: '3D 量體與樓層管理' },
+      { src: ASSETS + 'projects/bersn/02-envelope-window-orientation.jpg', en: 'Window orientation and the model', zh: '開窗方向與模型' },
+      { src: ASSETS + 'projects/bersn/03-floor-plan-massing-slide28.jpg', en: 'Plan view and multi-shape modelling', zh: '俯視平面與多形狀建模' },
+      { src: ASSETS + 'projects/bersn/04-multi-zone-model-slide33.jpg', en: 'Multi-zone model and parameters', zh: '多區模型及參數操作' },
+      { src: ASSETS + 'projects/bersn/05-building-parameters-slide43.jpg', en: 'Basic parameters and model view', zh: '基本參數及模型視圖' },
+    ],
+    tags: ['3D Massing', 'IFC', 'EEI', 'Energy Grade'] },
+  { key: 'pmis', tone: '#47868D', img: ASSETS + 'projects/pmis/00-feature.jpg', platform: 'pmis',
+    en: { t: 'PMIS Project Management Information System', c: 'PMIS · Construction', d: 'Construction logs, electronic reports, signatures and workflows in one workspace, on desktop and mobile.',
+      h: 'Bring construction records, documents and review workflows together',
+      p: ['The Project Management Information System (PMIS) brings daily construction logs, log overviews, electronic reports and custom reports into one workspace. Project teams can compile field records and review reporting information in a consistent environment. Electronic signatures and workflows support signing and routing reports and related documents through the applicable process, reducing reliance on paper-based handoffs and coordination between parties.',
+        'File management, electronic meeting attendance records, official correspondence and permission management help owners, construction supervisors and contractors access information according to their responsibilities. The mobile experience includes a notification center, issue reporting, meetings, file management and training, enabling site personnel to handle daily work on their phones and communicate information between the field and office more efficiently.',
+        'Construction logs, reports and project documents can provide an information foundation for a building digital twin. Where project requirements establish links to models, spaces or components, these records can be accessed in the relevant context. The integration scope depends on the project.'] },
+    zh: { t: 'PMIS 工程專案管理資訊系統', c: 'PMIS · 工程管理', d: '施工日誌、電子化報表、電子簽名與工作流程整合在同一平台，桌機與手機都能使用。',
+      h: '讓施工紀錄、文件與審查流程在同一平台流轉',
+      p: ['工程專案管理資訊系統（PMIS）將施工日誌、日誌總覽、電子化報表與自定義報表納入同一作業平台，協助專案團隊彙整現場紀錄，掌握各項資料的填報與查閱情形。透過電子簽名及工作流程（Workflow），報表與相關文件可依作業程序進行簽署及流轉，減少紙本傳遞與跨單位溝通的負擔。',
+        '系統亦涵蓋檔案管理、電子化會議簽到紀錄、公文管理及權限管理，協助業主、監造與施工團隊依職責存取所需資訊，讓工程文件與作業紀錄更容易查找。手機版提供通知中心、異常通報、會議、檔案管理及教育訓練功能，讓施工人員在現場即可使用手機處理日常作業，縮短現場與辦公室之間的資訊傳遞時間。',
+        '在建築數位分身應用中，施工日誌、報表與工程文件可作為工程階段的資訊基礎；若依專案需求建立與模型、空間或構件的關聯，後續即可在相應脈絡中查閱資料。實際關聯方式及整合範圍須依專案確認。'] },
+    shots: [
+      { src: ASSETS + 'projects/pmis/05-document-editing.png', en: 'Electronic document editing', zh: '工程資料與電子化文件' },
+      { src: ASSETS + 'projects/pmis/01-FEATURE-project-map.png', en: 'Multi-project map view', zh: '跨專案地圖檢視' },
+      { src: ASSETS + 'projects/pmis/02-project-overview.png', en: 'Project and log overview', zh: '專案與日誌總覽' },
+      { src: ASSETS + 'projects/pmis/04-document-library.png', en: 'File management', zh: '檔案管理' },
+      { src: ASSETS + 'projects/pmis/08-mobile-iphone-mockup.png', en: 'Mobile file access on site', zh: '手機版作業', tall: true },
+    ],
+    tags: ['PMIS', 'Workflow', 'e-Signature', 'Mobile'] },
+  { key: 'property', tone: '#5B8F96', img: ASSETS + 'projects/property/00-feature.jpg', platform: 'fm',
+    en: { t: 'Property Management System', c: 'FM · Property Management', d: 'Asset registers, maintenance, inspections and repairs, plus tenant services such as facility booking, parcels and visitors, for day-to-day building operations.',
+      h: 'Connect asset registers, maintenance plans and field tasks',
+      p: ['Built on equipment and asset registers, the system brings maintenance plans, task views, security patrols, safety inspections and shift calendars together to track day-to-day maintenance and repairs. Repair orders move from dispatch through repair and review to closure, recording the vendor, warranty, cost and replaced parts, and an abnormal inspection item can raise a repair request on the spot.',
+        'The home dashboard gathers tenant services such as facility booking, parcels and visitor registration. Shared facilities can be searched by time slot, headcount and points and viewed on a booking schedule, and issues reported through a tenant representative or LINE@ can be turned straight into repair or cleaning work orders. Where records are mapped to a building digital twin, they can be reviewed in spatial context; integration scope depends on the project.'] },
+    zh: { t: '物業管理系統', c: 'FM · 物業管理', d: '設備與資產台帳、維運計畫、巡檢與報修，加上公設預約、郵務包裹與訪客等廠戶服務，串起日常建築維運。',
+      h: '以設備台帳、維護計畫與現場任務串接建築維運',
+      p: ['以設備與資產台帳為基礎，整合維運計畫、待辦任務、保全巡邏、環安巡檢與排班，掌握日常維護與報修進度。報修單依待派工、修繕中、待審核至結案追蹤，並記錄廠商、保固、成本與更換零件；巡檢發現異常可當場申請報修。',
+        '首頁集中公設預約、郵務包裹與訪客登記等廠戶服務；公共設施可依時段、人數與點數查詢並以排程表檢視，廠戶透過代表或 LINE@ 通報的問題可直接轉為報修或清潔工單。若對應至建築數位分身，可在空間脈絡中查閱維運資訊，整合範圍依專案確認。'] },
+    shots: [
+      { src: ASSETS + 'projects/property/01-FEATURE-maintenance-plan.png', en: 'Maintenance plan', zh: '維運計畫' },
+      { src: ASSETS + 'projects/property/02-equipment-inventory.png', en: 'Equipment register', zh: '設備台帳' },
+      { src: ASSETS + 'projects/property/03-asset-inventory.png', en: 'Asset register', zh: '資產台帳' },
+      { src: ASSETS + 'projects/property/04-task-dashboard.png', en: 'Task dashboard', zh: '待辦任務' },
+      { src: ASSETS + 'projects/property/05-security-patrol-map.png', en: 'Security patrol configuration on the floor plan', zh: '空間巡邏設定' },
+      { src: ASSETS + 'projects/property/06-security-patrol-tasks.png', en: 'Patrol tasks', zh: '巡邏任務' },
+      { src: ASSETS + 'projects/property/07-inspection-checklist.png', en: 'Inspection checklist', zh: '巡檢表' },
+      { src: ASSETS + 'projects/property/08-shift-calendar.png', en: 'Shift calendar', zh: '排班管理' },
+      { src: ASSETS + 'projects/property/09-fm-home-dashboard.jpg', en: 'Home dashboard: tenant services, bookings, repairs and tasks', zh: '首頁：廠戶服務、預約、報修與任務' },
+      { src: ASSETS + 'projects/property/11-facility-booking-search.jpg', en: 'Facility booking search', zh: '公共設施預約查詢' },
+      { src: ASSETS + 'projects/property/10-facility-booking-schedule.jpg', en: 'Facility booking schedule', zh: '公設排程' },
+      { src: ASSETS + 'projects/property/13-tenant-issue-report.jpg', en: 'Tenant issues converted to repair or cleaning orders', zh: '廠戶問題回報與轉單' },
+      { src: ASSETS + 'projects/property/12-repair-report.jpg', en: 'Repair order tracking and report', zh: '報修管理與回報' },
+      { src: ASSETS + 'projects/property/14-equipment-inspection-report.jpg', en: 'Equipment inspection checklist with repair request', zh: '設備巡檢回報與申請報修' },
+    ],
+    tags: ['Assets', 'Maintenance', 'Inspection', 'Repair', 'Booking', 'Tenant Services'] },
+  { key: 'gis', tone: '#47868D', img: ASSETS + 'projects/gis/00-feature.jpg', platform: 'gis',
+    en: { t: 'GIS and Smart City Applications', c: 'GIS · Smart City', d: 'Cesium 3D geospatial views, GIS map layers and IoT sensor data put city information back in its place.',
+      h: 'See city data in its spatial context',
+      p: ['Combine Cesium-based 3D geospatial visualization, GIS map layers and IoT sensor data to review buildings, infrastructure and observations in their geographic context. Maps and information panels support day-to-day operations and coordination across teams.',
+        'Potential applications include water, energy, green assets and public infrastructure; data sources, refresh rates and functionality depend on the project. The screens shown come from different project scenarios and do not all belong to a single product.'] },
+    zh: { t: 'GIS 與智慧城市應用', c: 'GIS · 智慧城市', d: '結合 Cesium 三維地理空間、GIS 圖層與 IoT 感測資料，讓城市資料回到空間現場。',
+      h: '讓城市資料回到空間現場，掌握分布與狀態',
+      p: ['結合 Cesium 三維地理空間視覺化、GIS 地圖圖層與 IoT 感測資料，將建築、公共設施與量測資訊放回地理位置脈絡中。管理人員可透過圖台與資訊面板，檢視設施分布及可取得的狀態資料，協助日常管理與跨單位溝通。',
+        '應用可涵蓋水環境、場域能源、綠地與公共設施管理；感測資料來源、更新頻率與功能範圍依個別專案確認。現有素材呈現不同專案情境，並非所有功能已整合在單一產品。'] },
+    shots: [
+      { src: ASSETS + 'projects/gis/01-FEATURE-3d-site-dashboard.jpg', en: '3D site energy dashboard', zh: '3D 場域能源儀表板' },
+      { src: ASSETS + 'projects/gis/02-water-monitoring-map.jpg', en: 'Water level and rainfall map', zh: '水位與雨量地圖' },
+      { src: ASSETS + 'projects/gis/03-green-assets-map.jpg', en: 'Green space and tree map', zh: '綠地與樹木圖台' },
+      { src: ASSETS + 'projects/gis/04-port-dashboard-AI-edited.jpg', en: 'Smart port dashboard', zh: '智慧港區儀表板' },
+    ],
+    tags: ['Cesium', 'GIS', 'IoT', '3D'] },
+  { key: 'bim', tone: '#5B8F96', img: ASSETS + 'projects/bim/00-feature.jpg?v=20261121b', platform: 'bim',
+    en: { t: 'BIM Data and Web Visualization', c: 'BIM · Web Visualization', d: 'Optimized BIM models viewed in the browser, with drawing directories, component structure and IFC review.',
+      h: 'Explore BIM models and project information on the web',
+      p: ['Combine 3D model optimization and web visualization to help teams review building and site models in a browser. Drawing directories and component structure views provide a shared context for finding information and discussing design, construction and operations.',
+        'An IFC review workspace includes adding models, filtering by level and component, warning review, batch data entry and export controls. IFC exchange coverage and data completeness depend on the source software, version and settings; compatibility and performance also depend on model complexity, network and device.'] },
+    zh: { t: 'BIM 圖資與輕量化網頁應用', c: 'BIM · 網頁模型', d: '結合 3D 模型輕量化與網頁視覺化，透過瀏覽器檢視建築及場域模型。',
+      h: '讓 BIM 模型與圖資，在網頁中更容易查閱與協作',
+      p: ['BIM 圖資平台結合 3D 模型輕量化與網頁視覺化，協助團隊透過瀏覽器檢視建築及場域模型，搭配圖資目錄和構件結構查找資訊、掌握空間與模型內容，為設計、施工與維運溝通提供共同的視覺脈絡。',
+        'IFC 合模檢查工作台畫面展示模型加入、樓層與構件篩選、警告檢視、批次資料填寫與匯出修改。IFC 交換的支援範圍及資料完整性依來源軟體、版本與設定確認；模型瀏覽效能也會受到模型複雜度、網路和設備影響。'] },
+    shots: [
+      { src: ASSETS + 'projects/bim/01-FEATURE-bim-model-structure.jpg', en: 'Building model and component structure', zh: '建築模型與構件結構' },
+      { src: ASSETS + 'projects/bim/02-bim-building-model.jpg', en: 'Building model viewing', zh: '建築模型瀏覽' },
+      { src: ASSETS + 'projects/bim/03-large-site-model.jpg', en: 'Large site model', zh: '大型場域模型' },
+      { src: ASSETS + 'projects/bim/04-ifc-model-qa-workspace.jpg', en: 'IFC review and batch data workspace', zh: 'IFC 檢查與批次作業' },
+    ],
+    tags: ['BIM', 'IFC', 'Web 3D', 'Model Optimization'] },
+  { key: 'spatial', tone: '#47868D', img: ASSETS + 'projects/spatial/00-feature.jpg', platform: 'spatial',
+    en: { t: 'Drone Imagery and AI Spatial Reconstruction', c: 'Spatial · 3D Gaussian Splatting', d: 'Drone imagery, 3D Gaussian Splatting and AI processing turn site photos into 3D scenes.',
+      h: 'Turn site imagery into usable 3D spatial context',
+      p: ['Combine drone imagery, 3D Gaussian Splatting and AI-assisted processing to reconstruct site scenes for project review. The workflow covers image preparation, camera estimation, reconstruction and Splat and engineering USD deliverables.',
+        'Examples span road works, venues, transit facilities and urban scenes. Results can be used in 3D city scenes in GIS and NVIDIA Omniverse and as a visual basis for BIM or smart-building data integration. Deliverables, processing time and integration depend on image conditions and project requirements.'] },
+    zh: { t: '無人機影像與 AI 實景空間運算', c: '實景空間運算 · 3D 高斯潑濺', d: '結合無人機影像、3D 高斯潑濺與 AI 運算，從現場影像建立三維空間。',
+      h: '從現場影像，建立可應用的三維空間',
+      p: ['結合無人機影像、3D Gaussian Splatting（3D 高斯潑濺）與 AI 運算，將多視角影像整理為具有空間脈絡的三維場景。從影像資料整備、相機解算與場景重建，到擬真 Splat 及工程 USD 成果，協助團隊以直觀方式理解工程現場、建築與周邊環境。',
+        '應用涵蓋施工路段、體育館、交通場站及城市等場景；依專案需求，成果可應用於 GIS、NVIDIA Omniverse 等 3D 城市場景，並作為 BIM 或智慧建築資料整合的視覺基礎。實際成果、處理時間及整合範圍依影像條件與專案需求確認。'] },
+    shots: [
+      { src: ASSETS + 'projects/spatial/01-drone-construction-imagery.jpg', en: 'Drone imagery of a construction site', zh: '影像輸入：施工現場空拍' },
+      { src: ASSETS + 'projects/spatial/02-spatial-reconstruction-process.jpg', en: 'Camera estimation and scene reconstruction', zh: '相機解算與場景重建' },
+      { src: ASSETS + 'projects/spatial/03-engineering-scene-workspace.jpg', en: 'Engineering scene as a Splat and USD deliverable', zh: '成果交付：Splat＋工程 USD' },
+      { src: ASSETS + 'projects/spatial/05-stadium-scene.jpg', en: 'Stadium scene', zh: '體育館場景' },
+      { src: ASSETS + 'projects/spatial/06-transport-area-3d-gis.jpg', en: 'Transit area in 3D GIS', zh: '交通場站 3D GIS 場景' },
+      { src: ASSETS + 'projects/spatial/07-transit-interior-3d-gaussian.jpg', en: 'Transit interior as a 3D Gaussian scene', zh: '交通場站室內 3D 高斯場景' },
+      { src: ASSETS + 'projects/spatial/10-image-input-sequence.jpg', en: 'Input image sequence', zh: '輸入影像序列' },
+      { src: ASSETS + 'projects/spatial/11-road-scene.jpg', en: 'Road scene', zh: '道路場景' },
+    ],
+    tags: ['Drone', '3D Gaussian Splatting', 'AI', 'USD'] },
+  { key: 'dcim', tone: '#5B8F96', img: ASSETS + 'projects/dcim/00-feature.jpg', platform: null,
+    en: { t: 'DCIM Data Center Infrastructure Management', c: 'DCIM · Data Center', d: 'A 3D data center view with rack assets, environmental monitoring, alarms, work orders and inspections.',
+      h: 'Connect data center spaces, assets and operations',
+      p: ['Combine a 3D data center view with rack assets, environmental monitoring, alarms, work orders and inspections, so operations teams can trace from the room overview to a specific rack or device. Power and network topology, capacity planning and maintenance-impact views provide context for operations.',
+        'The platform also demonstrates energy analysis, including PUE, consumption trends and demand estimates, and a GenAI operations assistant for work-order, environment and energy queries. Equipment integration, control capabilities, data refresh and functional scope depend on the project.'] },
+    zh: { t: 'DCIM 機房管理', c: 'DCIM · 機房管理', d: '以 3D 數位孿生呈現機房與機櫃，結合資產、環境監測、告警、工單與巡檢。',
+      h: '從機房空間到設備維護，掌握營運全貌',
+      p: ['以 3D 數位孿生呈現機房、機櫃及設備位置，結合資產配置、環境監測、告警、工單與巡檢，協助維運團隊從空間總覽追蹤至特定設備。電力與網路拓樸、容量規劃及維護影響預覽，提供設備關聯與資源安排的管理脈絡。',
+        '能源畫面展示 PUE、用電趨勢及需量試算；GenAI 營運助手展示工單、環境與能源查詢。實際設備串接、控制能力、資料更新及功能範圍依專案確認。'] },
+    shots: [
+      { src: ASSETS + 'projects/dcim/01-FEATURE-3d-datacenter.jpg', en: '3D data center overview', zh: '3D 機房總覽' },
+      { src: ASSETS + 'projects/dcim/02-rack-asset-configuration.jpg', en: 'Rack and asset configuration', zh: '機櫃配置' },
+      { src: ASSETS + 'projects/dcim/03-environment-trends.jpg', en: 'Environmental trends', zh: '環境趨勢' },
+      { src: ASSETS + 'projects/dcim/04-alarm-spatial-location.jpg', en: 'Alarms located in 3D', zh: '告警與位置' },
+      { src: ASSETS + 'projects/dcim/05-power-network-topology.jpg', en: 'Power and network topology', zh: '電力與網路拓樸' },
+    ],
+    tags: ['DCIM', '3D Digital Twin', 'Racks', 'Alarms', 'PUE'] },
   { key: 'bim-fm', tone: '#3D3D3D', img: null, platform: 'fm',
     en: { t: '3D BIM-enabled FM System', c: 'FM · Facility Management', d: 'Works with common SCADA systems and IoT communication.' },
     zh: { t: '3D BIM 設施管理系統', c: 'FM · 設施管理', d: '串接常見 SCADA 系統與 IoT 通訊。' },
@@ -52,6 +250,10 @@ const PROJECTS = [
     zh: { t: '太陽能業者配電工具', c: 'EMS · 能源', d: '專案說明待提供。' },
     tags: ['EMS', 'Solar'] },
 ];
+// display order: digital twin and 3D, then FM, energy, engineering, and tools last
+const ORDER = ['command-center', 'dcim', 'gis', 'spatial', 'property', 'ems', 'energy-analytics', 'pmis', 'bim', 'bersn'];
+const rank = (p) => { const i = ORDER.indexOf(p.key); return i < 0 ? ORDER.length : i; };
+const PROJECTS = ALL_PROJECTS.filter((p) => p.img).sort((a, b) => rank(a) - rank(b));
 const N = PROJECTS.length;
 const pad = (n) => String(n).padStart(2, '0');
 
@@ -98,9 +300,10 @@ function stopCycle() {
 }
 // pause while the banner is off screen
 let heroOn = true;
+let reelHold = false;   // true while the opening reel plays: the live banner waits on Archivo 900
 new IntersectionObserver(([en]) => {
   heroOn = en.isIntersecting;
-  if (heroOn && animated()) startCycle(); else if (!heroOn) stopCycle();
+  if (heroOn && animated() && !reelHold) startCycle(); else if (!heroOn) stopCycle();
 }).observe(document.getElementById('pjHero'));
 
 /* =====================================================================
@@ -172,7 +375,9 @@ hCam.position.set(0, 0.35, 0);
 hCam.rotation.order = 'YXZ';
 hCam.rotation.x = -0.07;   // look slightly down onto the grid
 const R = 6;
-const STEP = (Math.PI * 2) / N;
+// with only a few projects, each appears twice round the ring so the screens keep their size and spacing
+const SLOTS = N < 8 ? N * 2 : N;
+const STEP = (Math.PI * 2) / SLOTS;
 const ARC = STEP * 0.8;
 const PW = R * ARC;
 const PH = PW * 0.62;
@@ -251,7 +456,8 @@ const FRAG = /* glsl */`
     gl_FragColor = vec4(mix(uPaper, c, uFade), 1.0);
   }`;
 
-const panels = PROJECTS.map((p, i) => {
+const panels = Array.from({ length: SLOTS }, (_, k) => {
+  const i = k % N; const p = PROJECTS[i];
   const cv = document.createElement('canvas');
   cv.width = TEX_W; cv.height = TEX_H;
   const ctx = cv.getContext('2d');
@@ -263,7 +469,7 @@ const panels = PROJECTS.map((p, i) => {
     vertexShader: VERT, fragmentShader: FRAG, side: THREE.DoubleSide,
   });
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(PW, PH, isSmall ? 32 : 64, 8), mat);
-  const a = i * STEP;
+  const a = k * STEP;
   mesh.position.set(Math.sin(a) * R, 0.55, -Math.cos(a) * R);
   mesh.rotation.y = -a;
   mesh.userData = { i, a, ctx, tex, img: null };
@@ -276,7 +482,7 @@ const panels = PROJECTS.map((p, i) => {
   return mesh;
 });
 function paintAll() {
-  panels.forEach((m, i) => { paintPanel(PROJECTS[i], i, m.userData.ctx, m.userData.img); m.userData.tex.needsUpdate = true; });
+  panels.forEach((m) => { const i = m.userData.i; paintPanel(PROJECTS[i], i, m.userData.ctx, m.userData.img); m.userData.tex.needsUpdate = true; });
 }
 
 function hallLayout() {
@@ -399,22 +605,57 @@ addEventListener('pointermove', (e) => { peekX(e.clientX + (innerWidth - e.clien
 buildIndex();
 
 const modal = document.getElementById('pjModal');
-const PLATFORM_NAME = { fm: 'FM', cim: 'CIM', airhub: 'Airhub', ems: 'EMS' };
+const PLATFORM_NAME = { fm: 'FM', cim: 'CIM', pmis: 'PMIS', ems: 'EMS', twin: 'DIGITAL TWIN', gis: 'GIS', bim: 'BIM', spatial: 'SPATIAL' };
 function openProject(i) {
   const p = PROJECTS[i]; const L = p[lang()];
+  const hero = document.getElementById('mHero');
+  hero.hidden = !p.img;
+  if (p.img) { hero.querySelector('img').src = p.img; hero.querySelector('img').alt = L.t; }
   document.getElementById('mCat').textContent = L.c;
   document.getElementById('mTitle').textContent = L.t;
   document.getElementById('mDesc').textContent = L.d;
+  // long copy: a headline and paragraphs, when the project has them
+  const detail = document.getElementById('mDetail');
+  detail.replaceChildren();
+  detail.hidden = !L.h;
+  if (L.h) {
+    const h = document.createElement('h3'); h.className = 'm-head'; h.textContent = L.h;
+    detail.append(h, ...L.p.map((t) => { const e = document.createElement('p'); e.textContent = t; return e; }));
+  }
+  // screenshots in the suggested order; placeholders until a project has them
+  const shots = document.getElementById('mShots');
+  if (p.shots) {
+    shots.replaceChildren(...p.shots.map((s) => {
+      const f = document.createElement('figure');
+      f.className = s.tall ? 'm-shot tall' : 'm-shot';
+      const im = document.createElement('img');
+      im.src = s.src; im.alt = s[lang()]; im.loading = 'lazy'; im.decoding = 'async';
+      const cap = document.createElement('figcaption'); cap.textContent = s[lang()];
+      f.append(im, cap);
+      return f;
+    }));
+  } else {
+    shots.replaceChildren(...[0, 1].map(() => {
+      const d = document.createElement('div'); d.className = 'ph wide';
+      d.textContent = lang() === 'zh' ? '[ 專案圖片：待提供 ]' : '[ Project image — to be provided ]';
+      return d;
+    }));
+  }
   const tags = document.getElementById('mTags');
   tags.replaceChildren(...p.tags.map((t) => { const s = document.createElement('span'); s.textContent = t; return s; }));
   const link = document.getElementById('mLink');
-  link.href = `../product/#${p.platform}`;
+  link.hidden = !p.platform;   // a project with no matching section on the Services page shows no link
+  link.href = `../product/#${p.platform || ''}`;
   link.textContent = lang() === 'zh' ? `看 ${PLATFORM_NAME[p.platform]} 平台 →` : `See the ${PLATFORM_NAME[p.platform]} platform →`;
   hidePeek();
   if (modal.open) modal.close();   // reopen as a true modal, never as an inline block
   modal.showModal();
   modal.scrollTop = 0;
-  if (animated()) gsap.fromTo(modal, { y: 40, opacity: 0, clipPath: 'inset(8% 0 0 0)' }, { y: 0, opacity: 1, clipPath: 'inset(0% 0 0 0)', duration: 0.7, ease: 'expo.out' });
+  // Web Animations, not GSAP: GSAP measures transforms by briefly detaching the element, and a detached
+  // <dialog> drops out of the top layer (still "open", but now an inline box far down the page)
+  if (animated()) modal.animate(
+    [{ transform: 'translateY(40px)', opacity: 0, clipPath: 'inset(8% 0 0 0)' }, { transform: 'none', opacity: 1, clipPath: 'inset(0% 0 0 0)' }],
+    { duration: 700, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 }
 document.getElementById('mClose').addEventListener('click', () => modal.close());
 modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
@@ -483,11 +724,39 @@ if (!STATIC) {
 }
 setupReveals();
 
+// Opening reel: starts at once (it does not wait for the web fonts); its last frame is this banner.
+// While it plays, the live banner waits underneath in its finished state; when it ends, the banner takes over.
+const reel = document.getElementById('pjReel');
+const useReel = !!reel && animated() && getComputedStyle(reel).display !== 'none';
+let fontsLoaded = false;
+if (useReel) {
+  reelHold = true;
+  gsap.set(letters, { opacity: 1 });
+  let handedOver = false;
+  const handOver = () => {
+    if (handedOver) return; handedOver = true;
+    reel.classList.add('is-done');
+    setTimeout(() => reel.remove(), 800);
+    reelHold = false;
+    if (fontsLoaded && heroOn) startCycle();
+  };
+  reel.addEventListener('ended', handOver);
+  reel.addEventListener('error', handOver, true);
+  if (reel.ended) handOver();                       // it may have finished before this script arrived
+  else {
+    setTimeout(handOver, 12000);                    // never hold the page on a stalled video
+    if (reel.paused) reel.play().catch(handOver);
+  }
+} else {
+  reel?.remove();
+}
+
 // load all three banner faces up front so the first change never shows a fallback font
 Promise.all(['900 40px Archivo', '500 40px "Bodoni Moda"', '400 40px "Ms Madi"', '700 40px "Space Mono"', '800 40px Unbounded',
   'italic 400 40px "Instrument Serif"', '800 40px Syne', '400 40px "Major Mono Display"', '400 40px "Bebas Neue"', '400 40px "Rubik Mono One"', '900 40px "Noto Sans TC"']
   .map((f) => document.fonts.load(f).catch(() => null))).then(() => fontsReady).then(() => {
+  fontsLoaded = true;
   paintAll();
-  heroIn();
-  startCycle();
+  if (!useReel) { heroIn(); startCycle(); return; }
+  if (!reelHold && heroOn) startCycle();            // the reel already finished before the fonts arrived
 });

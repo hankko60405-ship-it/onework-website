@@ -1,0 +1,85 @@
+# ONEWORK website — Apache config for shared / FTP hosting.
+# Every block is wrapped in <IfModule>, so a host missing a module skips it instead of erroring.
+
+# ---------- Basics ----------
+Options -Indexes
+DirectoryIndex index.html
+AddDefaultCharset utf-8
+
+# The site loads its scripts as ES modules: browsers refuse them unless served as JavaScript.
+<IfModule mod_mime.c>
+  AddType text/javascript              .js .mjs
+  AddType text/css                     .css
+  AddType image/svg+xml                .svg
+  AddType image/webp                   .webp
+  AddType font/woff2                   .woff2
+  AddCharset utf-8                     .html .css .js .svg
+</IfModule>
+
+# ---------- Redirects ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force HTTPS: uncomment once the host has an SSL certificate for the domain.
+  # RewriteCond %{HTTPS} !=on
+  # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Old onework.io (/main/...) addresses -> new pages.
+  # BASE = the URL folder this .htaccess sits in ("/" at the web root, "/site/" in a subfolder).
+  RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
+  RewriteRule ^(.*)$ - [E=BASE:%1]
+  RewriteRule ^main/?$                        %{ENV:BASE} [L,R=301]
+  RewriteRule ^main/about/?$                  %{ENV:BASE}about/ [L,R=301]
+  RewriteRule ^main/product/?$                %{ENV:BASE}product/ [L,R=301]
+  RewriteRule ^main/products/?$               %{ENV:BASE}projects/ [L,R=301]
+  RewriteRule ^main/2023project/?$            %{ENV:BASE}projects/ [L,R=301]
+  RewriteRule ^main/advisors/?$               %{ENV:BASE}advisors/ [L,R=301]
+  RewriteRule ^main/.*award-press/?$          %{ENV:BASE}advisors/ [L,R=301]
+  RewriteRule ^main/international-career/?$   %{ENV:BASE}international-career/ [L,R=301]
+  RewriteRule ^main/c/?$                      %{ENV:BASE}international-career/#internship [L,R=301,NE]
+</IfModule>
+
+# ---------- Compression ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml text/plain
+</IfModule>
+
+# ---------- Browser caching ----------
+# CSS/JS links carry ?v=YYYYMMDD, so they can be cached long: bump the tag on each release.
+# Pages are always re-checked so visitors get new versions straight away.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault                     "access plus 1 week"
+  ExpiresByType text/html            "access plus 0 seconds"
+  ExpiresByType text/css             "access plus 1 year"
+  ExpiresByType text/javascript      "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg           "access plus 1 month"
+  ExpiresByType image/png            "access plus 1 month"
+  ExpiresByType image/svg+xml        "access plus 1 month"
+  ExpiresByType image/webp           "access plus 1 month"
+  ExpiresByType image/x-icon         "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  # ---------- Security headers ----------
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ---------- Keep private files out of reach ----------
+<FilesMatch "^(\.|README|build\.sh)">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>

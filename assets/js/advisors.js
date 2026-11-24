@@ -1,7 +1,7 @@
 // ONEWORK — Advisors & Awards. Mist tone; motion follows MOTION.md (expo.out, title within 1s).
-import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js?v=20261117';
-import { initCube } from './awards-cube.js?v=20261117';
-import { initAaHero } from './aa-hero.js?v=20261117';
+import { gsap, ScrollTrigger, motion, STATIC, isSmall, setupReveals, onMotionChange, fontsReady } from './site.js?v=20261124m';
+import { initCube } from './awards-cube.js?v=20261124m';
+import { initAaHero } from './aa-hero.js?v=20261124m';
 
 const animated = () => !STATIC && !motion.calm;
 

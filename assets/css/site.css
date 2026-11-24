@@ -24,6 +24,9 @@
   --fs-mid: clamp(32px, 3.2vw, 48px);
   --fs-body: clamp(17px, 1.1vw, 18px);
   --fs-label: clamp(12px, 0.8vw, 13px);
+  /* heading levels below the section title: one size each, on every page */
+  --fs-h3: clamp(22px, 1.8vw, 28px);
+  --fs-h4: clamp(17px, 1.3vw, 20px);
 
   --gutter: clamp(16px, 4vw, 64px);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* expo.out */
@@ -85,9 +88,9 @@ p, h1, h2, h3 { margin: 0; text-wrap: pretty; }
 }
 html[lang="zh-Hant"] .h-mid { max-width: 14em; letter-spacing: 0.02em; }
 .pending {
-  font-family: var(--font-brand);
+  font-family: var(--font-display);
   font-size: var(--fs-label);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   color: var(--teal-900);
   opacity: 0.8;
 }
@@ -234,6 +237,9 @@ html[lang="zh-Hant"] .hero-title { letter-spacing: 0.04em; }
 
 /* Partners */
 .partners { padding-bottom: clamp(72px, 8vw, 120px); }
+/* Home section titles: one line wherever the screen is wide enough (no 18ch / 14em cap) */
+.partners .h-mid, .metrics .h-mid, .services .h-mid,
+html[lang="zh-Hant"] :is(.partners, .metrics, .services) .h-mid { max-width: none; }
 .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
 .marquee-track {
   display: flex;
@@ -277,6 +283,9 @@ html[lang="zh-Hant"] .hero-title { letter-spacing: 0.04em; }
 }
 .twin-copy { width: min(40vw, 560px); position: relative; z-index: 2; }
 .twin-title { margin: 20px 0 clamp(32px, 4vw, 56px); }
+/* 中文：「從模型到孿生。」 one line (may run a little past the text column); English keeps its two lines */
+html[lang="zh-Hant"] .twin-title { white-space: nowrap; }
+html[lang="zh-Hant"] .twin-title br { display: none; }
 .steps { list-style: none; margin: 0; padding: 0; display: grid; }
 .step {
   grid-area: 1 / 1;
@@ -293,7 +302,7 @@ html[lang="zh-Hant"] .hero-title { letter-spacing: 0.04em; }
   transition: opacity 0.8s var(--ease-out) 0.3s, transform 1s var(--ease-out) 0.3s;
 }
 .step-label { font: 500 var(--fs-label) / 1 var(--font-brand); letter-spacing: 0.3em; color: var(--teal-900); }
-.step-title { margin: 14px 0 12px; font: 800 clamp(22px, 1.8vw, 28px) / 1.2 var(--font-display); color: var(--ink); }
+.step-title { margin: 14px 0 12px; font: 800 var(--fs-h3) / 1.2 var(--font-display); color: var(--ink); }
 .step-body { max-width: 42ch; }
 .progress { margin-top: 40px; width: 160px; height: 1px; background: rgba(61, 61, 61, 0.2); }
 .progress i { display: block; height: 100%; width: 100%; background: var(--teal-900); transform: scaleX(0); transform-origin: left; }
@@ -333,6 +342,7 @@ html[lang="zh-Hant"] .hero-title { letter-spacing: 0.04em; }
 
 /* Services */
 .services { background: var(--paper); }
+.services[hidden] { display: none; }
 .svc-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(61, 61, 61, 0.2); }
 .svc { border-bottom: 1px solid rgba(61, 61, 61, 0.2); }
 .svc a {
@@ -455,7 +465,7 @@ html.is-static .marquee-track { animation: none; }
   animation: notice-in 0.5s var(--ease-out);
 }
 .notice-panel[hidden] { display: none; }
-.notice-title { font: 900 22px/1.2 var(--font-display); color: var(--charcoal); margin-bottom: 16px; }
+.notice-title { font: 800 var(--fs-h4)/1.25 var(--font-display); color: var(--charcoal); margin-bottom: 16px; }
 .notice-panel p { font-size: 15px; line-height: 1.75; }
 .notice-panel p + p { margin-top: 10px; }
 .notice-panel .notice-strong { font-weight: 700; color: var(--charcoal); }
@@ -479,3 +489,73 @@ html.is-static .marquee-track { animation: none; }
 .svc-shots figcaption { font-size: 14px; line-height: 1.5; color: var(--ink); max-width: 46ch; }
 @media (max-width: 900px) { .svc-shots { grid-template-columns: 1fr; width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .svc-shots img { transition: none; } }
+
+/* HOME · Intro video popup (opens once per visit) */
+html.has-intro-video { overflow: hidden; }
+.intro-video {
+  /* the dialog covers the viewport, so a click beside the video lands on it and closes */
+  position: fixed; inset: 0; z-index: 100;
+  width: 100%; height: 100%; max-width: none; max-height: none;
+  margin: 0; border: 0; padding: max(16px, 4vw);
+  background: transparent;
+  display: grid; place-items: center;
+}
+.intro-video:not([open]) { display: none; }
+.intro-video::backdrop { background: rgba(26, 26, 26, 0.82); }
+.intro-video[open] .intro-video-box { animation: notice-in 0.5s var(--ease-out); }
+.intro-video-box {
+  width: min(100%, 1100px, calc((100svh - 2 * max(16px, 4vw) - 56px) * 16 / 9));
+  display: grid; gap: 12px;
+}
+.intro-video-close {
+  justify-self: end;
+  min-height: 44px; padding: 0 20px; cursor: pointer;
+  background: var(--white); color: var(--charcoal); border: 0; border-radius: 0;
+  font: 500 13px/1 var(--font-brand); letter-spacing: 0.14em;
+}
+.intro-video-close:hover, .intro-video-close:focus-visible { background: var(--teal-900); color: var(--white); }
+.intro-video-frame { position: relative; aspect-ratio: 16 / 9; background: var(--charcoal); }
+.intro-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* ---------- Phone menu (under 900px) ---------- */
+.menu-btn { display: none; }
+@media (max-width: 900px) {
+  .site-header { grid-template-columns: auto 1fr auto auto; column-gap: 12px; }
+  .lang { grid-column: 3; }
+  .menu-btn {
+    grid-column: 4; position: relative; z-index: 2;
+    display: grid; place-content: center; gap: 6px;
+    width: 44px; height: 44px; padding: 0; cursor: pointer;
+    background: none; border: 0; color: inherit;
+  }
+  .menu-btn span { display: block; width: 24px; height: 2px; background: currentColor; transition: transform 0.4s var(--ease-out); }
+  .menu-open .menu-btn span:first-child { transform: translateY(4px) rotate(45deg); }
+  .menu-open .menu-btn span:last-child { transform: translateY(-4px) rotate(-45deg); }
+  .brand, .lang { position: relative; z-index: 2; }
+
+  /* open: the nav fills the screen as one list of pages */
+  .menu-open { overflow: hidden; }
+  .menu-open .site-header { background: var(--ice); backdrop-filter: none; -webkit-backdrop-filter: none; color: var(--ink); }
+  .menu-open .site-header .brand img { filter: none !important; }
+  .menu-open .main-nav {
+    display: flex; flex-direction: column; justify-content: center; gap: 4px;
+    position: fixed; inset: 0; z-index: 1; height: 100svh;
+    padding: 96px max(var(--gutter), env(safe-area-inset-right, 0px)) 48px max(var(--gutter), env(safe-area-inset-left, 0px));
+    background: var(--ice);
+    animation: menu-in 0.45s var(--ease-out);
+  }
+  .menu-open .main-nav a {
+    font: 800 clamp(26px, 7.5vw, 36px) / 1.2 var(--font-display); letter-spacing: 0;
+    color: var(--ink) !important; text-shadow: none !important;
+    padding-block: 14px; border-bottom: 1px solid rgba(61, 61, 61, 0.14);
+  }
+  .menu-open .main-nav a::after { display: none; }
+  .menu-open .main-nav a[aria-current="page"] { color: var(--teal-900) !important; }
+}
+@keyframes menu-in { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .menu-open .main-nav { animation: none; } .menu-btn span { transition: none; } }
+
+/* ONEWORK wordmarks in the logo's own letter shapes (spaced like the old thin version).
+   :where keeps this at low specificity so the Home banner's own sizing still wins. */
+:where(.wordmark, .footer-mark) .wordmark-svg { display: block; height: 0.72em; width: auto; max-width: 100%; }
+.footer-mark { letter-spacing: 0; }
